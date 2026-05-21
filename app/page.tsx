@@ -67,7 +67,7 @@ export default function Home() {
               num="2"
               emoji="🐾"
               title="Earn points"
-              body="Get rewarded based on your dog's breed-appropriate walk target. Bigger breeds, bigger rewards."
+              body="Every walk earns rewards — fair to all dog sizes. The app sets a healthy goal for your dog's breed, so a small dog hitting their target earns the same as a giant hitting theirs."
             />
             <Step
               num="3"
