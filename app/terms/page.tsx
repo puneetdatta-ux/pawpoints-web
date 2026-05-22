@@ -33,8 +33,8 @@ export default function Terms() {
           <p>
             PawPoints is operated from Auckland, New Zealand. For any question
             about these Terms, email{" "}
-            <a href="mailto:support@pawpoints.co.nz" className="text-[#1D9E75] underline">
-              support@pawpoints.co.nz
+            <a href="mailto:puneetdatta@gmail.com" className="text-[#1D9E75] underline">
+              puneetdatta@gmail.com
             </a>.
           </p>
         </Section>
@@ -125,8 +125,8 @@ export default function Terms() {
         <Section title="Termination">
           <p>
             You can delete your account at any time by emailing{" "}
-            <a href="mailto:support@pawpoints.co.nz" className="text-[#1D9E75] underline">
-              support@pawpoints.co.nz
+            <a href="mailto:puneetdatta@gmail.com" className="text-[#1D9E75] underline">
+              puneetdatta@gmail.com
             </a>
             . We can suspend or terminate your account if you breach these
             Terms or engage in fraudulent activity. On termination, accrued

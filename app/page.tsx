@@ -94,7 +94,7 @@ export default function Home() {
           </p>
           <div className="mt-8">
             <a
-              href="mailto:support@pawpoints.co.nz?subject=Café%20partnership%20enquiry"
+              href="mailto:puneetdatta@gmail.com?subject=Café%20partnership%20enquiry"
               className="inline-block bg-[#1D9E75] hover:bg-[#148562] text-white font-semibold px-6 py-3 rounded-lg transition"
             >
               Become a partner café →
@@ -132,8 +132,8 @@ export default function Home() {
           <div className="flex items-center gap-6 text-sm">
             <Link href="/privacy" className="hover:text-white">Privacy</Link>
             <Link href="/terms" className="hover:text-white">Terms</Link>
-            <a href="mailto:support@pawpoints.co.nz" className="hover:text-white">
-              support@pawpoints.co.nz
+            <a href="mailto:puneetdatta@gmail.com" className="hover:text-white">
+              puneetdatta@gmail.com
             </a>
           </div>
         </div>

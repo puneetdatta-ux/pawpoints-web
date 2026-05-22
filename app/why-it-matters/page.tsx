@@ -174,8 +174,8 @@ export default function WhyItMatters() {
             <Link href="/privacy" className="hover:text-white">Privacy</Link>
             <Link href="/terms" className="hover:text-white">Terms</Link>
             <Link href="/why-it-matters" className="hover:text-white">Why it matters</Link>
-            <a href="mailto:support@pawpoints.co.nz" className="hover:text-white">
-              support@pawpoints.co.nz
+            <a href="mailto:puneetdatta@gmail.com" className="hover:text-white">
+              puneetdatta@gmail.com
             </a>
           </div>
         </div>

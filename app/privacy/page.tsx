@@ -29,7 +29,7 @@ export default function Privacy() {
             and your rights under the New Zealand Privacy Act 2020.
           </p>
           <p className="mt-3">
-            Contact for any privacy enquiry: <a className="text-[#1D9E75] underline" href="mailto:support@pawpoints.co.nz">support@pawpoints.co.nz</a>.
+            Contact for any privacy enquiry: <a className="text-[#1D9E75] underline" href="mailto:puneetdatta@gmail.com">puneetdatta@gmail.com</a>.
           </p>
         </Section>
 
@@ -89,7 +89,7 @@ export default function Privacy() {
           </ul>
           <p className="mt-3">
             To exercise any of these rights, email{" "}
-            <a className="text-[#1D9E75] underline" href="mailto:support@pawpoints.co.nz">support@pawpoints.co.nz</a>.
+            <a className="text-[#1D9E75] underline" href="mailto:puneetdatta@gmail.com">puneetdatta@gmail.com</a>.
             We&apos;ll respond within 20 working days.
           </p>
         </Section>
