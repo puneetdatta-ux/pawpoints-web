@@ -100,7 +100,7 @@ export default function Home() {
             </a>
           </div>
           <p className="mt-4 text-sm text-zinc-500">
-            Auckland area only · Urban Soul, St Margarets, Pokeno Bacon, The Coffee Club already onboard
+            Cafés in your neighbourhood coming soon. Paw Parents in Wellington and Christchurch — launching early 2027.
           </p>
         </div>
       </section>
