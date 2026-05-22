@@ -14,6 +14,7 @@ export default function Home() {
         </div>
         <nav className="hidden sm:flex items-center gap-6 text-sm text-zinc-600">
           <a href="#how" className="hover:text-zinc-900">How it works</a>
+          <Link href="/why-it-matters" className="hover:text-zinc-900">Why it matters</Link>
           <a href="#partners" className="hover:text-zinc-900">For cafés</a>
           <a
             href={ANDROID_APK_URL}
