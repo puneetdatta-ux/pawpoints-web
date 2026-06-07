@@ -18,7 +18,7 @@ export default function Terms() {
       <main className="px-6 pb-20 max-w-3xl mx-auto">
         <h1 className="text-4xl font-extrabold mb-2">Terms of Service</h1>
         <p className="text-sm text-zinc-500 mb-10">
-          Last updated: May 2026
+          Last updated: June 2026
         </p>
 
         <Section title="Acceptance">
@@ -33,15 +33,15 @@ export default function Terms() {
           <p>
             PawPoints is operated from Auckland, New Zealand. For any question
             about these Terms, email{" "}
-            <a href="mailto:puneetdatta@gmail.com" className="text-[#1D9E75] underline">
-              puneetdatta@gmail.com
+            <a href="mailto:support@pawpoints.co.nz" className="text-[#1D9E75] underline">
+              support@pawpoints.co.nz
             </a>.
           </p>
         </Section>
 
         <Section title="Eligibility">
           <ul className="list-disc pl-6 space-y-2">
-            <li>You must be at least 13 years old to use PawPoints.</li>
+            <li>You must be at least 18 years old to use PawPoints.</li>
             <li>You must own or be responsible for the dog(s) you log walks for.</li>
             <li>You must provide accurate information (your real name, your dog&apos;s real breed and age).</li>
           </ul>
@@ -124,11 +124,13 @@ export default function Terms() {
 
         <Section title="Termination">
           <p>
-            You can delete your account at any time by emailing{" "}
-            <a href="mailto:puneetdatta@gmail.com" className="text-[#1D9E75] underline">
-              puneetdatta@gmail.com
+            You can delete your account at any time directly in the app
+            (Settings → Delete My Account), or by emailing{" "}
+            <a href="mailto:support@pawpoints.co.nz" className="text-[#1D9E75] underline">
+              support@pawpoints.co.nz
             </a>
-            . We can suspend or terminate your account if you breach these
+            . Deleting your account removes your personal data as described in
+            our Privacy Policy. We can suspend or terminate your account if you breach these
             Terms or engage in fraudulent activity. On termination, accrued
             but unredeemed points are forfeited.
           </p>

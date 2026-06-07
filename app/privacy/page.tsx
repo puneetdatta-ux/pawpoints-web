@@ -18,7 +18,7 @@ export default function Privacy() {
       <main className="px-6 pb-20 max-w-3xl mx-auto">
         <h1 className="text-4xl font-extrabold mb-2">Privacy Policy</h1>
         <p className="text-sm text-zinc-500 mb-10">
-          Last updated: May 2026
+          Last updated: June 2026
         </p>
 
         <Section title="Who we are">
@@ -26,10 +26,11 @@ export default function Privacy() {
             PawPoints is a mobile application operated from Auckland, New Zealand,
             that lets dog walkers earn rewards at participating cafés. This
             policy explains what personal information we collect, how we use it,
-            and your rights under the New Zealand Privacy Act 2020.
+            and your rights under the New Zealand Privacy Act 2020 and, where
+            applicable, the Australian Privacy Act 1988.
           </p>
           <p className="mt-3">
-            Contact for any privacy enquiry: <a className="text-[#1D9E75] underline" href="mailto:puneetdatta@gmail.com">puneetdatta@gmail.com</a>.
+            Contact for any privacy enquiry: <a className="text-[#1D9E75] underline" href="mailto:support@pawpoints.co.nz">support@pawpoints.co.nz</a>.
           </p>
         </Section>
 
@@ -40,6 +41,8 @@ export default function Privacy() {
             <li><strong>Dog information:</strong> dog name, breed, and age — used to set breed-appropriate walk targets.</li>
             <li><strong>Walk data:</strong> GPS location, distance, duration, and a verification photo taken at the end of each walk.</li>
             <li><strong>Device data:</strong> a push notification token tied to your device, used to deliver in-app notifications.</li>
+            <li><strong>Contacts (optional):</strong> if you choose to find friends from your phone&apos;s contacts, we read your contact list <strong>on your device only</strong> to match people who already use PawPoints. Your contacts are <strong>not</strong> uploaded to or stored on our servers.</li>
+            <li><strong>Crash and diagnostic data:</strong> if the app crashes or hits an error, we collect a crash report (including device model, operating system version, and a technical stack trace) through our crash-reporting provider, Sentry, so we can fix the problem.</li>
             <li><strong>Redemption history:</strong> which rewards you redeemed at which partner café, and when.</li>
             <li><strong>Social activity:</strong> friend connections within the app and any comments you post on shared walks.</li>
           </ul>
@@ -66,7 +69,10 @@ export default function Privacy() {
           </p>
           <p className="mt-3">
             Push notifications are delivered via Expo&apos;s push service.
-            Walk photos are stored in Supabase Storage.
+            Walk photos are stored in Supabase Storage. Crash and diagnostic
+            reports are processed by Sentry (
+            <a href="https://sentry.io/privacy/" className="text-[#1D9E75] underline" target="_blank" rel="noopener noreferrer">sentry.io/privacy</a>
+            ). These providers may store data outside New Zealand and Australia.
           </p>
         </Section>
 
@@ -89,8 +95,23 @@ export default function Privacy() {
           </ul>
           <p className="mt-3">
             To exercise any of these rights, email{" "}
-            <a className="text-[#1D9E75] underline" href="mailto:puneetdatta@gmail.com">puneetdatta@gmail.com</a>.
+            <a className="text-[#1D9E75] underline" href="mailto:support@pawpoints.co.nz">support@pawpoints.co.nz</a>.
             We&apos;ll respond within 20 working days.
+          </p>
+        </Section>
+
+        <Section title="Australian users">
+          <p>
+            If you use PawPoints in Australia, the Australian Privacy Act 1988
+            and the Australian Privacy Principles (APPs) also apply to how we
+            handle your personal information. You have rights equivalent to those
+            described above, including the right to access and correct your
+            information and to make a complaint.
+          </p>
+          <p className="mt-3">
+            If we cannot resolve a privacy complaint to your satisfaction, you
+            may contact the Office of the Australian Information Commissioner at{" "}
+            <a href="https://www.oaic.gov.au" className="text-[#1D9E75] underline" target="_blank" rel="noopener noreferrer">oaic.gov.au</a>.
           </p>
         </Section>
 
@@ -105,10 +126,10 @@ export default function Privacy() {
 
         <Section title="Children">
           <p>
-            PawPoints is intended for users aged 13 and over. We do not
-            knowingly collect personal information from children under 13.
-            If you believe a child has provided information to us, please
-            contact us immediately so we can delete it.
+            PawPoints is intended for users aged 18 and over. We do not
+            knowingly collect personal information from anyone under 18.
+            If you believe someone under 18 has provided information to us,
+            please contact us immediately so we can delete it.
           </p>
         </Section>
 
