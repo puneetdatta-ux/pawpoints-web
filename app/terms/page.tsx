@@ -69,13 +69,13 @@ export default function Terms() {
           <ul className="list-disc pl-6 space-y-2">
             <li>Each walker may redeem a maximum of 2 rewards per day and 3 per week (Mon–Sun NZT).</li>
             <li>Walks must reflect genuine activity with your dog. Spoofed GPS, recycled photos, or fake account activity will result in points being voided and accounts being suspended.</li>
-            <li>If a café partner reports suspicious activity tied to your account, we may pause redemption privileges while we investigate.</li>
+            <li>If a partner business reports suspicious activity tied to your account, we may pause redemption privileges while we investigate.</li>
           </ul>
         </Section>
 
-        <Section title="Café partner terms">
+        <Section title="Partner business terms">
           <p>
-            If you sign up a café as a partner: you agree to honour valid
+            If you sign up a business as a partner: you agree to honour valid
             PawPoints redemption codes shown by a walker before the code
             expires, subject to your normal trading conditions (opening hours,
             stock availability). Subscription terms and pricing are provided
@@ -116,7 +116,7 @@ export default function Terms() {
             To the extent permitted by law, PawPoints is not liable for any
             indirect or consequential loss arising from your use of the Service,
             including loss of points, missed rewards, or any incident at a
-            partner café. Our total liability is limited to the amount you have
+            partner business. Our total liability is limited to the amount you have
             paid us in the last 12 months (which, for free walker accounts, is
             zero).
           </p>

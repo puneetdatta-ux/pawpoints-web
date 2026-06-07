@@ -63,7 +63,7 @@ export default function DeleteAccount() {
         <Section title="What we may retain">
           <p>
             We may retain a limited set of records where we are legally required
-            to — for example, transaction records linked to café redemptions for
+            to — for example, transaction records linked to partner business redemptions for
             financial and fraud-prevention purposes. These are kept only as long
             as the law requires and are not used for any other purpose. Crash and
             diagnostic reports are de-identified and are not linked to your

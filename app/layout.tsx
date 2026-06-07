@@ -15,22 +15,22 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://pawpoints.co.nz"),
   title: {
-    default: "PawPoints — Earn café rewards for every dog walk",
+    default: "PawPoints — Earn rewards for every dog walk",
     template: "%s · PawPoints",
   },
   description:
-    "Auckland's wellness rewards platform. GPS-tracked dog walks earn café rewards at participating partners. Free for walkers, free first month for cafés.",
+    "Auckland's wellness rewards platform. GPS-tracked dog walks earn rewards at participating local shops and cafés. Free for walkers, free first month for businesses.",
   keywords: [
     "dog walking app",
     "Auckland dog walks",
-    "café rewards NZ",
+    "dog walking rewards NZ",
     "PawPoints",
     "dog rewards New Zealand",
   ],
   openGraph: {
-    title: "PawPoints — Earn café rewards for every dog walk",
+    title: "PawPoints — Earn rewards for every dog walk",
     description:
-      "GPS-tracked dog walks earn rewards at Auckland cafés. Free for walkers.",
+      "GPS-tracked dog walks earn rewards at Auckland shops and cafés. Free for walkers.",
     url: "https://pawpoints.co.nz",
     siteName: "PawPoints",
     locale: "en_NZ",
@@ -38,8 +38,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "PawPoints — Earn café rewards for every dog walk",
-    description: "GPS-tracked dog walks earn rewards at Auckland cafés.",
+    title: "PawPoints — Earn rewards for every dog walk",
+    description: "GPS-tracked dog walks earn rewards at Auckland shops and cafés.",
   },
 };
 

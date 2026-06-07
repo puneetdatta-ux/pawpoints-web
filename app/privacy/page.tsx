@@ -24,7 +24,7 @@ export default function Privacy() {
         <Section title="Who we are">
           <p>
             PawPoints is a mobile application operated from Auckland, New Zealand,
-            that lets dog walkers earn rewards at participating cafés. This
+            that lets dog walkers earn rewards at participating local shops and cafés. This
             policy explains what personal information we collect, how we use it,
             and your rights under the New Zealand Privacy Act 2020 and, where
             applicable, the Australian Privacy Act 1988.
@@ -43,14 +43,14 @@ export default function Privacy() {
             <li><strong>Device data:</strong> a push notification token tied to your device, used to deliver in-app notifications.</li>
             <li><strong>Contacts (optional):</strong> if you choose to find friends from your phone&apos;s contacts, we read your contact list <strong>on your device only</strong> to match people who already use PawPoints. Your contacts are <strong>not</strong> uploaded to or stored on our servers.</li>
             <li><strong>Crash and diagnostic data:</strong> if the app crashes or hits an error, we collect a crash report (including device model, operating system version, and a technical stack trace) through our crash-reporting provider, Sentry, so we can fix the problem.</li>
-            <li><strong>Redemption history:</strong> which rewards you redeemed at which partner café, and when.</li>
+            <li><strong>Redemption history:</strong> which rewards you redeemed at which partner business, and when.</li>
             <li><strong>Social activity:</strong> friend connections within the app and any comments you post on shared walks.</li>
           </ul>
         </Section>
 
         <Section title="How we use it">
           <ul className="list-disc pl-6 space-y-2">
-            <li>To run the core service — track walks, award points, generate redemption codes, and confirm them at cafés.</li>
+            <li>To run the core service — track walks, award points, generate redemption codes, and confirm them at partner businesses.</li>
             <li>To match your dog&apos;s walks to a breed-appropriate target (using the breed and age you provide).</li>
             <li>To send push notifications about friend requests, accepted friendships, and shared walk photos. You can disable these in your device settings at any time.</li>
             <li>To detect and prevent fraudulent redemptions.</li>
@@ -80,7 +80,7 @@ export default function Privacy() {
           <ul className="list-disc pl-6 space-y-2">
             <li><strong>You:</strong> can see all of your own data inside the app at any time.</li>
             <li><strong>Friends (within PawPoints):</strong> can see your name, dog name, and any walks/photos you share with them.</li>
-            <li><strong>Partner cafés:</strong> see only your redemption code and the reward being claimed — not your account, walk history, or any other personal information.</li>
+            <li><strong>Partner businesses:</strong> see only your redemption code and the reward being claimed — not your account, walk history, or any other personal information.</li>
             <li><strong>PawPoints administrators:</strong> can access account and redemption records for fraud review and customer support.</li>
           </ul>
         </Section>
@@ -120,7 +120,7 @@ export default function Privacy() {
             We keep your account data for as long as your account is active.
             If you request deletion, we remove your personal data within 30 days,
             except where we are legally required to retain certain records
-            (such as financial transactions linked to café redemptions).
+            (such as financial transactions linked to partner business redemptions).
           </p>
         </Section>
 

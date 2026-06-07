@@ -15,7 +15,7 @@ export default function Home() {
         <nav className="hidden sm:flex items-center gap-6 text-sm text-zinc-600">
           <a href="#how" className="hover:text-zinc-900">How it works</a>
           <Link href="/why-it-matters" className="hover:text-zinc-900">Why it matters</Link>
-          <a href="#partners" className="hover:text-zinc-900">For cafés</a>
+          <a href="#partners" className="hover:text-zinc-900">For businesses</a>
           <a
             href={ANDROID_APK_URL}
             className="bg-[#1D9E75] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#148562] transition"
@@ -30,11 +30,11 @@ export default function Home() {
         <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight leading-tight">
           Every dog walk
           <br />
-          <span className="text-[#1D9E75]">earns a café reward.</span>
+          <span className="text-[#1D9E75]">earns a reward.</span>
         </h1>
         <p className="mt-6 text-lg sm:text-xl text-zinc-600 max-w-2xl mx-auto leading-relaxed">
           PawPoints turns your dog&apos;s daily walks into free coffees, treats and
-          discounts at participating Auckland cafés. GPS tracks your distance.
+          discounts at participating Auckland shops and cafés. GPS tracks your distance.
           Your dog gets exercise. You get rewarded.
         </p>
         <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -47,7 +47,7 @@ export default function Home() {
           <span className="text-sm text-zinc-500">iOS coming soon</span>
         </div>
         <p className="mt-4 text-xs text-zinc-400">
-          Free for walkers, forever. First month free for cafés.
+          Free for walkers, forever. First month free for businesses.
         </p>
       </section>
 
@@ -73,8 +73,8 @@ export default function Home() {
             <Step
               num="3"
               emoji="☕"
-              title="Redeem at cafés"
-              body="Show your 4-digit code at any partner café for a free coffee, breakfast item, or discount."
+              title="Redeem at shops & cafés"
+              body="Show your 4-digit code at any partner shop or café for a free coffee, a treat, or a discount."
             />
           </div>
         </div>
@@ -85,7 +85,7 @@ export default function Home() {
         <div className="bg-[#F5FAF8] border border-[#D5EBE0] rounded-2xl p-10 sm:p-14 text-center">
           <span className="inline-block text-3xl mb-4">🏪</span>
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Café owners — turn dog walkers into regulars
+            Local businesses — turn dog walkers into regulars
           </h2>
           <p className="text-lg text-zinc-700 max-w-2xl mx-auto leading-relaxed">
             Walk-in traffic from Auckland&apos;s growing community of dog owners.
@@ -94,14 +94,14 @@ export default function Home() {
           </p>
           <div className="mt-8">
             <a
-              href="mailto:support@pawpoints.co.nz?subject=Café%20partnership%20enquiry"
+              href="mailto:support@pawpoints.co.nz?subject=Partnership%20enquiry"
               className="inline-block bg-[#1D9E75] hover:bg-[#148562] text-white font-semibold px-6 py-3 rounded-lg transition"
             >
-              Become a partner café →
+              Become a partner →
             </a>
           </div>
           <p className="mt-4 text-sm text-zinc-500">
-            Cafés in your neighbourhood coming soon. Paw Parents in Wellington and Christchurch — launching early 2027.
+            Shops & cafés in your neighbourhood coming soon. Paw Parents in Wellington and Christchurch — launching early 2027.
           </p>
         </div>
       </section>
