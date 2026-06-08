@@ -28,14 +28,17 @@ export default function Home() {
       {/* ── Hero ── */}
       <section className="px-6 pt-12 pb-20 max-w-6xl mx-auto text-center">
         <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight leading-tight">
-          Every dog walk
+          Rewarding the moments
           <br />
-          <span className="text-[#1D9E75]">earns a reward.</span>
+          <span className="text-[#1D9E75]">you share.</span>
         </h1>
         <p className="mt-6 text-lg sm:text-xl text-zinc-600 max-w-2xl mx-auto leading-relaxed">
-          PawPoints turns your dog&apos;s daily walks into free coffees, treats and
-          discounts at participating Auckland shops and cafés. GPS tracks your distance.
-          Your dog gets exercise. You get rewarded.
+          At PawPoints, we believe every step you take with your furry best friend
+          should be celebrated. Our app transforms your daily dog walks into
+          meaningful rewards—like free coffees, delicious treats, and exclusive
+          discounts at participating cafés and shops in your town. We track your
+          journey together using GPS, ensuring your dog stays active and healthy
+          while you enjoy the perks you both deserve.
         </p>
         <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
@@ -61,20 +64,20 @@ export default function Home() {
             <Step
               num="1"
               emoji="🚶"
-              title="Walk your dog"
-              body="Tap Start in the app. GPS tracks distance and time. Take a photo of your dog when you're done."
+              title="Enjoy your walk"
+              body="Simply tap 'Start' in the app before you head out. Our GPS gently tracks your distance and time together. Capture the joy of the moment by taking a photo of your happy dog when you finish."
             />
             <Step
               num="2"
               emoji="🐾"
-              title="Earn points"
-              body="Every walk earns rewards — fair to all dog sizes. The app sets a healthy goal for your dog's breed, so a small dog hitting their target earns the same as a giant hitting theirs."
+              title="Earn fairly"
+              body="Every walk brings you closer to a reward, and our system is thoughtfully designed to be fair for dogs of all shapes and sizes. We tailor healthy exercise goals to your dog's specific breed—so a small companion hitting their target earns the exact same rewards as a giant breed reaching theirs."
             />
             <Step
               num="3"
               emoji="☕"
-              title="Redeem at shops & cafés"
-              body="Show your 4-digit code at any partner shop or café for a free coffee, a treat, or a discount."
+              title="Treat yourself"
+              body="Share your unique 4-digit code at any of our partner cafés and shops in your town to enjoy a complimentary coffee, a hearty breakfast item, or special discounts."
             />
           </div>
         </div>
@@ -85,12 +88,16 @@ export default function Home() {
         <div className="bg-[#F5FAF8] border border-[#D5EBE0] rounded-2xl p-10 sm:p-14 text-center">
           <span className="inline-block text-3xl mb-4">🏪</span>
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Local businesses — turn dog walkers into regulars
+            For café &amp; retail owners: welcome a loving community to your door
           </h2>
           <p className="text-lg text-zinc-700 max-w-2xl mx-auto leading-relaxed">
-            Walk-in traffic from Auckland&apos;s growing community of dog owners.
-            Zero setup cost. First month free. Turnkey loyalty program — we
-            handle everything, you just verify codes at the till.
+            Turn local dog walkers into loyal regulars by joining the PawPoints
+            family. We help you connect with your town&apos;s vibrant and growing
+            community of dog owners, driving walk-in traffic directly to your door.
+            Joining is effortless and risk-free—with zero setup costs and your
+            first month entirely free. Our turnkey loyalty program handles all the
+            tracking behind the scenes; all your team needs to do is verify codes
+            at the till and welcome your new guests.
           </p>
           <div className="mt-8">
             <a
@@ -100,8 +107,11 @@ export default function Home() {
               Become a partner →
             </a>
           </div>
-          <p className="mt-4 text-sm text-zinc-500">
-            Shops & cafés in your neighbourhood coming soon. Paw Parents in Wellington and Christchurch — launching early 2027.
+          <p className="mt-6 text-sm text-zinc-500 max-w-2xl mx-auto leading-relaxed">
+            <span className="font-semibold text-zinc-700">Growing our community.</span>{" "}
+            We&apos;re actively bringing more wonderful local cafés and shops into our
+            network soon. To our Paw Parents in Wellington and Christchurch—we
+            can&apos;t wait to meet you in early 2027!
           </p>
         </div>
       </section>
@@ -109,10 +119,13 @@ export default function Home() {
       {/* ── Final CTA ── */}
       <section className="px-6 py-20 bg-[#1D9E75] text-white text-center">
         <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-          Ready to walk?
+          Ready to step out together?
         </h2>
-        <p className="text-lg opacity-90 mb-8 max-w-xl mx-auto">
-          Download PawPoints today and turn your next walk into your next coffee.
+        <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto leading-relaxed">
+          Download PawPoints today for Android (iOS coming soon). Let your next
+          walk become your next warm cup of coffee or in-store discount. Ask your
+          favourite café or retailer if they&apos;re on PawPoints to help our
+          community grow.
         </p>
         <a
           href={ANDROID_APK_URL}
