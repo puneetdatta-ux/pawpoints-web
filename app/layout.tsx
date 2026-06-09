@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Fraunces, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,14 +12,29 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Homepage redesign fonts
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  display: "swap",
+});
+
+const hankenGrotesk = Hanken_Grotesk({
+  variable: "--font-hanken",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://pawpoints.co.nz"),
   title: {
-    default: "PawPoints — Earn rewards for every dog walk",
+    default: "PawPoints — Every walk well walked",
     template: "%s · PawPoints",
   },
   description:
-    "Auckland's wellness rewards platform. GPS-tracked dog walks earn rewards at participating local shops and cafés. Free for walkers, free first month for businesses.",
+    "Auckland's wellness rewards app. Turn your daily dog walk into a free coffee, treat or discount at participating local cafés and retailers. Free for walkers, forever.",
   keywords: [
     "dog walking app",
     "Auckland dog walks",
@@ -28,9 +43,9 @@ export const metadata: Metadata = {
     "dog rewards New Zealand",
   ],
   openGraph: {
-    title: "PawPoints — Earn rewards for every dog walk",
+    title: "PawPoints — Every walk well walked",
     description:
-      "GPS-tracked dog walks earn rewards at Auckland shops and cafés. Free for walkers.",
+      "Turn your daily dog walk into a free coffee, treat or discount at participating local cafés and retailers. Free for walkers, forever.",
     url: "https://pawpoints.co.nz",
     siteName: "PawPoints",
     locale: "en_NZ",
@@ -38,8 +53,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "PawPoints — Earn rewards for every dog walk",
-    description: "GPS-tracked dog walks earn rewards at Auckland shops and cafés.",
+    title: "PawPoints — Every walk well walked",
+    description: "Turn your daily dog walk into a free coffee, treat or discount at participating local cafés and retailers.",
   },
 };
 
@@ -51,7 +66,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} ${hankenGrotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
