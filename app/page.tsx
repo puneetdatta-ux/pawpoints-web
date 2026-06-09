@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { fetchMascotGallery, type MascotPhoto } from "../lib/supabase";
 
 const ANDROID_APK_URL =
   "https://expo.dev/accounts/puneetdatta/projects/PawPoints/builds/adaf47a9-dbee-4586-aaca-9c63b4151946";
@@ -17,6 +18,11 @@ const PawLogo = ({ size = 30, pink = "#FF7AAE", white = "#fff" }: { size?: numbe
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mascots, setMascots] = useState<MascotPhoto[]>([]);
+
+  useEffect(() => {
+    fetchMascotGallery(6).then(setMascots).catch(() => {});
+  }, []);
 
   return (
     <div className="pp-home">
@@ -108,7 +114,7 @@ export default function Home() {
             <svg className="mascot" width="100" height="100" viewBox="0 0 120 120" aria-hidden="true">
               <ellipse cx="60" cy="105" rx="30" ry="5" fill="rgba(0,0,0,.18)" />
               <g style={{ transformOrigin: "60px 70px", animation: "bob .45s ease-in-out infinite" }}>
-                <path d="M86 64 Q108 50 102 78 Q98 92 84 80 Z" fill="#E8A44E" style={{ transformOrigin: "86px 64px", animation: "wag .4s ease-in-out infinite" }} />
+                <path d="M33 57 C19 57 8 47 8 35 C17 40 25 48 37 53 Z" fill="#E8A44E" style={{ transformOrigin: "33px 56px", animation: "wag .6s ease-in-out infinite" }} />
                 <rect x="40" y="74" width="7" height="22" rx="3.5" fill="#D98F3C" style={{ transformOrigin: "43px 74px", animation: "legBack .45s ease-in-out infinite" }} />
                 <rect x="74" y="74" width="7" height="22" rx="3.5" fill="#D98F3C" style={{ transformOrigin: "77px 74px", animation: "legBack .45s ease-in-out infinite reverse" }} />
                 <ellipse cx="58" cy="64" rx="30" ry="20" fill="#F2B45C" />
@@ -223,13 +229,27 @@ export default function Home() {
           <div className="sec-head">
             <span className="eyebrow">📸 Real walks, real dogs</span>
             <h2>Meet the PawPoints pack</h2>
-            <p>Led by Hugo, our golden retriever mascot. Your photos will live here — bright, happy, out on the walk.</p>
+            <p>Led by Hugo &amp; Daisy, our golden retriever mascots. These are real walks, fresh from the app — bright, happy, out on the walk.</p>
           </div>
           <div className="gallery">
-            {/* TODO: swap these placeholders for next/image once real Hugo photos are ready */}
-            <div className="ph">Hugo mid-trot in the park<br />(photo coming)</div>
-            <div className="ph">Hugo at a partner café<br />(photo coming)</div>
-            <div className="ph">Hugo, one happy tired dog<br />(photo coming)</div>
+            {mascots.length > 0 ? (
+              mascots.map((m) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={m.id}
+                  src={m.url}
+                  alt={`${m.dogName || "A PawPoints dog"} out on a walk`}
+                  className="ph"
+                  style={{ objectFit: "cover", border: "none", padding: 0 }}
+                />
+              ))
+            ) : (
+              <>
+                <div className="ph">Hugo mid-trot in the park<br />(photo coming)</div>
+                <div className="ph">Daisy at a partner café<br />(photo coming)</div>
+                <div className="ph">One happy tired dog<br />(photo coming)</div>
+              </>
+            )}
           </div>
         </div>
       </section>
