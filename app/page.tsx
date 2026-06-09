@@ -31,7 +31,7 @@ export default function Home() {
   const [mascots, setMascots] = useState<MascotPhoto[]>([]);
 
   useEffect(() => {
-    fetchMascotGallery(12).then(setMascots).catch(() => {});
+    fetchMascotGallery(6).then(setMascots).catch(() => {});
   }, []);
 
   return (
@@ -265,6 +265,11 @@ export default function Home() {
               </>
             )}
           </div>
+          {mascots.length > 0 && (
+            <div style={{ textAlign: "center", marginTop: "28px" }}>
+              <Link href="/gallery" className="btn btn-ghost">View all photos →</Link>
+            </div>
+          )}
         </div>
       </section>
 
