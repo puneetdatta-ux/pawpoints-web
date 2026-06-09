@@ -156,6 +156,9 @@ html{scroll-behavior:smooth}
 /* photo placeholder strip */
 .pp-home .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
 .pp-home .ph{aspect-ratio:4/5;border-radius:var(--r);background:repeating-linear-gradient(135deg,var(--mint),var(--mint) 12px,var(--mint-2) 12px,var(--mint-2) 24px);display:flex;align-items:center;justify-content:center;text-align:center;color:var(--teal-dark);font-size:13px;font-weight:600;padding:16px;border:2px dashed var(--teal)}
+.pp-home .gphoto{position:relative;margin:0}
+.pp-home .gphoto .ph{display:block;width:100%}
+.pp-home .gdate{position:absolute;left:8px;bottom:8px;background:rgba(6,78,70,.78);color:#fff;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:999px}
 
 @media(max-width:880px){
   .pp-home .hero-grid,.pp-home .fair-grid,.pp-home .partners-grid{grid-template-columns:1fr}

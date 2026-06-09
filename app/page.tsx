@@ -9,6 +9,14 @@ import { fetchMascotGallery, type MascotPhoto } from "../lib/supabase";
 const TESTING_URL =
   "mailto:support@pawpoints.co.nz?subject=Join%20the%20PawPoints%20testing%20community&body=Hi%20PawPoints%20team%2C%0A%0AI%27d%20love%20to%20join%20the%20testing%20community%20and%20try%20PawPoints%20before%20launch.%0A%0ADevice%20(Android%20%2F%20iPhone)%3A%20%0AGoogle%20email%20for%20Android%20testing%3A%20%0A%0AThanks!";
 
+function formatGalleryDate(iso: string): string {
+  try {
+    return new Date(iso).toLocaleDateString("en-NZ", { day: "numeric", month: "short", year: "numeric" });
+  } catch {
+    return "";
+  }
+}
+
 const PawLogo = ({ size = 30, pink = "#FF7AAE", white = "#fff" }: { size?: number; pink?: string; white?: string }) => (
   <svg width={size} height={size} viewBox="0 0 60 60" aria-hidden="true">
     <circle cx="22" cy="26" r="6" fill={white} />
@@ -236,14 +244,18 @@ export default function Home() {
           <div className="gallery">
             {mascots.length > 0 ? (
               mascots.map((m) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={m.id}
-                  src={m.url}
-                  alt={`${m.dogName || "A PawPoints dog"} out on a walk`}
-                  className="ph"
-                  style={{ objectFit: "cover", border: "none", padding: 0 }}
-                />
+                <figure key={m.id} className="gphoto">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={m.url}
+                    alt={`${m.dogName || "A PawPoints dog"} out on a walk`}
+                    className="ph"
+                    style={{ objectFit: "cover", border: "none", padding: 0 }}
+                  />
+                  <figcaption className="gdate">
+                    {m.dogName ? `${m.dogName} · ` : ""}{formatGalleryDate(m.createdAt)}
+                  </figcaption>
+                </figure>
               ))
             ) : (
               <>

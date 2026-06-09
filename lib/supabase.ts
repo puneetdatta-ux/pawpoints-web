@@ -11,13 +11,13 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   auth: { persistSession: false },
 });
 
-export type MascotPhoto = { id: string; dogName: string | null; url: string };
+export type MascotPhoto = { id: string; dogName: string | null; url: string; createdAt: string };
 
 // Fetch the latest featured mascot photos for the homepage gallery.
 export async function fetchMascotGallery(limit = 6): Promise<MascotPhoto[]> {
   const { data, error } = await supabase
     .from("mascot_gallery")
-    .select("id, dog_name, photo_path")
+    .select("id, dog_name, photo_path, created_at")
     .order("created_at", { ascending: false })
     .limit(limit);
 
@@ -26,6 +26,7 @@ export async function fetchMascotGallery(limit = 6): Promise<MascotPhoto[]> {
   return data.map((row) => ({
     id: row.id,
     dogName: row.dog_name,
+    createdAt: row.created_at,
     url: supabase.storage.from("mascot-gallery").getPublicUrl(row.photo_path).data
       .publicUrl,
   }));
