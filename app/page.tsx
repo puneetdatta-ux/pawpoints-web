@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { fetchMascotGallery, type MascotPhoto } from "../lib/supabase";
 
-const ANDROID_APK_URL =
-  "https://expo.dev/accounts/puneetdatta/projects/PawPoints/builds/adaf47a9-dbee-4586-aaca-9c63b4151946";
+// Pre-launch: invite people to the testing community (feeds Play closed testing).
+// Swap to the Play Store / App Store links at public launch.
+const TESTING_URL =
+  "mailto:support@pawpoints.co.nz?subject=Join%20the%20PawPoints%20testing%20community&body=Hi%20PawPoints%20team%2C%0A%0AI%27d%20love%20to%20join%20the%20testing%20community%20and%20try%20PawPoints%20before%20launch.%0A%0ADevice%20(Android%20%2F%20iPhone)%3A%20%0AGoogle%20email%20for%20Android%20testing%3A%20%0A%0AThanks!";
 
 const PawLogo = ({ size = 30, pink = "#FF7AAE", white = "#fff" }: { size?: number; pink?: string; white?: string }) => (
   <svg width={size} height={size} viewBox="0 0 60 60" aria-hidden="true">
@@ -37,7 +39,7 @@ export default function Home() {
               <a href="#how">How it works</a>
               <a href="#fair">Fair-Paw goals</a>
               <a href="#partners">For businesses</a>
-              <a href="#get" className="nav-cta">Get the app</a>
+              <a href="#get" className="nav-cta">Join testing</a>
             </div>
             <button className="burger" aria-label="Menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((o) => !o)}>
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -51,7 +53,7 @@ export default function Home() {
             <a href="#how" onClick={() => setMenuOpen(false)}>How it works</a>
             <a href="#fair" onClick={() => setMenuOpen(false)}>Fair-Paw goals</a>
             <a href="#partners" onClick={() => setMenuOpen(false)}>For businesses</a>
-            <a href="#get" onClick={() => setMenuOpen(false)}>Get the app</a>
+            <a href="#get" onClick={() => setMenuOpen(false)}>Join testing</a>
           </div>
         </div>
       </header>
@@ -66,10 +68,10 @@ export default function Home() {
               <p>Turn your daily dog walk into a free coffee, a treat, or a discount at participating local cafés and retailers — with goals tuned to keep your dog happy and healthy.</p>
               <div className="taglinebar">Walk <span>·</span> Earn <span>·</span> Treat</div>
               <div className="hero-cta">
-                <a href={ANDROID_APK_URL} className="btn btn-berry">📱 Download for Android</a>
-                <span className="hero-note">iOS coming soon</span>
+                <a href={TESTING_URL} className="btn btn-berry">🐾 Join the testing community</a>
+                <span className="hero-note">Launching soon on Google Play &amp; the App Store</span>
               </div>
-              <div className="freebadge">First month free for businesses · No setup costs</div>
+              <div className="freebadge">Be one of our first walkers · Free for walkers, forever</div>
             </div>
 
             <div>
@@ -289,8 +291,8 @@ export default function Home() {
               <span style={{ animation: "pawpop 2.4s ease-in-out infinite .8s" }}><PawLogo size={38} pink="#FF7AAE" white="#16B8A6" /></span>
             </div>
             <h2>Ready to step out together?</h2>
-            <p>Download PawPoints today for Android. Let your next walk become your next warm coffee or in-store discount. Ask your favourite café or retailer if they&apos;re on PawPoints to help our community grow.</p>
-            <a href={ANDROID_APK_URL} className="btn btn-berry">📱 Get the app</a>
+            <p>We&apos;re opening up early access before our public launch on Google Play and the App Store. Join our testing community to be one of the first walkers — and help shape PawPoints. Ask your favourite café or retailer to join us too.</p>
+            <a href={TESTING_URL} className="btn btn-berry">🐾 Join the testing community</a>
             <p style={{ fontSize: "14px", marginTop: "16px", color: "rgba(255,255,255,.7)" }}>Coming to Wellington &amp; Christchurch in early 2027 🐾</p>
           </div>
         </div>
