@@ -229,7 +229,7 @@ export default function Home() {
           <div className="sec-head">
             <span className="eyebrow">📸 Real walks, real dogs</span>
             <h2>Meet the PawPoints pack</h2>
-            <p>Led by Hugo &amp; Daisy, our golden retriever mascots. These are real walks, fresh from the app — bright, happy, out on the walk.</p>
+            <p>Led by Hugo &amp; Daisy, our golden retriever mascots. These are real walks, straight from the app — bright, happy, out on the walk. They&apos;re the PawPoints creator&apos;s fur babies, having a ruff walk in the name of dogs&apos; health 🐶</p>
           </div>
           <div className="gallery">
             {mascots.length > 0 ? (
