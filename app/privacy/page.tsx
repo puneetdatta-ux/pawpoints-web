@@ -85,6 +85,21 @@ export default function Privacy() {
           </ul>
         </Section>
 
+        <Section title="Mascot photos">
+          <p>
+            Our mascots, Hugo &amp; Daisy, are the founder&apos;s own fur babies —
+            playing as the faces of PawPoints to celebrate happy, healthy walks
+            for dogs and their humans. With the founder&apos;s consent, their walk
+            photos are featured publicly on our website.
+          </p>
+          <p className="mt-3">
+            This applies <strong>only</strong> to accounts we specifically
+            designate as mascots. Your photos are <strong>never</strong> made
+            public — your walk photos stay private to you and the friends you
+            share them with, as described above.
+          </p>
+        </Section>
+
         <Section title="Your rights">
           <p>Under the New Zealand Privacy Act 2020 you can:</p>
           <ul className="list-disc pl-6 mt-3 space-y-2">
