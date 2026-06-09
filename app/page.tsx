@@ -21,7 +21,7 @@ export default function Home() {
   const [mascots, setMascots] = useState<MascotPhoto[]>([]);
 
   useEffect(() => {
-    fetchMascotGallery(6).then(setMascots).catch(() => {});
+    fetchMascotGallery(12).then(setMascots).catch(() => {});
   }, []);
 
   return (
