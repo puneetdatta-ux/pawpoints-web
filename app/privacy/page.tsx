@@ -41,7 +41,7 @@ export default function Privacy() {
             <li><strong>Dog information:</strong> dog name, breed, and age — used to set breed-appropriate walk targets.</li>
             <li><strong>Walk data:</strong> GPS location, distance, duration, and a verification photo taken at the end of each walk.</li>
             <li><strong>Device data:</strong> a push notification token tied to your device, used to deliver in-app notifications.</li>
-            <li><strong>Contacts (optional):</strong> if you choose to find friends from your phone&apos;s contacts, we read your contact list <strong>on your device only</strong> to match people who already use PawPoints. Your contacts are <strong>not</strong> uploaded to or stored on our servers.</li>
+            <li><strong>Contacts (optional):</strong> if you choose to find friends from your phone&apos;s contacts, we send the contacts&apos; phone numbers to our server <strong>only to check who already uses PawPoints</strong>. The numbers are used for matching at that moment, are <strong>not stored</strong> on our servers, and your contacts&apos; names stay on your device.</li>
             <li><strong>Crash and diagnostic data:</strong> if the app crashes or hits an error, we collect a crash report (including device model, operating system version, and a technical stack trace) through our crash-reporting provider, Sentry, so we can fix the problem.</li>
             <li><strong>Redemption history:</strong> which rewards you redeemed at which partner business, and when.</li>
             <li><strong>Social activity:</strong> friend connections within the app and any comments you post on shared walks.</li>
