@@ -71,6 +71,19 @@ export default function DeleteAccount() {
           </p>
         </Section>
 
+        <Section title="Delete specific data only (without closing your account)">
+          <p>
+            You don&apos;t have to close your account to remove individual items.
+            In the app you can delete your own walk photos and comments at any
+            time. To request deletion of other specific data while keeping your
+            account, email{" "}
+            <a className="text-[#1D9E75] underline" href="mailto:support@pawpoints.co.nz?subject=Data%20deletion%20request">
+              support@pawpoints.co.nz
+            </a>{" "}
+            and tell us what you&apos;d like removed.
+          </p>
+        </Section>
+
         <Section title="Questions">
           <p>
             For anything about account deletion or your data, contact{" "}
