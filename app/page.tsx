@@ -71,7 +71,7 @@ export default function Home() {
         <div className="wrap">
           <div className="hero-grid">
             <div>
-              <span className="eyebrow">🇳🇿 Made in Auckland · Free for walkers, forever</span>
+              <span className="eyebrow">🇳🇿 NZ made for all types of furry ones and their parents. Walk &amp; Earn Rewards. Easy</span>
               <h1>Every walk <em>well walked.</em></h1>
               <p>Turn your daily dog walk into a free coffee, a treat, or a discount at participating local cafés and retailers — with goals tuned to keep your dog happy and healthy.</p>
               <div className="taglinebar">Walk <span>·</span> Earn <span>·</span> Treat</div>
@@ -79,7 +79,7 @@ export default function Home() {
                 <a href={TESTING_URL} className="btn btn-berry">🐾 Join the testing community</a>
                 <span className="hero-note">Launching soon on Google Play &amp; the App Store</span>
               </div>
-              <div className="freebadge">Be one of our first walkers · Free for walkers, forever</div>
+              <div className="freebadge">Be one of our first walkers</div>
             </div>
 
             <div>
@@ -282,7 +282,7 @@ export default function Home() {
                 <span className="eyebrow">🏪 For cafés &amp; retailers</span>
                 <h2>Welcome a loving community to your door</h2>
                 <p>Turn local dog walkers into loyal regulars. Join the PawPoints family and connect with your town&apos;s growing community of dog owners.</p>
-                <div className="pcheck"><span className="tick">✓</span><span>Zero setup costs and your first month entirely free</span></div>
+                <div className="pcheck"><span className="tick">✓</span><span>Zero setup costs and your first two months entirely free</span></div>
                 <div className="pcheck"><span className="tick">✓</span><span>Turnkey loyalty — we handle the tracking behind the scenes</span></div>
                 <div className="pcheck"><span className="tick">✓</span><span>Your team just verifies a 4-digit code at the till</span></div>
                 <a href="mailto:support@pawpoints.co.nz?subject=Partnership%20enquiry" className="btn btn-white" style={{ marginTop: "10px" }}>Become a partner →</a>
