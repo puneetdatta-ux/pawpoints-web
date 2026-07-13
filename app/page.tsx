@@ -73,7 +73,7 @@ export default function Home() {
         <div className="wrap">
           <div className="hero-grid">
             <div>
-              <span className="eyebrow">🇳🇿 NZ made for all types of furry ones and their parents. Walk &amp; Earn Rewards. Easy</span>
+              <span className="eyebrow">NZ made for all types of furry ones and their parents. Walk &amp; Earn Rewards. Easy as!</span>
               <h1>Every walk <em>well walked.</em></h1>
               <p>Turn your daily dog walk into a free coffee, a treat, or a discount at participating local cafés and retailers — with goals tuned to keep your dog happy and healthy.</p>
               <div className="taglinebar">Walk <span>·</span> Earn <span>·</span> Treat</div>
