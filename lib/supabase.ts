@@ -1,12 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./supabase/config";
 
-// Public anon key — safe for client use (read-only access governed by RLS).
-const SUPABASE_URL =
-  process.env.NEXT_PUBLIC_SUPABASE_URL || "https://ohvndmcybxvahjmmjujn.supabase.co";
-const SUPABASE_ANON_KEY =
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9odm5kbWN5Ynh2YWhqbW1qdWpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MzU5NDksImV4cCI6MjA5MjUxMTk0OX0.nEhbefpd_I3ES_s23ocM8Z-hLY8eCirQ03Sr1BN1JRg";
-
+// Anonymous client for the public marketing pages (mascot gallery only).
+// Authenticated portal pages use lib/supabase/browser.ts instead.
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   auth: { persistSession: false },
 });
