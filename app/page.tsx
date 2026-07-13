@@ -47,6 +47,7 @@ export default function Home() {
               <a href="#how">How it works</a>
               <a href="#fair">Fair-Paw goals</a>
               <a href="#partners">For businesses</a>
+              <a href="/login">Sign in</a>
               <a href="#get" className="nav-cta">Join testing</a>
             </div>
             <button className="burger" aria-label="Menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((o) => !o)}>
@@ -61,6 +62,7 @@ export default function Home() {
             <a href="#how" onClick={() => setMenuOpen(false)}>How it works</a>
             <a href="#fair" onClick={() => setMenuOpen(false)}>Fair-Paw goals</a>
             <a href="#partners" onClick={() => setMenuOpen(false)}>For businesses</a>
+            <a href="/login" onClick={() => setMenuOpen(false)}>Sign in</a>
             <a href="#get" onClick={() => setMenuOpen(false)}>Join testing</a>
           </div>
         </div>
