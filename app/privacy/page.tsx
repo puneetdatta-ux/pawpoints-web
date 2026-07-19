@@ -18,7 +18,7 @@ export default function Privacy() {
       <main className="px-6 pb-20 max-w-3xl mx-auto">
         <h1 className="text-4xl font-extrabold mb-2">Privacy Policy</h1>
         <p className="text-sm text-zinc-500 mb-10">
-          Last updated: June 2026
+          Last updated: July 2026
         </p>
 
         <Section title="Who we are">
@@ -40,6 +40,7 @@ export default function Privacy() {
             <li><strong>Account data:</strong> email address, name, phone number (optional), and your profile photo if you upload one.</li>
             <li><strong>Dog information:</strong> dog name, breed, and age — used to set breed-appropriate walk targets.</li>
             <li><strong>Walk data:</strong> GPS location, distance, duration, and a verification photo taken at the end of each walk.</li>
+            <li><strong>Nearby cafés (on your device only):</strong> the Rewards screen uses your device&apos;s current location to sort cafés and partner businesses by distance. This matching happens <strong>entirely on your device</strong> — your location is never sent to our servers, stored, or shared for this feature.</li>
             <li><strong>Device data:</strong> a push notification token tied to your device, used to deliver in-app notifications.</li>
             <li><strong>Contacts (optional):</strong> if you choose to find friends from your phone&apos;s contacts, we send the contacts&apos; phone numbers to our server <strong>only to check who already uses PawPoints</strong>. The numbers are used for matching at that moment, are <strong>not stored</strong> on our servers, and your contacts&apos; names stay on your device.</li>
             <li><strong>Crash and diagnostic data:</strong> if the app crashes or hits an error, we collect a crash report (including device model, operating system version, and a technical stack trace) through our crash-reporting provider, Sentry, so we can fix the problem.</li>
@@ -53,6 +54,7 @@ export default function Privacy() {
             <li>To run the core service — track walks, award points, generate redemption codes, and confirm them at partner businesses.</li>
             <li>To match your dog&apos;s walks to a breed-appropriate target (using the breed and age you provide).</li>
             <li>To send push notifications about friend requests, accepted friendships, and shared walk photos. You can disable these in your device settings at any time.</li>
+            <li>To show cafés and partner businesses near you, sorted by distance — computed on your device; your location does not leave your phone for this.</li>
             <li>To detect and prevent fraudulent redemptions.</li>
             <li>To improve the app (aggregated and de-identified usage data only).</li>
           </ul>
