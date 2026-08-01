@@ -79,7 +79,6 @@ html{scroll-behavior:smooth}
 .pp-home .taglinebar span{opacity:.55}
 .pp-home .hero-cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .pp-home .hero-note{color:rgba(255,255,255,.8);font-size:14px}
-.pp-home .freebadge{margin-top:22px;font-size:14px;color:rgba(255,255,255,.85)}
 
 /* phone preview */
 .pp-home .phone{background:#fff;border-radius:26px;padding:14px;box-shadow:0 30px 60px rgba(0,0,0,.28);max-width:300px;margin:0 auto;transform:rotate(2deg)}

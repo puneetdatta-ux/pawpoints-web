@@ -79,7 +79,6 @@ export default function Home() {
                 <a href={PLAY_URL} target="_blank" rel="noopener noreferrer" className="btn btn-berry">🐾 Get PawPoints on Google Play</a>
                 <span className="hero-note">Now live on Google Play &middot; iPhone coming soon</span>
               </div>
-              <div className="freebadge">Be one of our first walkers</div>
             </div>
 
             <div>
