@@ -4,10 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { fetchMascotGallery, type MascotPhoto } from "../lib/supabase";
 
-// Pre-launch: invite people to the testing community (feeds Play closed testing).
-// Swap to the Play Store / App Store links at public launch.
-const TESTING_URL =
-  "mailto:support@pawpoints.co.nz?subject=Join%20the%20PawPoints%20testing%20community&body=Hi%20PawPoints%20team%2C%0A%0AI%27d%20love%20to%20join%20the%20testing%20community%20and%20try%20PawPoints%20before%20launch.%0A%0ADevice%20(Android%20%2F%20iPhone)%3A%20%0AGoogle%20email%20for%20Android%20testing%3A%20%0A%0AThanks!";
+// Live on Google Play since 2026-08-02 (Production, AU + NZ).
+const PLAY_URL = "https://play.google.com/store/apps/details?id=com.hugo.pawpoints";
 
 function formatGalleryDate(iso: string): string {
   try {
@@ -75,11 +73,11 @@ export default function Home() {
             <div>
               <span className="eyebrow">NZ made for all types of furry ones and their parents. Walk &amp; Earn Rewards. Easy as!</span>
               <h1>Every walk <em>well walked.</em></h1>
-              <p>Turn your daily dog walk into a free coffee, a treat, or a discount at participating local cafés and retailers — with goals tuned to keep your dog happy and healthy.</p>
+              <p>Turn your daily dog walk into points you can redeem with local cafés and retailers joining PawPoints — with goals tuned to keep your dog happy and healthy.</p>
               <div className="taglinebar">Walk <span>·</span> Earn <span>·</span> Treat</div>
               <div className="hero-cta">
-                <a href={TESTING_URL} className="btn btn-berry">🐾 Join the testing community</a>
-                <span className="hero-note">Launching soon on Google Play &amp; the App Store</span>
+                <a href={PLAY_URL} target="_blank" rel="noopener noreferrer" className="btn btn-berry">🐾 Get PawPoints on Google Play</a>
+                <span className="hero-note">Now live on Google Play &middot; iPhone coming soon</span>
               </div>
               <div className="freebadge">Be one of our first walkers</div>
             </div>
@@ -181,7 +179,7 @@ export default function Home() {
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#B5841A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1" /><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4Z" /><line x1="6" y1="2" x2="6" y2="4" /><line x1="10" y1="2" x2="10" y2="4" /><line x1="14" y1="2" x2="14" y2="4" /></svg>
               </div>
               <h3>Treat yourself</h3>
-              <p>Show your 4-digit code at any partner café or retailer in town for a coffee, a bite to eat, or a discount. A little reward for a walk well done.</p>
+              <p>Show your code at any partner café or retailer for your reward. A little something for a walk well done.</p>
             </div>
           </div>
         </div>
@@ -286,12 +284,12 @@ export default function Home() {
                 <p>Turn local dog walkers into loyal regulars. Join the PawPoints family and connect with your town&apos;s growing community of dog owners.</p>
                 <div className="pcheck"><span className="tick">✓</span><span>Zero setup costs and your first two months entirely free</span></div>
                 <div className="pcheck"><span className="tick">✓</span><span>Turnkey loyalty — we handle the tracking behind the scenes</span></div>
-                <div className="pcheck"><span className="tick">✓</span><span>Your team just verifies a 4-digit code at the till</span></div>
+                <div className="pcheck"><span className="tick">✓</span><span>Your team just verifies a code at the till</span></div>
                 <a href="mailto:support@pawpoints.co.nz?subject=Partnership%20enquiry" className="btn btn-white" style={{ marginTop: "10px" }}>Become a partner →</a>
               </div>
               <div className="till">
                 <div className="h">Verify a reward at the till</div>
-                <div className="code"><span>4</span><span>2</span><span>9</span><span>7</span></div>
+                <div className="code"><span>K</span><span>7</span><span>M</span><span>2</span><span>Q</span><span>X</span></div>
                 <button className="verify">Verify code</button>
                 <p style={{ fontSize: "12.5px", color: "var(--slate)", textAlign: "center", marginTop: "12px" }}>That&apos;s all your staff need to do.</p>
               </div>
@@ -310,8 +308,8 @@ export default function Home() {
               <span style={{ animation: "pawpop 2.4s ease-in-out infinite .8s" }}><PawLogo size={38} pink="#FF7AAE" white="#16B8A6" /></span>
             </div>
             <h2>Ready to step out together?</h2>
-            <p>We&apos;re opening up early access before our public launch on Google Play and the App Store. Join our testing community to be one of the first walkers — and help shape PawPoints. Ask your favourite café or retailer to join us too.</p>
-            <a href={TESTING_URL} className="btn btn-berry">🐾 Join the testing community</a>
+            <p>PawPoints is live on Google Play — free to download, free to use. Start earning points on your very next walk. Ask your favourite café or retailer to join us too.</p>
+            <a href={PLAY_URL} target="_blank" rel="noopener noreferrer" className="btn btn-berry">🐾 Get PawPoints on Google Play</a>
             <p style={{ fontSize: "14px", marginTop: "16px", color: "rgba(255,255,255,.7)" }}>Coming to Wellington &amp; Christchurch in early 2027 🐾</p>
           </div>
         </div>
@@ -329,6 +327,27 @@ export default function Home() {
               <Link href="/privacy">Privacy</Link>
               <Link href="/terms">Terms</Link>
               <a href="mailto:support@pawpoints.co.nz">support@pawpoints.co.nz</a>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+              <a
+                href={PLAY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Get PawPoints on Google Play"
+                style={{ lineHeight: 0 }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/pawpoints-playstore-qr.svg"
+                  alt="QR code linking to PawPoints on Google Play"
+                  width={100}
+                  height={100}
+                  style={{ display: "block", borderRadius: "10px" }}
+                />
+              </a>
+              <div style={{ fontSize: "13px", color: "var(--slate)", maxWidth: "116px", lineHeight: 1.45 }}>
+                Scan to get PawPoints on Google&nbsp;Play
+              </div>
             </div>
           </div>
           <p className="copy" style={{ marginTop: "18px" }}>© 2026 PawPoints · Made in Auckland, NZ 🇳🇿</p>

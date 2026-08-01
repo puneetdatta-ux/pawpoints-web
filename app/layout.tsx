@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     template: "%s · PawPoints",
   },
   description:
-    "Auckland's wellness rewards app. Turn your daily dog walk into a free coffee, treat or discount at participating local cafés and retailers. Free for walkers, forever.",
+    "Auckland's dog-walking rewards app. Earn points on every walk and redeem them with local cafés and retailers as they join PawPoints. Free for walkers.",
   keywords: [
     "dog walking app",
     "Auckland dog walks",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "PawPoints — Every walk well walked",
     description:
-      "Turn your daily dog walk into a free coffee, treat or discount at participating local cafés and retailers. Free for walkers, forever.",
+      "Earn points on every dog walk and redeem them with local cafés and retailers as they join PawPoints. Free for walkers.",
     url: "https://pawpoints.co.nz",
     siteName: "PawPoints",
     locale: "en_NZ",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "PawPoints — Every walk well walked",
-    description: "Turn your daily dog walk into a free coffee, treat or discount at participating local cafés and retailers.",
+    description: "Earn points on every dog walk and redeem them with local cafés and retailers as they join PawPoints.",
   },
 };
 

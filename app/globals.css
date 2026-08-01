@@ -137,8 +137,8 @@ html{scroll-behavior:smooth}
 .pp-home .pcheck .tick{flex:none;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:12px;margin-top:2px}
 .pp-home .till{background:#fff;border-radius:18px;padding:22px;color:var(--ink)}
 .pp-home .till .h{font-size:13px;color:var(--slate);margin-bottom:12px}
-.pp-home .code{display:flex;gap:8px;justify-content:center;margin:14px 0}
-.pp-home .code span{width:46px;height:56px;border-radius:12px;background:var(--mint);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:26px;font-weight:600;color:var(--teal-dark)}
+.pp-home .code{display:flex;gap:6px;justify-content:center;margin:14px 0}
+.pp-home .code span{width:40px;height:52px;border-radius:12px;background:var(--mint);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:22px;font-weight:600;color:var(--teal-dark)}
 .pp-home .verify{width:100%;background:var(--teal);color:#fff;border:none;border-radius:12px;padding:12px;font-family:var(--sans);font-weight:600;font-size:15px;cursor:pointer}
 
 /* final cta */
@@ -183,3 +183,9 @@ html{scroll-behavior:smooth}
 @keyframes pawpop{0%{opacity:.15;transform:translateY(5px)}30%{opacity:1;transform:translateY(0)}80%{opacity:1}100%{opacity:.15}}
 
 @media(prefers-reduced-motion:reduce){.pp-home *{animation:none!important}}
+
+/* 6-char till code needs less room on very narrow phones (<=360px) */
+@media(max-width:360px){
+  .pp-home .code{gap:5px}
+  .pp-home .code span{width:34px;height:46px;font-size:19px}
+}
