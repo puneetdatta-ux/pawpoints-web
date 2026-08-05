@@ -50,11 +50,22 @@ export const metadata: Metadata = {
     siteName: "PawPoints",
     locale: "en_NZ",
     type: "website",
+    // Shown when the link is shared on WhatsApp, Facebook, LinkedIn, Slack,
+    // iMessage. Without it these render as a small text-only card.
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1024,
+        height: 500,
+        alt: "PawPoints — walk, earn, treat your dog",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "PawPoints — Turn daily walks into local discounts",
     description: "Earn points on every dog walk and redeem them with local cafés and retailers as they join PawPoints.",
+    images: ["/og-image.png"],
   },
 };
 
