@@ -72,8 +72,8 @@ export default function Home() {
           <div className="hero-grid">
             <div>
               <span className="eyebrow">NZ made for all types of furry ones and their parents. Walk &amp; Earn Rewards. Easy as!</span>
-              <h1>Every walk <em>well walked.</em></h1>
-              <p>Turn your daily dog walk into points you can redeem with local cafés and retailers joining PawPoints — with goals tuned to keep your dog happy and healthy.</p>
+              <h1>Turn daily walks into <em>local discounts.</em></h1>
+              <p>Keep your best mate happy and active with breed-tuned health goals, and get rewarded with points to spend at participating cafés and retailers.</p>
               <div className="taglinebar">Walk <span>·</span> Earn <span>·</span> Treat</div>
               <div className="hero-cta">
                 <a href={PLAY_URL} target="_blank" rel="noopener noreferrer" className="btn btn-berry">🐾 Get PawPoints on Google Play</a>
@@ -161,7 +161,7 @@ export default function Home() {
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0A6B60" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
               </div>
               <h3>Enjoy your walk</h3>
-              <p>Tap &apos;Start&apos; before you head out the door, then just enjoy the walk. When you&apos;re back, snap a photo of one happy, tired dog. That&apos;s it.</p>
+              <p>Just tap &apos;Start&apos; before you head out, snap a quick photo of your pup along the way, and finish with a photo of a happy, tired dog when you&apos;re back. That&apos;s it—watch those points roll in.</p>
               <p style={{ fontSize: "13px", color: "#9aa8a5", marginTop: "10px" }}>Walks are distance-checked automatically, so every step counts toward your dog&apos;s goal.</p>
             </div>
             <div className="step">
@@ -238,7 +238,7 @@ export default function Home() {
           <div className="sec-head">
             <span className="eyebrow">📸 Real walks, real dogs</span>
             <h2>Meet the PawPoints pack</h2>
-            <p>Led by Hugo &amp; Daisy, our golden retriever mascots. These are real walks, straight from the app — bright, happy, out on the walk. They&apos;re the PawPoints creator&apos;s fur babies, having a ruff walk in the name of dogs&apos; health 🐶</p>
+            <p>Fur-ocious leadership from Hugo &amp; Daisy, our golden retriever mascots! These are the real deal — actual walks pulled straight from the app, tails wagging and spirits high. As the PawPoints creator&apos;s fur babies, they&apos;re putting in the hard yards (and the ruff miles) all for the love of dogs&apos; health 🐶</p>
           </div>
           <div className="gallery">
             {mascots.length > 0 ? (
@@ -349,7 +349,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <p className="copy" style={{ marginTop: "18px" }}>© 2026 PawPoints · Made in Auckland, NZ 🇳🇿</p>
+          <p className="copy" style={{ marginTop: "18px" }}>© 2026 PawPoints · Made in Auckland, NZ</p>
         </div>
       </footer>
     </div>
