@@ -30,7 +30,7 @@ const hankenGrotesk = Hanken_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL("https://pawpoints.co.nz"),
   title: {
-    default: "PawPoints — Every walk well walked",
+    default: "PawPoints — Turn daily walks into local discounts",
     template: "%s · PawPoints",
   },
   description:
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     "dog rewards New Zealand",
   ],
   openGraph: {
-    title: "PawPoints — Every walk well walked",
+    title: "PawPoints — Turn daily walks into local discounts",
     description:
       "Earn points on every dog walk and redeem them with local cafés and retailers as they join PawPoints. Free for walkers.",
     url: "https://pawpoints.co.nz",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "PawPoints — Every walk well walked",
+    title: "PawPoints — Turn daily walks into local discounts",
     description: "Earn points on every dog walk and redeem them with local cafés and retailers as they join PawPoints.",
   },
 };
