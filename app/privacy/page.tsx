@@ -37,12 +37,11 @@ export default function Privacy() {
         <Section title="Information we collect">
           <p>When you use PawPoints we collect:</p>
           <ul className="list-disc pl-6 mt-3 space-y-2">
-            <li><strong>Account data:</strong> email address, name, phone number (optional), and your profile photo if you upload one.</li>
+            <li><strong>Account data:</strong> email address, name, an optional suburb (shown in friend search so dogs with the same name are easy to tell apart), and your profile photo if you upload one.</li>
             <li><strong>Dog information:</strong> dog name, breed, and age — used to set breed-appropriate walk targets.</li>
             <li><strong>Walk data:</strong> GPS location, distance, duration, and a verification photo taken at the end of each walk.</li>
             <li><strong>Nearby cafés (on your device only):</strong> the Rewards screen uses your device&apos;s current location to sort cafés and partner businesses by distance. This matching happens <strong>entirely on your device</strong> — your location is never sent to our servers, stored, or shared for this feature.</li>
             <li><strong>Device data:</strong> a push notification token tied to your device, used to deliver in-app notifications.</li>
-            <li><strong>Contacts (optional):</strong> if you choose to find friends from your phone&apos;s contacts, we send the contacts&apos; phone numbers to our server <strong>only to check who already uses PawPoints</strong>. The numbers are used for matching at that moment, are <strong>not stored</strong> on our servers, and your contacts&apos; names stay on your device.</li>
             <li><strong>Crash and diagnostic data:</strong> if the app crashes or hits an error, we collect a crash report (including device model, operating system version, and a technical stack trace) through our crash-reporting provider, Sentry, so we can fix the problem.</li>
             <li><strong>Redemption history:</strong> which rewards you redeemed at which partner business, and when.</li>
             <li><strong>Social activity:</strong> friend connections within the app and any comments you post on shared walks.</li>
