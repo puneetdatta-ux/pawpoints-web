@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { fetchMascotGallery, type MascotPhoto } from "../lib/supabase";
 
 // Live on Google Play since 2026-08-02 (Production, AU + NZ).
@@ -244,11 +245,13 @@ export default function Home() {
             {mascots.length > 0 ? (
               mascots.map((m) => (
                 <figure key={m.id} className="gphoto">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={m.url}
                     alt={`${m.dogName || "A PawPoints dog"} out on a walk`}
                     className="ph"
+                    width={480}
+                    height={600}
+                    sizes="(max-width: 880px) 50vw, 360px"
                     style={{ objectFit: "cover", border: "none", padding: 0 }}
                   />
                   <figcaption className="gdate">

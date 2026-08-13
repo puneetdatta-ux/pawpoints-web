@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { fetchMascotGallery, type MascotPhoto } from "../../lib/supabase";
 
 function formatGalleryDate(iso: string): string {
@@ -17,7 +18,7 @@ export default function GalleryPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchMascotGallery(200)
+    fetchMascotGallery(30)
       .then(setPhotos)
       .catch(() => {})
       .finally(() => setLoading(false));
@@ -54,11 +55,13 @@ export default function GalleryPage() {
             <div className="gallery">
               {photos.map((m) => (
                 <figure key={m.id} className="gphoto">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={m.url}
                     alt={`${m.dogName || "A PawPoints dog"} out on a walk`}
                     className="ph"
+                    width={480}
+                    height={600}
+                    sizes="(max-width: 880px) 50vw, 360px"
                     style={{ objectFit: "cover", border: "none", padding: 0 }}
                   />
                   <figcaption className="gdate">
