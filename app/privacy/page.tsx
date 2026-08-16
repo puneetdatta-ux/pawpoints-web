@@ -18,7 +18,7 @@ export default function Privacy() {
       <main className="px-6 pb-20 max-w-3xl mx-auto">
         <h1 className="text-4xl font-extrabold mb-2">Privacy Policy</h1>
         <p className="text-sm text-zinc-500 mb-10">
-          Last updated: July 2026
+          Last updated: August 2026
         </p>
 
         <Section title="Who we are">
@@ -27,7 +27,8 @@ export default function Privacy() {
             that lets dog walkers earn rewards at participating local shops and cafés. This
             policy explains what personal information we collect, how we use it,
             and your rights under the New Zealand Privacy Act 2020 and, where
-            applicable, the Australian Privacy Act 1988.
+            applicable, the Australian Privacy Act 1988, the European Union
+            General Data Protection Regulation (GDPR), and the UK GDPR.
           </p>
           <p className="mt-3">
             Contact for any privacy enquiry: <a className="text-[#1D9E75] underline" href="mailto:support@pawpoints.co.nz">support@pawpoints.co.nz</a>.
@@ -128,6 +129,43 @@ export default function Privacy() {
             If we cannot resolve a privacy complaint to your satisfaction, you
             may contact the Office of the Australian Information Commissioner at{" "}
             <a href="https://www.oaic.gov.au" className="text-[#1D9E75] underline" target="_blank" rel="noopener noreferrer">oaic.gov.au</a>.
+          </p>
+        </Section>
+
+        <Section title="European Union and United Kingdom users">
+          <p>
+            If you use PawPoints in the European Union or the United Kingdom,
+            the EU General Data Protection Regulation (GDPR) or the UK GDPR
+            applies to how we handle your personal information.
+          </p>
+          <p className="mt-3">
+            We rely on the following legal bases: <strong>performance of a
+            contract</strong> for the core service (tracking walks, awarding
+            points, processing redemptions), <strong>consent</strong> for
+            optional features such as uploading photos and enabling
+            notifications (which you can withdraw at any time),
+            and <strong>legitimate interests</strong> for fraud prevention and
+            app diagnostics.
+          </p>
+          <p className="mt-3">In addition to the rights described above, you have the right to:</p>
+          <ul className="list-disc pl-6 mt-3 space-y-2">
+            <li>Receive a copy of your data in a portable format.</li>
+            <li>Restrict or object to certain processing of your data.</li>
+            <li>Not be subject to automated decision-making with legal effects — PawPoints does none.</li>
+          </ul>
+          <p className="mt-3">
+            Our services are hosted outside the EU and UK (see &quot;Where your
+            data is stored&quot;). Where your data is transferred internationally,
+            our processors rely on recognised safeguards such as standard
+            contractual clauses.
+          </p>
+          <p className="mt-3">
+            If we cannot resolve a privacy complaint to your satisfaction, you
+            may contact your local supervisory authority — in the Netherlands,
+            the Autoriteit Persoonsgegevens at{" "}
+            <a href="https://www.autoriteitpersoonsgegevens.nl" className="text-[#1D9E75] underline" target="_blank" rel="noopener noreferrer">autoriteitpersoonsgegevens.nl</a>;
+            in the United Kingdom, the Information Commissioner&apos;s Office at{" "}
+            <a href="https://ico.org.uk" className="text-[#1D9E75] underline" target="_blank" rel="noopener noreferrer">ico.org.uk</a>.
           </p>
         </Section>
 
