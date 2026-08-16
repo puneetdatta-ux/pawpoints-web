@@ -18,7 +18,7 @@ export default function GalleryPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchMascotGallery(30)
+    fetchMascotGallery(7)
       .then(setPhotos)
       .catch(() => {})
       .finally(() => setLoading(false));
@@ -44,7 +44,7 @@ export default function GalleryPage() {
           <div className="sec-head">
             <span className="eyebrow">📸 The whole pack</span>
             <h2>Hugo &amp; Daisy&apos;s walks</h2>
-            <p>Every walk, straight from the app — bright, happy, out on the walk in the name of dogs&apos; health 🐶</p>
+            <p>See the last 7 walks by our mascots 🐶</p>
           </div>
 
           {loading ? (
