@@ -53,7 +53,7 @@ export default function Privacy() {
           <ul className="list-disc pl-6 space-y-2">
             <li>To run the core service — track walks, award points, generate redemption codes, and confirm them at partner businesses.</li>
             <li>To match your dog&apos;s walks to a breed-appropriate target (using the breed and age you provide).</li>
-            <li>To send push notifications about friend requests, accepted friendships, and shared walk photos. You can disable these in your device settings at any time.</li>
+            <li>To send push notifications about your own activity — friend requests, accepted friendships, comments and shared walk photos. We <strong>never</strong> use push notifications for advertising or marketing. You can disable notifications in your device settings at any time.</li>
             <li>To show cafés and partner businesses near you, sorted by distance — computed on your device; your location does not leave your phone for this.</li>
             <li>To detect and prevent fraudulent redemptions.</li>
             <li>To improve the app (aggregated and de-identified usage data only).</li>
