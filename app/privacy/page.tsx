@@ -38,7 +38,7 @@ export default function Privacy() {
         <Section title="Information we collect">
           <p>When you use PawPoints we collect:</p>
           <ul className="list-disc pl-6 mt-3 space-y-2">
-            <li><strong>Account data:</strong> email address, name, an optional suburb (shown in friend search so dogs with the same name are easy to tell apart), and your profile photo if you upload one.</li>
+            <li><strong>Account data:</strong> email address, name, your city (chosen from a list at sign-up — not your GPS location), an optional suburb (shown in friend search so dogs with the same name are easy to tell apart), and your profile photo if you upload one.</li>
             <li><strong>Dog information:</strong> dog name, breed, and age — used to set breed-appropriate walk targets.</li>
             <li><strong>Walk data:</strong> GPS location, distance, duration, and a verification photo taken at the end of each walk.</li>
             <li><strong>Nearby cafés (on your device only):</strong> the Rewards screen uses your device&apos;s current location to sort cafés and partner businesses by distance. This matching happens <strong>entirely on your device</strong> — your location is never sent to our servers, stored, or shared for this feature.</li>
@@ -55,6 +55,7 @@ export default function Privacy() {
             <li>To match your dog&apos;s walks to a breed-appropriate target (using the breed and age you provide).</li>
             <li>To send push notifications about your own activity — friend requests, accepted friendships, comments and shared walk photos. We <strong>never</strong> use push notifications for advertising or marketing. You can disable notifications in your device settings at any time.</li>
             <li>To show cafés and partner businesses near you, sorted by distance — computed on your device; your location does not leave your phone for this.</li>
+            <li>To show offers and promotions from partner businesses relevant to your city. Your city is the one you choose from a list — we never use GPS for this.</li>
             <li>To detect and prevent fraudulent redemptions.</li>
             <li>To improve the app (aggregated and de-identified usage data only).</li>
           </ul>
