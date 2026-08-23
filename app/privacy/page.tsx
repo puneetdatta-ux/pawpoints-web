@@ -58,6 +58,7 @@ export default function Privacy() {
             <li>To show offers and promotions from partner businesses relevant to your city. Your city is the one you choose from a list — we never use GPS for this.</li>
             <li>To detect and prevent fraudulent redemptions.</li>
             <li>To improve the app (aggregated and de-identified usage data only).</li>
+            <li>Walk photos you keep can also be saved to your phone&apos;s own gallery (you can turn this off in Settings → Walk Photos). This happens <strong>on your device only</strong> — we never read or access your photo library.</li>
           </ul>
           <p className="mt-3">We do <strong>not</strong> sell your personal information to third parties.</p>
         </Section>
