@@ -182,6 +182,9 @@ export default function Home() {
               <p>Show your code at any partner café or retailer for your reward. A little something for a walk well done.</p>
             </div>
           </div>
+          <div style={{ textAlign: "center", marginTop: "36px" }}>
+            <a href="/how-points-work" className="btn btn-ghost">See exactly how points add up →</a>
+          </div>
         </div>
       </section>
 
