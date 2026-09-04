@@ -16,6 +16,9 @@ export default function JoinMerchantPage() {
   const [password, setPassword] = useState("");
   const [city, setCity] = useState("");
   const [phone, setPhone] = useState("");
+  const [summary, setSummary] = useState("");
+  const [website, setWebsite] = useState("");
+  const [showContact, setShowContact] = useState(true); // default ticked
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -91,6 +94,9 @@ export default function JoinMerchantPage() {
       email: email.trim().toLowerCase(),
       phone: phone.trim(),
       city,
+      summary: summary.trim(),
+      website: website.trim() || null,
+      show_contact: showContact,
     });
     if (error) {
       setError("Something went wrong — please try again, or email support@pawpoints.co.nz");
@@ -262,6 +268,48 @@ export default function JoinMerchantPage() {
                   application isn&apos;t approved.
                 </p>
               </div>
+              <div>
+                <label htmlFor="summary" className="block text-sm font-medium text-[#152825]">
+                  About your business
+                </label>
+                <textarea
+                  id="summary"
+                  required
+                  minLength={20}
+                  maxLength={700}
+                  rows={4}
+                  placeholder="What you offer and why dog walkers will love you (about 100 words)"
+                  value={summary}
+                  onChange={(e) => setSummary(e.target.value)}
+                  className="mt-1 w-full rounded-lg border border-[#d8e2e0] px-3 py-2 text-[#152825] focus:border-[#16B8A6] focus:outline-none"
+                />
+                <p className="mt-1 text-xs text-[#9aa8a5]">
+                  Shown on your business profile in the app once you&apos;re approved.
+                </p>
+              </div>
+              <div>
+                <label htmlFor="website" className="block text-sm font-medium text-[#152825]">
+                  Website <span className="font-normal text-[#9aa8a5]">(optional)</span>
+                </label>
+                <input
+                  id="website"
+                  type="text"
+                  maxLength={200}
+                  placeholder="www.yourbusiness.co.nz"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  className="mt-1 w-full rounded-lg border border-[#d8e2e0] px-3 py-2 text-[#152825] focus:border-[#16B8A6] focus:outline-none"
+                />
+              </div>
+              <label className="flex items-start gap-2 text-sm text-[#4A5A57]">
+                <input
+                  type="checkbox"
+                  checked={showContact}
+                  onChange={(e) => setShowContact(e.target.checked)}
+                  className="mt-0.5 h-4 w-4 accent-[#16B8A6]"
+                />
+                <span>Show my name and phone number on my business profile so walkers can get in touch</span>
+              </label>
               {error && <p className="text-sm text-[#c2413f]">{error}</p>}
               <button
                 type="submit"
