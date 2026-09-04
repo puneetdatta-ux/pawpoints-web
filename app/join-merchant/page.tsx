@@ -72,8 +72,15 @@ export default function JoinMerchantPage() {
         },
       },
     });
-    if (signUpError && !/already registered/i.test(signUpError.message)) {
-      setError(signUpError.message);
+    if (signUpError) {
+      // Never file an application against an account we haven't proven is
+      // theirs: an existing email must sign in (app → Settings → Merchant) or
+      // email us. Same policy as the in-app sign-up.
+      setError(
+        /already registered/i.test(signUpError.message)
+          ? "This email already has a PawPoints account. Sign in to the app and choose Merchant under Settings, or email support@pawpoints.co.nz with your business name and phone."
+          : signUpError.message
+      );
       setBusy(false);
       return;
     }
@@ -250,7 +257,9 @@ export default function JoinMerchantPage() {
                   className="mt-1 w-full rounded-lg border border-[#d8e2e0] px-3 py-2 text-[#152825] focus:border-[#16B8A6] focus:outline-none"
                 />
                 <p className="mt-1 text-xs text-[#9aa8a5]">
-                  We verify every merchant with a quick phone call before anything goes live.
+                  Used once for a verification call about your business before anything goes live.
+                  Not shown to other users, never used for marketing, and deleted if your
+                  application isn&apos;t approved.
                 </p>
               </div>
               {error && <p className="text-sm text-[#c2413f]">{error}</p>}

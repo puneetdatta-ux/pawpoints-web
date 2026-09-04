@@ -40,6 +40,7 @@ export default function Privacy() {
           <ul className="list-disc pl-6 mt-3 space-y-2">
             <li><strong>Account data:</strong> email address, name, your city (chosen from a list at sign-up — not your GPS location), an optional suburb (shown in friend search so dogs with the same name are easy to tell apart), and your profile photo if you upload one.</li>
             <li><strong>Dog information:</strong> dog name, breed, and age — used to set breed-appropriate walk targets.</li>
+            <li><strong>Merchant applications:</strong> if you apply to join as a business (in the app or on this website), your business name, your name, email, city and a phone number. We use the phone number for a single verification call and to set up your store; it is never shown to other users, never used for marketing, and is deleted if your application isn&apos;t approved.</li>
             <li><strong>Walk data:</strong> GPS location, distance, duration, and a verification photo taken at the end of each walk.</li>
             <li><strong>Nearby cafés (on your device only):</strong> the Rewards screen uses your device&apos;s current location to sort cafés and partner businesses by distance. This matching happens <strong>entirely on your device</strong> — your location is never sent to our servers, stored, or shared for this feature.</li>
             <li><strong>Device data:</strong> a push notification token tied to your device, used to deliver in-app notifications.</li>
