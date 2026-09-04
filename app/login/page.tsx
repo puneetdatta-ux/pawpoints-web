@@ -93,6 +93,31 @@ export default function LoginPage() {
         <Suspense>
           <LoginForm />
         </Suspense>
+
+        {/* New-user join paths: walkers sign up in the app; merchants go
+            through partner onboarding (no self-serve merchant signup). */}
+        <div className="mt-8 border-t border-[#e4ecea] pt-6">
+          <p className="mb-3 text-center text-sm font-medium text-[#4A5A57]">
+            New to PawPoints?
+          </p>
+          <div className="grid grid-cols-2 gap-3">
+            <Link
+              href="/#get"
+              className="rounded-lg border border-[#16B8A6] px-3 py-2.5 text-center text-sm font-semibold text-[#0A6B60] hover:bg-[#EAF8F5]"
+            >
+              🐾 Join as a walker
+            </Link>
+            <Link
+              href="/#partners"
+              className="rounded-lg border border-[#d8e2e0] px-3 py-2.5 text-center text-sm font-semibold text-[#4A5A57] hover:bg-[#f6faf9]"
+            >
+              🏪 Join as a merchant
+            </Link>
+          </div>
+          <p className="mt-3 text-center text-xs text-[#9aa8a5]">
+            Walkers sign up free in the app · merchants get their first two months free
+          </p>
+        </div>
       </div>
     </main>
   );
