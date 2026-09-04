@@ -19,6 +19,38 @@ export default function JoinMerchantPage() {
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // In-page email verification (Supabase "Confirm email", 6-digit code).
+  const [needsVerify, setNeedsVerify] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [otpBusy, setOtpBusy] = useState(false);
+  const [otpError, setOtpError] = useState<string | null>(null);
+  const [otpNotice, setOtpNotice] = useState<string | null>(null);
+
+  async function verifyCode(e: React.FormEvent) {
+    e.preventDefault();
+    setOtpBusy(true);
+    setOtpError(null);
+    const supabase = createClient();
+    const { error } = await supabase.auth.verifyOtp({
+      email: email.trim().toLowerCase(),
+      token: otp.trim(),
+      type: "signup",
+    });
+    setOtpBusy(false);
+    if (error) { setOtpError(error.message); return; }
+    setNeedsVerify(false);
+    setDone(true);
+  }
+
+  async function resendCode() {
+    setOtpBusy(true);
+    setOtpError(null);
+    const supabase = createClient();
+    const { error } = await supabase.auth.resend({ type: "signup", email: email.trim().toLowerCase() });
+    setOtpBusy(false);
+    if (error) setOtpError(error.message);
+    else setOtpNotice("A fresh code is on its way.");
+  }
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -29,7 +61,7 @@ export default function JoinMerchantPage() {
     // Create their merchant account right away (no dog — profile_type
     // 'merchant' skips the app's dog-setup gate). Portal access and café
     // linkage still only happen after Puneet phone-verifies and approves.
-    const { error: signUpError } = await supabase.auth.signUp({
+    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
       email: email.trim().toLowerCase(),
       password,
       options: {
@@ -58,7 +90,9 @@ export default function JoinMerchantPage() {
       setBusy(false);
       return;
     }
-    setDone(true);
+    // A fresh account with no session ⇒ email confirmation is on: verify here.
+    if (!signUpError && !signUpData?.session) setNeedsVerify(true);
+    else setDone(true);
   }
 
   return (
@@ -78,6 +112,34 @@ export default function JoinMerchantPage() {
               ← Back home
             </Link>
           </div>
+        ) : needsVerify ? (
+          <form onSubmit={verifyCode} className="space-y-3">
+            <h1 className="mb-1 text-2xl font-bold text-[#152825]">Verify your email</h1>
+            <p className="text-sm leading-relaxed text-[#4A5A57]">
+              Enter the code we just emailed to <b>{email.trim().toLowerCase()}</b>. Your application
+              is already with us — this just confirms the address is yours.
+            </p>
+            <input
+              type="text" inputMode="numeric" required minLength={6} maxLength={8} autoFocus
+              placeholder="Verification code"
+              value={otp} onChange={(e) => setOtp(e.target.value)}
+              className="w-full rounded-lg border border-[#d8e2e0] px-3 py-2 text-center text-lg tracking-widest text-[#152825] focus:border-[#16B8A6] focus:outline-none"
+            />
+            {otpError && <p className="text-sm text-[#c2413f]">{otpError}</p>}
+            {otpNotice && <p className="text-sm text-[#0A6B60]">{otpNotice}</p>}
+            <button
+              type="submit" disabled={otpBusy}
+              className="w-full rounded-lg bg-[#16B8A6] px-4 py-2.5 font-semibold text-white hover:bg-[#0A6B60] disabled:opacity-60"
+            >
+              {otpBusy ? "Verifying…" : "Verify email"}
+            </button>
+            <button
+              type="button" onClick={resendCode} disabled={otpBusy}
+              className="w-full text-sm text-[#0A6B60] underline disabled:opacity-60"
+            >
+              Resend code
+            </button>
+          </form>
         ) : (
           <>
             <h1 className="mb-1 text-2xl font-bold text-[#152825]">Join as a merchant</h1>
