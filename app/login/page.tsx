@@ -102,7 +102,7 @@ export default function LoginPage() {
           </p>
           <div className="grid grid-cols-2 gap-3">
             <Link
-              href="/#get"
+              href="/join-walker"
               className="rounded-lg border border-[#16B8A6] px-3 py-2.5 text-center text-sm font-semibold text-[#0A6B60] hover:bg-[#EAF8F5]"
             >
               🐾 Join as a walker
