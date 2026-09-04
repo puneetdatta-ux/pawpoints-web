@@ -12,6 +12,7 @@ export default function JoinMerchantPage() {
   const [businessName, setBusinessName] = useState("");
   const [contactName, setContactName] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -22,10 +23,30 @@ export default function JoinMerchantPage() {
     setBusy(true);
     setError(null);
     const supabase = createClient();
+
+    // Create their merchant account right away (no dog — profile_type
+    // 'merchant' skips the app's dog-setup gate). Portal access and café
+    // linkage still only happen after Puneet phone-verifies and approves.
+    const { error: signUpError } = await supabase.auth.signUp({
+      email: email.trim().toLowerCase(),
+      password,
+      options: {
+        data: {
+          display_name: contactName.trim(),
+          profile_type: "merchant",
+        },
+      },
+    });
+    if (signUpError && !/already registered/i.test(signUpError.message)) {
+      setError(signUpError.message);
+      setBusy(false);
+      return;
+    }
+
     const { error } = await supabase.from("merchant_applications").insert({
       business_name: businessName.trim(),
       contact_name: contactName.trim(),
-      email: email.trim(),
+      email: email.trim().toLowerCase(),
       phone: phone.trim(),
     });
     if (error) {
@@ -44,9 +65,10 @@ export default function JoinMerchantPage() {
             <div className="mb-3 text-4xl">🐾</div>
             <h1 className="mb-2 text-2xl font-bold text-[#152825]">Application received!</h1>
             <p className="mb-6 text-sm leading-relaxed text-[#4A5A57]">
-              Thanks, {contactName.trim() || "friend"} — we&apos;ll give you a call on{" "}
-              <b>{phone.trim()}</b> to verify the details and get{" "}
-              <b>{businessName.trim()}</b> set up. Your first two months are free.
+              Thanks, {contactName.trim() || "friend"} — your account is created
+              (check your email if a confirmation link is required). We&apos;ll give
+              you a call on <b>{phone.trim()}</b> to verify the details and switch{" "}
+              <b>{businessName.trim()}</b> on. Your first two months are free.
             </p>
             <Link href="/" className="text-sm font-semibold text-[#0A6B60] underline">
               ← Back home
@@ -106,7 +128,26 @@ export default function JoinMerchantPage() {
                   className="mt-1 w-full rounded-lg border border-[#d8e2e0] px-3 py-2 text-[#152825] focus:border-[#16B8A6] focus:outline-none"
                 />
                 <p className="mt-1 text-xs text-[#9aa8a5]">
-                  Your PawPoints merchant account will be set up under this email.
+                  Your PawPoints merchant account is created under this email.
+                </p>
+              </div>
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-[#152825]">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  required
+                  minLength={6}
+                  autoComplete="new-password"
+                  placeholder="Min. 6 characters"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="mt-1 w-full rounded-lg border border-[#d8e2e0] px-3 py-2 text-[#152825] focus:border-[#16B8A6] focus:outline-none"
+                />
+                <p className="mt-1 text-xs text-[#9aa8a5]">
+                  Use this to sign in to the PawPoints app once you&apos;re approved.
                 </p>
               </div>
               <div>
