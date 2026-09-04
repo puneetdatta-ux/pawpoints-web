@@ -11,6 +11,7 @@ import { createClient } from "@/lib/supabase/browser";
 export default function JoinMerchantPage() {
   const [businessName, setBusinessName] = useState("");
   const [contactName, setContactName] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -24,6 +25,7 @@ export default function JoinMerchantPage() {
     const { error } = await supabase.from("merchant_applications").insert({
       business_name: businessName.trim(),
       contact_name: contactName.trim(),
+      email: email.trim(),
       phone: phone.trim(),
     });
     if (error) {
@@ -88,6 +90,24 @@ export default function JoinMerchantPage() {
                   onChange={(e) => setContactName(e.target.value)}
                   className="mt-1 w-full rounded-lg border border-[#d8e2e0] px-3 py-2 text-[#152825] focus:border-[#16B8A6] focus:outline-none"
                 />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-[#152825]">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  maxLength={120}
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="mt-1 w-full rounded-lg border border-[#d8e2e0] px-3 py-2 text-[#152825] focus:border-[#16B8A6] focus:outline-none"
+                />
+                <p className="mt-1 text-xs text-[#9aa8a5]">
+                  Your PawPoints merchant account will be set up under this email.
+                </p>
               </div>
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-[#152825]">
