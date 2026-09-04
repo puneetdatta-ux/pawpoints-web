@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/browser";
+import { CITY_SECTIONS } from "@/lib/cities";
 
 // Merchant application: stores the three fields Puneet verifies by PHONE call
 // before approving — deliberately no self-serve signup and no extra data
@@ -13,6 +14,7 @@ export default function JoinMerchantPage() {
   const [contactName, setContactName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [city, setCity] = useState("");
   const [phone, setPhone] = useState("");
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -33,6 +35,7 @@ export default function JoinMerchantPage() {
       options: {
         data: {
           display_name: contactName.trim(),
+          city,
           profile_type: "merchant",
         },
       },
@@ -48,6 +51,7 @@ export default function JoinMerchantPage() {
       contact_name: contactName.trim(),
       email: email.trim().toLowerCase(),
       phone: phone.trim(),
+      city,
     });
     if (error) {
       setError("Something went wrong — please try again, or email support@pawpoints.co.nz");
@@ -149,6 +153,24 @@ export default function JoinMerchantPage() {
                 <p className="mt-1 text-xs text-[#9aa8a5]">
                   Use this to sign in to the PawPoints app once you&apos;re approved.
                 </p>
+              </div>
+              <div>
+                <label htmlFor="city" className="block text-sm font-medium text-[#152825]">
+                  City
+                </label>
+                <select
+                  id="city" required value={city} onChange={(e) => setCity(e.target.value)}
+                  className="mt-1 w-full rounded-lg border border-[#d8e2e0] bg-white px-3 py-2 text-[#152825] focus:border-[#16B8A6] focus:outline-none"
+                >
+                  <option value="" disabled>Choose your city</option>
+                  {CITY_SECTIONS.map((s) => (
+                    <optgroup key={s.title} label={s.title}>
+                      {s.data.map((c) => (
+                        <option key={c} value={c}>{c}</option>
+                      ))}
+                    </optgroup>
+                  ))}
+                </select>
               </div>
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-[#152825]">

@@ -3,39 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/browser";
+import { CITY_SECTIONS } from "@/lib/cities";
 
 // Web mirror of the app's AuthScreen sign-up. All the real work happens
 // server-side: the on_auth_user_created trigger reads this exact metadata
 // shape and creates the users row + first dog, same as an app sign-up —
 // keep the metadata keys identical to AuthScreen.js.
-// City list mirrors the app's CityPicker (fixed list: free text would break
-// city-targeted promotions).
-const CITY_SECTIONS: { title: string; data: string[] }[] = [
-  {
-    title: "New Zealand",
-    data: [
-      "Auckland", "Hamilton", "Tauranga", "Wellington", "Christchurch",
-      "Dunedin", "Napier-Hastings", "Palmerston North", "Nelson", "Rotorua",
-      "New Plymouth", "Whangārei", "Queenstown", "Invercargill",
-    ],
-  },
-  {
-    title: "United Kingdom",
-    data: [
-      "London", "Birmingham", "Manchester", "Leeds", "Liverpool",
-      "Newcastle", "Sheffield", "Bristol", "Nottingham", "Leicester",
-      "Edinburgh", "Glasgow", "Aberdeen", "Cardiff", "Belfast",
-    ],
-  },
-  {
-    title: "Netherlands",
-    data: [
-      "Amsterdam", "Rotterdam", "The Hague", "Utrecht", "Eindhoven",
-      "Groningen", "Tilburg", "Almere", "Breda", "Nijmegen",
-      "Haarlem", "Arnhem",
-    ],
-  },
-];
 
 export default function JoinWalkerPage() {
   const [name, setName] = useState("");
