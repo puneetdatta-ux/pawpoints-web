@@ -108,7 +108,7 @@ export default function LoginPage() {
               🐾 Join as a walker
             </Link>
             <Link
-              href="/#partners"
+              href="/join-merchant"
               className="rounded-lg border border-[#d8e2e0] px-3 py-2.5 text-center text-sm font-semibold text-[#4A5A57] hover:bg-[#f6faf9]"
             >
               🏪 Join as a merchant

@@ -290,7 +290,7 @@ export default function Home() {
                 <div className="pcheck"><span className="tick">✓</span><span>Zero setup costs and your first two months entirely free</span></div>
                 <div className="pcheck"><span className="tick">✓</span><span>Turnkey loyalty — we handle the tracking behind the scenes</span></div>
                 <div className="pcheck"><span className="tick">✓</span><span>Your team just verifies a code at the till</span></div>
-                <a href="mailto:support@pawpoints.co.nz?subject=Partnership%20enquiry" className="btn btn-white" style={{ marginTop: "10px" }}>Become a partner →</a>
+                <a href="/join-merchant" className="btn btn-white" style={{ marginTop: "10px" }}>Become a partner →</a>
               </div>
               <div className="till">
                 <div className="h">Verify a reward at the till</div>
