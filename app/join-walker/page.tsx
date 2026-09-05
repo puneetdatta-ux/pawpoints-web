@@ -21,36 +21,24 @@ export default function JoinWalkerPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [outcome, setOutcome] = useState<"confirm-email" | "signed-in" | null>(null);
-  // In-page email verification: Supabase "Confirm email" with a 6-digit code
-  // in the template — verified here, no link hop.
-  const [otp, setOtp] = useState("");
+  // Email verification via the confirmation link in the sign-up email
+  // (Supabase "Confirm email" — the template's {{ .ConfirmationURL }}).
   const [otpBusy, setOtpBusy] = useState(false);
   const [otpError, setOtpError] = useState<string | null>(null);
   const [otpNotice, setOtpNotice] = useState<string | null>(null);
 
-  async function verifyCode(e: React.FormEvent) {
-    e.preventDefault();
+  async function resendLink() {
     setOtpBusy(true);
     setOtpError(null);
     const supabase = createClient();
-    const { error } = await supabase.auth.verifyOtp({
-      email: email.trim().toLowerCase(),
-      token: otp.trim(),
+    const { error } = await supabase.auth.resend({
       type: "signup",
+      email: email.trim().toLowerCase(),
+      options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=/email-confirmed` },
     });
     setOtpBusy(false);
-    if (error) { setOtpError(error.message); return; }
-    setOutcome("signed-in");
-  }
-
-  async function resendCode() {
-    setOtpBusy(true);
-    setOtpError(null);
-    const supabase = createClient();
-    const { error } = await supabase.auth.resend({ type: "signup", email: email.trim().toLowerCase() });
-    setOtpBusy(false);
     if (error) setOtpError(error.message);
-    else setOtpNotice("A fresh code is on its way.");
+    else setOtpNotice("A fresh link is on its way — check your inbox and spam folder.");
   }
 
   async function signUp(e: React.FormEvent) {
@@ -69,6 +57,7 @@ export default function JoinWalkerPage() {
       email: email.trim().toLowerCase(),
       password,
       options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=/email-confirmed`,
         // Same metadata shape as the app's AuthScreen — the server trigger
         // builds the profile and dog from these keys.
         data: {
@@ -97,31 +86,30 @@ export default function JoinWalkerPage() {
             Welcome to the pack{name.trim() ? `, ${name.trim()}` : ""}!
           </h1>
           {outcome === "confirm-email" ? (
-            <form onSubmit={verifyCode} className="space-y-3 text-left">
+            <div className="space-y-3 text-left">
               <p className="text-sm leading-relaxed text-[#4A5A57]">
-                Enter the code we just emailed to <b>{email.trim().toLowerCase()}</b> to verify your address.
+                We&apos;ve sent a confirmation link to <b>{email.trim().toLowerCase()}</b>.
+                Click it to verify your address, then download the app and sign in
+                with the same email and password.
               </p>
-              <input
-                type="text" inputMode="numeric" required minLength={6} maxLength={8} autoFocus
-                placeholder="Verification code"
-                value={otp} onChange={(e) => setOtp(e.target.value)}
-                className="w-full rounded-lg border border-[#d8e2e0] px-3 py-2 text-center text-lg tracking-widest text-[#152825] focus:border-[#16B8A6] focus:outline-none"
-              />
+              <p className="text-sm leading-relaxed text-[#4A5A57]">
+                Can&apos;t see it? Check your spam folder, or resend below.
+              </p>
               {otpError && <p className="text-sm text-[#c2413f]">{otpError}</p>}
               {otpNotice && <p className="text-sm text-[#0A6B60]">{otpNotice}</p>}
               <button
-                type="submit" disabled={otpBusy}
+                type="button" onClick={resendLink} disabled={otpBusy}
                 className="w-full rounded-lg bg-[#16B8A6] px-4 py-2.5 font-semibold text-white hover:bg-[#0A6B60] disabled:opacity-60"
               >
-                {otpBusy ? "Verifying…" : "Verify email"}
+                {otpBusy ? "Sending…" : "Resend confirmation email"}
               </button>
-              <button
-                type="button" onClick={resendCode} disabled={otpBusy}
-                className="w-full text-sm text-[#0A6B60] underline disabled:opacity-60"
+              <Link
+                href="/#get"
+                className="block w-full rounded-lg border border-[#16B8A6] px-4 py-2.5 text-center font-semibold text-[#0A6B60] hover:bg-[#f6faf9]"
               >
-                Resend code
-              </button>
-            </form>
+                Get the app
+              </Link>
+            </div>
           ) : (
             <>
               <p className="mb-6 text-sm leading-relaxed text-[#4A5A57]">
