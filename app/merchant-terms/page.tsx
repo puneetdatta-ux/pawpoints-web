@@ -33,7 +33,7 @@ const sections: { h: string; body: string[] }[] = [
   {
     h: "4. If we introduce fees",
     body: [
-      "We may introduce or change fees in the future. If we do: (a) we will give you at least 60 days' written notice, stating the price and the date it starts; (b) you will never be charged for any period before that date; (c) you may cancel at any time before the start date and owe nothing; and (d) billing will begin only once you have actively agreed (for example, by setting up payment). Any fees will be stated exclusive of GST, which will be added at the prevailing rate.",
+      "We may introduce or change fees in the future. If we do: (a) we will give you at least 90 days' written notice, stating the price and the date it starts; (b) you will never be charged for any period before that date; (c) you may cancel at any time before the start date and owe nothing; and (d) billing will begin only once you have actively agreed (for example, by setting up payment). Any fees will be stated exclusive of GST, which will be added at the prevailing rate.",
     ],
   },
   {
@@ -82,7 +82,7 @@ const sections: { h: string; body: string[] }[] = [
   {
     h: "12. Changes to these terms",
     body: [
-      "We may update these terms from time to time. Material changes will be notified to the email on your account at least 30 days before they take effect (fee introductions follow clause 4's 60 days). If you keep using PawPoints after that, the updated terms apply; if you don't agree, you may leave under clause 11.",
+      "We may update these terms from time to time. Material changes will be notified to the email on your account at least 30 days before they take effect (fee introductions follow clause 4's 90 days). If you keep using PawPoints after that, the updated terms apply; if you don't agree, you may leave under clause 11.",
     ],
   },
   {
