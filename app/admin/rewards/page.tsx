@@ -43,8 +43,9 @@ export default function AdminRewardsPage() {
   async function review(r: Pending, approve: boolean) {
     setBusyId(r.id);
     const supabase = createClient();
+    // Production signature: (p_id, p_verdict 'approve'|'changes'|'reject', p_message).
     const { data, error } = await supabase.rpc("admin_review_reward", {
-      p_id: r.id, p_approve: approve,
+      p_id: r.id, p_verdict: approve ? "approve" : "reject",
     });
     setBusyId(null);
     setLog((l) => [error ? `ERROR: ${error.message}` : String(data), ...l].slice(0, 8));
