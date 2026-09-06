@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/browser";
 import { CITY_SECTIONS } from "@/lib/cities";
+import Celebration from "@/app/components/Celebration";
 
 // Merchant application: stores the three fields Puneet verifies by PHONE call
 // before approving — deliberately no self-serve signup and no extra data
@@ -22,7 +23,7 @@ export default function JoinMerchantPage() {
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  // In-page email verification (Supabase "Confirm email", 6-digit code).
+  // In-page email verification (Supabase "Confirm email"; code is currently 8 digits).
   const [needsVerify, setNeedsVerify] = useState(false);
   const [otp, setOtp] = useState("");
   const [otpBusy, setOtpBusy] = useState(false);
@@ -109,8 +110,9 @@ export default function JoinMerchantPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#f6faf9] px-4">
-      <div className="w-full max-w-sm rounded-2xl bg-white p-8 shadow-sm">
+    <main className="relative flex min-h-screen items-center justify-center bg-[#f6faf9] px-4">
+      {done && <Celebration />}
+      <div className="relative w-full max-w-sm rounded-2xl bg-white p-8 shadow-sm">
         {done ? (
           <div className="text-center">
             <div className="mb-3 text-4xl">🐾</div>

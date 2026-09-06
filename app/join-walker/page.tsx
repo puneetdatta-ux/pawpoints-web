@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/browser";
 import { CITY_SECTIONS } from "@/lib/cities";
+import Celebration from "@/app/components/Celebration";
 
 // Web mirror of the app's AuthScreen sign-up. All the real work happens
 // server-side: the on_auth_user_created trigger reads this exact metadata
@@ -21,8 +22,8 @@ export default function JoinWalkerPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [outcome, setOutcome] = useState<"confirm-email" | "signed-in" | null>(null);
-  // In-page email verification: Supabase "Confirm email" with a 6-digit code
-  // in the template — verified here, no link hop.
+  // In-page email verification: Supabase "Confirm email" with the code from
+  // the template ({{ .Token }}, currently 8 digits) — verified here, no link hop.
   const [otp, setOtp] = useState("");
   const [otpBusy, setOtpBusy] = useState(false);
   const [otpError, setOtpError] = useState<string | null>(null);
@@ -90,8 +91,9 @@ export default function JoinWalkerPage() {
 
   if (outcome) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#f6faf9] px-4">
-        <div className="w-full max-w-sm rounded-2xl bg-white p-8 text-center shadow-sm">
+      <main className="relative flex min-h-screen items-center justify-center bg-[#f6faf9] px-4">
+        {outcome === "signed-in" && <Celebration />}
+        <div className="relative w-full max-w-sm rounded-2xl bg-white p-8 text-center shadow-sm">
           <div className="mb-3 text-4xl">🐾</div>
           <h1 className="mb-2 text-2xl font-bold text-[#152825]">
             Welcome to the pack{name.trim() ? `, ${name.trim()}` : ""}!
