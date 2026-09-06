@@ -3,7 +3,7 @@ import Link from "next/link";
 export const metadata = {
   title: "How Points Work — Walk the dog, earn the points",
   description:
-    "PawPoints explained in plain English: your dog's daily walk goal, how points are earned (10 for the goal, up to 20 a day), rest days, and the two-week freshness rule.",
+    "PawPoints explained in plain English: your dog's daily walk goal, how points are earned (10 for the goal, up to 20 a day), rest days, and the 1,000-point wallet.",
 };
 
 // Keep these numbers in sync with the app's award_walk_points +
