@@ -31,10 +31,10 @@ export default function Celebration() {
           100% { transform: scale(1.5); opacity: 0; }
         }
         @keyframes pp-dance {
-          0%, 100% { transform: rotate(-12deg) translateY(0); }
-          25% { transform: rotate(8deg) translateY(-16px); }
-          50% { transform: rotate(-8deg) translateY(0); }
-          75% { transform: rotate(12deg) translateY(-12px); }
+          0%, 100% { transform: rotate(-6deg) translateY(0); }
+          25% { transform: rotate(4deg) translateY(-14px); }
+          50% { transform: rotate(-4deg) translateY(0); }
+          75% { transform: rotate(6deg) translateY(-10px); }
         }
         @keyframes pp-shadow {
           0%, 50%, 100% { transform: scaleX(1); opacity: 0.18; }
@@ -87,22 +87,34 @@ export default function Celebration() {
         />
       ))}
 
-      {/* Dancing pup + bone party */}
-      <div style={{ position: "absolute", bottom: "6vh", left: 0, right: 0, textAlign: "center" }}>
-        <div style={{ display: "inline-block", fontSize: 72, animation: "pp-dance 1.2s ease-in-out infinite" }}>
-          🐶
+      {/* Hugo the golden retriever (homepage mascot) doing a happy dance —
+          wag/bob/leg keyframes come from globals.css; pp-dance adds the groove */}
+      <div style={{ position: "absolute", bottom: "4vh", left: 0, right: 0, textAlign: "center" }}>
+        <div style={{ display: "inline-block", animation: "pp-dance 1.6s ease-in-out infinite" }}>
+          <svg width="150" height="150" viewBox="0 0 120 120" aria-hidden="true">
+            <ellipse cx="60" cy="105" rx="30" ry="5" fill="rgba(0,0,0,.18)" />
+            <g style={{ transformOrigin: "60px 70px", animation: "bob .45s ease-in-out infinite" }}>
+              <path d="M33 57 C19 57 8 47 8 35 C17 40 25 48 37 53 Z" fill="#E8A44E" style={{ transformOrigin: "33px 56px", animation: "wag .3s ease-in-out infinite" }} />
+              <rect x="40" y="74" width="7" height="22" rx="3.5" fill="#D98F3C" style={{ transformOrigin: "43px 74px", animation: "legBack .45s ease-in-out infinite" }} />
+              <rect x="74" y="74" width="7" height="22" rx="3.5" fill="#D98F3C" style={{ transformOrigin: "77px 74px", animation: "legBack .45s ease-in-out infinite reverse" }} />
+              <ellipse cx="58" cy="64" rx="30" ry="20" fill="#F2B45C" />
+              <path d="M30 60 Q26 78 34 84 Q40 76 40 66 Z" fill="#E8A44E" />
+              <rect x="34" y="76" width="7" height="22" rx="3.5" fill="#F2B45C" style={{ transformOrigin: "37px 76px", animation: "legFront .45s ease-in-out infinite" }} />
+              <rect x="70" y="76" width="7" height="22" rx="3.5" fill="#F2B45C" style={{ transformOrigin: "73px 76px", animation: "legFront .45s ease-in-out infinite reverse" }} />
+              <g style={{ transformOrigin: "86px 50px", animation: "head .9s ease-in-out infinite" }}>
+                <ellipse cx="90" cy="48" rx="17" ry="15" fill="#F7C06E" />
+                <path d="M78 36 Q70 30 74 48 Q80 46 82 40 Z" fill="#E8A44E" />
+                <path d="M101 38 Q104 50 99 52 Q96 46 97 40 Z" fill="#E8A44E" />
+                <ellipse cx="104" cy="52" rx="8" ry="6" fill="#FAD08C" />
+                <circle cx="108" cy="51" r="2.6" fill="#3A2613" />
+                <circle cx="92" cy="46" r="2.4" fill="#3A2613" />
+                <circle cx="92.8" cy="45.2" r=".7" fill="#fff" />
+                <path d="M101 55 Q104 58 100 59" fill="none" stroke="#A85F28" strokeWidth="1.4" strokeLinecap="round" />
+              </g>
+            </g>
+          </svg>
         </div>
-        <div
-          style={{
-            margin: "6px auto 0",
-            width: 70,
-            height: 10,
-            borderRadius: "50%",
-            background: "#0A6B60",
-            animation: "pp-shadow 1.2s ease-in-out infinite",
-          }}
-        />
-        <div style={{ fontSize: 22, marginTop: 4 }}>🦴 🎉 🦴</div>
+        <div style={{ fontSize: 22, marginTop: 2 }}>🦴 🎉 🦴</div>
       </div>
     </div>
   );
