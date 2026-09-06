@@ -20,6 +20,10 @@ export default function JoinMerchantPage() {
   const [summary, setSummary] = useState("");
   const [website, setWebsite] = useState("");
   const [showContact, setShowContact] = useState(true); // default ticked
+  // Terms consent: the agree-tick unlocks only after they have opened the
+  // terms (viewed/downloaded) — acceptance is recorded on the application.
+  const [viewedTerms, setViewedTerms] = useState(false);
+  const [agreedTerms, setAgreedTerms] = useState(false);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -98,6 +102,8 @@ export default function JoinMerchantPage() {
       summary: summary.trim(),
       website: website.trim() || null,
       show_contact: showContact,
+      agreed_terms: agreedTerms,
+      terms_version: "1.0",
     });
     if (error) {
       setError("Something went wrong — please try again, or email support@pawpoints.co.nz");
@@ -313,6 +319,32 @@ export default function JoinMerchantPage() {
                 />
                 <span>Show my name and phone number on my business profile so walkers can get in touch</span>
               </label>
+
+              <div className="rounded-lg border border-[#d8e2e0] bg-[#f6faf9] p-3">
+                <a
+                  href="/merchant-terms"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setViewedTerms(true)}
+                  className="text-sm font-semibold text-[#0A6B60] underline"
+                >
+                  📄 Read &amp; download the Merchant Terms of Service (v1.0)
+                </a>
+                <label className={`mt-2 flex items-start gap-2 text-sm ${viewedTerms ? "text-[#4A5A57]" : "text-[#b6c0be]"}`}>
+                  <input
+                    type="checkbox"
+                    required
+                    disabled={!viewedTerms}
+                    checked={agreedTerms}
+                    onChange={(e) => setAgreedTerms(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 accent-[#16B8A6] disabled:opacity-40"
+                  />
+                  <span>
+                    I have read and agree to the Merchant Terms of Service
+                    {!viewedTerms && <em className="block text-xs not-italic text-[#9aa8a5]">Open the terms above first to enable this</em>}
+                  </span>
+                </label>
+              </div>
               {error && <p className="text-sm text-[#c2413f]">{error}</p>}
               <button
                 type="submit"
