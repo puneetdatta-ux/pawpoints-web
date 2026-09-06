@@ -26,7 +26,8 @@ export default function RewardsPage() {
       } = await supabase.auth.getUser();
       if (!user) return;
 
-      // History view window (display only — points themselves don't expire).
+      // History view window (display only — server-side: points last
+      // 12 months, wallet capped at 1,000).
       const windowStart = new Date();
       windowStart.setHours(0, 0, 0, 0);
       windowStart.setDate(windowStart.getDate() - 14);
@@ -56,11 +57,11 @@ export default function RewardsPage() {
       const earned: Tx[] = (walksRes.data || [])
         .filter((w) => (w.points_earned || 0) > 0)
         .map((w) => {
-          // Expires at the start of the day 15 days after the earn day —
-          // same rule as the app and the server's 2-week walk-points window.
+          // Points last 12 months: off at the start of the day a year and a
+          // day after the earn day — same rule as the app and the server.
           const expiresAt = new Date(w.walked_at);
           expiresAt.setHours(0, 0, 0, 0);
-          expiresAt.setDate(expiresAt.getDate() + 15);
+          expiresAt.setDate(expiresAt.getDate() + 366);
           return {
             id: `w-${w.id}`,
             date: w.walked_at,
