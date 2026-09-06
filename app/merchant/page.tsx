@@ -167,8 +167,8 @@ export default function MerchantPortalPage() {
         <div className="rounded-2xl bg-white p-7 shadow-sm">
           <h2 className="text-lg font-bold text-[#152825]">Propose a promotion</h2>
           <p className="mt-1 text-sm text-[#4A5A57]">
-            Priced in points. Walkers earn up to 20 points a day and can hold at most 280 —
-            rewards between 50 and 250 points are the sweet spot.
+            Priced in points. Walkers earn up to 20 points a day and can hold up to 1,000 —
+            rewards between 50 and 500 points are the sweet spot.
           </p>
           <form onSubmit={propose} className="mt-4 space-y-3">
             <input

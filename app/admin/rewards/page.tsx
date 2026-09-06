@@ -110,14 +110,14 @@ export default function AdminRewardsPage() {
                       </button>
                     </div>
                   </div>
-                  {r.points > 280 && (
+                  {r.points > 1000 && (
                     <p className="mt-2 text-xs font-semibold text-[#c2413f]">
-                      ⚠ Above the 280-point maximum a walker can hold — unredeemable as priced.
+                      ⚠ Above the 1,000-point wallet cap — unredeemable as priced.
                     </p>
                   )}
-                  {r.points > 250 && r.points <= 280 && (
+                  {r.points > 750 && r.points <= 1000 && (
                     <p className="mt-2 text-xs text-[#8a5a00]">
-                      Near the 280-point ceiling — only perfect two-week streaks reach this.
+                      Big-ticket reward — needs a long saving streak to reach.
                     </p>
                   )}
                 </li>

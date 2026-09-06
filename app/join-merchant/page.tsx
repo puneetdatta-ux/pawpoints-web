@@ -121,7 +121,8 @@ export default function JoinMerchantPage() {
               Thanks, {contactName.trim() || "friend"} — your account is created
               (check your email if a confirmation link is required). We&apos;ll give
               you a call on <b>{phone.trim()}</b> to verify the details and switch{" "}
-              <b>{businessName.trim()}</b> on. Your first two months are free.
+              <b>{businessName.trim()}</b> on. Joining is free — no fixed term.
+              Win-win for walkers and businesses.
             </p>
             <Link href="/" className="text-sm font-semibold text-[#0A6B60] underline">
               ← Back home
@@ -159,8 +160,8 @@ export default function JoinMerchantPage() {
           <>
             <h1 className="mb-1 text-2xl font-bold text-[#152825]">Join as a merchant</h1>
             <p className="mb-6 text-sm text-[#4A5A57]">
-              Tell us who you are and we&apos;ll call you to get set up — first two
-              months free, priced in points, never money.
+              Tell us who you are and we&apos;ll call you to get set up — merchants
+              join for free, no fixed term. Priced in points, never money.
             </p>
             <form onSubmit={submit} className="space-y-4">
               <div>

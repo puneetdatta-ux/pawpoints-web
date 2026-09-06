@@ -26,7 +26,7 @@ export default function RewardsPage() {
       } = await supabase.auth.getUser();
       if (!user) return;
 
-      // Match the app + server window: start of today (local) minus 14 days.
+      // History view window (display only — points themselves don't expire).
       const windowStart = new Date();
       windowStart.setHours(0, 0, 0, 0);
       windowStart.setDate(windowStart.getDate() - 14);
@@ -110,7 +110,7 @@ export default function RewardsPage() {
       </section>
 
       <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#4A5A57]">
-        Last 2 weeks
+        Recent activity
       </h2>
       {txs === null ? (
         <p className="text-[#4A5A57]">Loading your history…</p>

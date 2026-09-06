@@ -115,7 +115,7 @@ export default function LoginPage() {
             </Link>
           </div>
           <p className="mt-3 text-center text-xs text-[#9aa8a5]">
-            Walkers sign up free in the app · merchants get their first two months free
+            Walkers sign up free in the app · merchants join free — no fixed term
           </p>
         </div>
       </div>
