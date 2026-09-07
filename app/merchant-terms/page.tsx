@@ -6,9 +6,10 @@ export const metadata = {
     "The terms that apply to businesses joining PawPoints as merchant partners.",
 };
 
-// v1.0 — 6 September 2026. If these terms change, bump the version here, in
-// the PDF (public/pawpoints-merchant-terms.pdf), and in the terms_version
-// recorded on merchant_applications.
+// v1.1 — 8 September 2026 (added feed/promotional featuring to clause 2).
+// If these terms change, bump the version here, in the PDF
+// (public/pawpoints-merchant-terms.pdf), and in the terms_version the signup
+// forms record (join-merchant page + app AuthScreen).
 
 const sections: { h: string; body: string[] }[] = [
   {
@@ -21,6 +22,7 @@ const sections: { h: string; body: string[] }[] = [
     h: "2. What PawPoints provides",
     body: [
       "PawPoints lists your business to dog walkers in your area, displays your business profile (name, summary, website, and — if you choose — a contact name and phone number), and lets walkers redeem the rewards you offer using points they earn by walking their dogs.",
+      "We may also feature your approved rewards in walkers' feeds and other promotional placements inside the app and on our website, at no charge. Placement and frequency are at our discretion (currently a feed card shown up to twice a week per walker) and may change; featuring is a benefit, not an obligation, and pausing a reward removes it from featuring too.",
       "We provide the merchant portal for managing your rewards and the redemption tools your staff use in store.",
     ],
   },
@@ -111,7 +113,7 @@ export default function MerchantTerms() {
           Merchant Terms of Service
         </h1>
         <p className="text-sm text-zinc-500 mb-6">
-          Version 1.0 · 6 September 2026 · SA Distribution Ltd
+          Version 1.1 · 8 September 2026 · SA Distribution Ltd
         </p>
 
         <a

@@ -192,6 +192,11 @@ export default function MerchantPortalPage() {
                 value={newTerms} onChange={(e) => setNewTerms(e.target.value)}
                 className="mt-1 w-full rounded-lg border border-[#d8e2e0] px-3 py-2 text-sm text-[#152825] focus:border-[#16B8A6] focus:outline-none"
               />
+              <p className="mt-1 text-xs text-[#9aa8a5]">
+                Approved offers appear in the Rewards tab and may be featured in
+                walkers&apos; feeds — currently up to twice a week (merchant terms,
+                clause 2).
+              </p>
             </div>
             <div className="flex gap-3">
               <input

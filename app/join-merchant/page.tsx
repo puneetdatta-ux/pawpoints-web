@@ -7,7 +7,7 @@ import { CITY_SECTIONS } from "@/lib/cities";
 import Celebration from "@/app/components/Celebration";
 
 // Merchant application: stores the three fields Puneet verifies by PHONE call
-// before approving — deliberately no self-serve signup and no extra data
+// before approving â€” deliberately no self-serve signup and no extra data
 // collected (data minimisation). Rows land in merchant_applications; alerts
 // go to Puneet, who calls, verifies, and sets up the merchant manually.
 export default function JoinMerchantPage() {
@@ -21,7 +21,7 @@ export default function JoinMerchantPage() {
   const [website, setWebsite] = useState("");
   const [showContact, setShowContact] = useState(true); // default ticked
   // Terms consent: the agree-tick unlocks only after they have opened the
-  // terms (viewed/downloaded) — acceptance is recorded on the application.
+  // terms (viewed/downloaded) â€” acceptance is recorded on the application.
   const [viewedTerms, setViewedTerms] = useState(false);
   const [agreedTerms, setAgreedTerms] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -66,8 +66,8 @@ export default function JoinMerchantPage() {
     setError(null);
     const supabase = createClient();
 
-    // Create their merchant account right away (no dog — profile_type
-    // 'merchant' skips the app's dog-setup gate). Portal access and café
+    // Create their merchant account right away (no dog â€” profile_type
+    // 'merchant' skips the app's dog-setup gate). Portal access and cafÃ©
     // linkage still only happen after Puneet phone-verifies and approves.
     const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
       email: email.trim().toLowerCase(),
@@ -82,7 +82,7 @@ export default function JoinMerchantPage() {
     });
     if (signUpError) {
       // Never file an application against an account we haven't proven is
-      // theirs: an existing email must sign in (app → Settings → Merchant) or
+      // theirs: an existing email must sign in (app â†’ Settings â†’ Merchant) or
       // email us. Same policy as the in-app sign-up.
       setError(
         /already registered/i.test(signUpError.message)
@@ -103,14 +103,14 @@ export default function JoinMerchantPage() {
       website: website.trim() || null,
       show_contact: showContact,
       agreed_terms: agreedTerms,
-      terms_version: "1.0",
+      terms_version: "1.1",
     });
     if (error) {
-      setError("Something went wrong — please try again, or email support@pawpoints.co.nz");
+      setError("Something went wrong â€” please try again, or email support@pawpoints.co.nz");
       setBusy(false);
       return;
     }
-    // A fresh account with no session ⇒ email confirmation is on: verify here.
+    // A fresh account with no session â‡’ email confirmation is on: verify here.
     if (!signUpError && !signUpData?.session) setNeedsVerify(true);
     else setDone(true);
   }
@@ -121,17 +121,17 @@ export default function JoinMerchantPage() {
       <div className="relative w-full max-w-sm rounded-2xl bg-white p-8 shadow-sm">
         {done ? (
           <div className="text-center">
-            <div className="mb-3 text-4xl">🐾</div>
+            <div className="mb-3 text-4xl">ðŸ¾</div>
             <h1 className="mb-2 text-2xl font-bold text-[#152825]">Application received!</h1>
             <p className="mb-6 text-sm leading-relaxed text-[#4A5A57]">
-              Thanks, {contactName.trim() || "friend"} — your account is created
+              Thanks, {contactName.trim() || "friend"} â€” your account is created
               (check your email if a confirmation link is required). We&apos;ll give
               you a call on <b>{phone.trim()}</b> to verify the details and switch{" "}
-              <b>{businessName.trim()}</b> on. Joining is free — no fixed term.
+              <b>{businessName.trim()}</b> on. Joining is free â€” no fixed term.
               Win-win for walkers and businesses.
             </p>
             <Link href="/" className="text-sm font-semibold text-[#0A6B60] underline">
-              ← Back home
+              â† Back home
             </Link>
           </div>
         ) : needsVerify ? (
@@ -139,7 +139,7 @@ export default function JoinMerchantPage() {
             <h1 className="mb-1 text-2xl font-bold text-[#152825]">Verify your email</h1>
             <p className="text-sm leading-relaxed text-[#4A5A57]">
               Enter the code we just emailed to <b>{email.trim().toLowerCase()}</b>. Your application
-              is already with us — this just confirms the address is yours.
+              is already with us â€” this just confirms the address is yours.
             </p>
             <input
               type="text" inputMode="numeric" required minLength={6} maxLength={8} autoFocus
@@ -153,7 +153,7 @@ export default function JoinMerchantPage() {
               type="submit" disabled={otpBusy}
               className="w-full rounded-lg bg-[#16B8A6] px-4 py-2.5 font-semibold text-white hover:bg-[#0A6B60] disabled:opacity-60"
             >
-              {otpBusy ? "Verifying…" : "Verify email"}
+              {otpBusy ? "Verifyingâ€¦" : "Verify email"}
             </button>
             <button
               type="button" onClick={resendCode} disabled={otpBusy}
@@ -166,7 +166,7 @@ export default function JoinMerchantPage() {
           <>
             <h1 className="mb-1 text-2xl font-bold text-[#152825]">Join as a merchant</h1>
             <p className="mb-6 text-sm text-[#4A5A57]">
-              Tell us who you are and we&apos;ll call you to get set up — merchants
+              Tell us who you are and we&apos;ll call you to get set up â€” merchants
               join for free, no fixed term. Priced in points, never money.
             </p>
             <form onSubmit={submit} className="space-y-4">
@@ -328,7 +328,7 @@ export default function JoinMerchantPage() {
                   onClick={() => setViewedTerms(true)}
                   className="text-sm font-semibold text-[#0A6B60] underline"
                 >
-                  📄 Read &amp; download the Merchant Terms of Service (v1.0)
+                  ðŸ“„ Read &amp; download the Merchant Terms of Service (v1.0)
                 </a>
                 <label className={`mt-2 flex items-start gap-2 text-sm ${viewedTerms ? "text-[#4A5A57]" : "text-[#b6c0be]"}`}>
                   <input
@@ -351,7 +351,7 @@ export default function JoinMerchantPage() {
                 disabled={busy}
                 className="w-full rounded-lg bg-[#16B8A6] px-4 py-2.5 font-semibold text-white hover:bg-[#0A6B60] disabled:opacity-60"
               >
-                {busy ? "Sending…" : "Apply to join"}
+                {busy ? "Sendingâ€¦" : "Apply to join"}
               </button>
             </form>
             <p className="mt-6 text-center text-sm text-[#4A5A57]">
