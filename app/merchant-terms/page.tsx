@@ -41,13 +41,14 @@ const sections: { h: string; body: string[] }[] = [
   {
     h: "5. Verification and approval",
     body: [
-      "Listings go live only after we have verified your business (normally by a phone call) and approved it. Rewards you propose appear to walkers only after we approve them. We may decline or remove a listing or reward, acting reasonably.",
+      "Listings go live only after we have verified your business (normally by a phone call) and approved it. Rewards you propose appear to walkers only after we approve them.",
+      "We may decline, remove or suspend any reward or promotion, and may suspend or delete a merchant profile, at any time and without having to give a reason or explanation. Redemptions validly made before a removal must still be honoured (clause 6), and clause 11 applies to anything already owed on ending.",
     ],
   },
   {
     h: "6. Your rewards are real promises",
     body: [
-      "A reward you offer through PawPoints, once approved and active, is a promise to walkers: you agree to honour it for any walker who validly redeems it in store. You may pause or resume an approved reward at any time from the merchant portal; pausing takes effect for new redemptions immediately.",
+      "A reward you offer through PawPoints, once approved and active, is a promise to walkers: you agree to honour it for any walker who validly redeems it in store, and to use your best efforts to fulfil every offer you post promptly and in good faith. You may pause or resume an approved reward at any time from the merchant portal; pausing takes effect for new redemptions immediately.",
       "Rewards are priced in points. What a reward is worth in your store is entirely your decision.",
     ],
   },
