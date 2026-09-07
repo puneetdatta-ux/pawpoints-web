@@ -172,7 +172,7 @@ export default function MerchantPortalPage() {
           </p>
           <form onSubmit={propose} className="mt-4 space-y-3">
             <input
-              type="text" required minLength={3} maxLength={60}
+              type="text" required minLength={3} maxLength={200}
               placeholder="e.g. Free puppuccino with any coffee"
               value={newName} onChange={(e) => setNewName(e.target.value)}
               className="w-full rounded-lg border border-[#d8e2e0] px-3 py-2 text-[#152825] focus:border-[#16B8A6] focus:outline-none"
