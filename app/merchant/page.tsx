@@ -30,6 +30,10 @@ export default function MerchantPortalPage() {
   const [rewards, setRewards] = useState<Reward[]>([]);
   const [newName, setNewName] = useState("");
   const [newPoints, setNewPoints] = useState("");
+  // Special terms shown to walkers under the reward — prefilled, editable.
+  const [newTerms, setNewTerms] = useState(
+    "*Merchant may refuse or withdraw this offer at any time."
+  );
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -64,12 +68,14 @@ export default function MerchantPortalPage() {
     const { data, error: rpcErr } = await supabase.rpc("merchant_upsert_reward", {
       p_cafe_id: merchant.cafe_id, p_id: null,
       p_name: newName.trim(), p_points: parseInt(newPoints, 10),
+      p_terms: newTerms.trim() || null,
     });
     setBusy(false);
     if (rpcErr) { setError(rpcErr.message); return; }
     if (!data?.success) { setError(data?.message ?? "Something went wrong."); return; }
     setNotice(data.message);
     setNewName(""); setNewPoints("");
+    setNewTerms("*Merchant may refuse or withdraw this offer at any time.");
     await loadRewards(merchant.cafe_id);
   }
 
@@ -177,6 +183,16 @@ export default function MerchantPortalPage() {
               value={newName} onChange={(e) => setNewName(e.target.value)}
               className="w-full rounded-lg border border-[#d8e2e0] px-3 py-2 text-[#152825] focus:border-[#16B8A6] focus:outline-none"
             />
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-wide text-[#9aa8a5]">
+                Special terms (shown to walkers)
+              </label>
+              <textarea
+                maxLength={200} rows={2}
+                value={newTerms} onChange={(e) => setNewTerms(e.target.value)}
+                className="mt-1 w-full rounded-lg border border-[#d8e2e0] px-3 py-2 text-sm text-[#152825] focus:border-[#16B8A6] focus:outline-none"
+              />
+            </div>
             <div className="flex gap-3">
               <input
                 type="number" required min={5} max={2000}
