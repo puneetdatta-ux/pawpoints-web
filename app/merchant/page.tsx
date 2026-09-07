@@ -72,7 +72,7 @@ export default function MerchantPortalPage() {
     });
     setBusy(false);
     if (rpcErr) { setError(rpcErr.message); return; }
-    if (!data?.success) { setError(data?.message ?? "Something went wrong."); return; }
+    if (!data?.success) { setError(data?.message ?? "We couldn't send that for review. Check your connection and try again."); return; }
     setNotice(data.message);
     setNewName(""); setNewPoints("");
     setNewTerms("*Merchant may refuse or withdraw this offer at any time.");
@@ -81,11 +81,18 @@ export default function MerchantPortalPage() {
 
   async function setActive(r: Reward, active: boolean) {
     if (!merchant) return;
+    setError(null);
     const supabase = createClient();
-    const { data } = await supabase.rpc("merchant_set_reward_active", {
+    const { data, error: rpcErr } = await supabase.rpc("merchant_set_reward_active", {
       p_cafe_id: merchant.cafe_id, p_id: r.id, p_active: active,
     });
-    if (data?.success) await loadRewards(merchant.cafe_id);
+    // Never fail silently — a Pause that quietly does nothing leaves a live
+    // reward the merchant believes is off.
+    if (rpcErr || !data?.success) {
+      setError(data?.message ?? `We couldn't ${active ? "resume" : "pause"} that reward. Try again in a moment.`);
+      return;
+    }
+    await loadRewards(merchant.cafe_id);
   }
 
   if (checking) {
@@ -98,7 +105,7 @@ export default function MerchantPortalPage() {
         <div className="w-full max-w-sm rounded-2xl bg-white p-8 text-center shadow-sm">
           <div className="mb-3 text-4xl">🏪</div>
           <h1 className="mb-2 text-2xl font-bold text-[#152825]">Merchant portal</h1>
-          <p className="mb-6 text-sm text-[#4A5A57]">Sign in with your merchant account to view your profile and propose promotions.</p>
+          <p className="mb-6 text-sm text-[#4A5A57]">Sign in with your merchant account to view your profile and propose rewards.</p>
           <Link href="/login?next=/merchant" className="inline-block w-full rounded-lg bg-[#16B8A6] px-4 py-2.5 font-semibold text-white hover:bg-[#0A6B60]">Sign in</Link>
         </div>
       </main>
@@ -171,18 +178,23 @@ export default function MerchantPortalPage() {
 
         {/* ── Propose a promotion ── */}
         <div className="rounded-2xl bg-white p-7 shadow-sm">
-          <h2 className="text-lg font-bold text-[#152825]">Propose a promotion</h2>
+          <h2 className="text-lg font-bold text-[#152825]">Add a reward</h2>
           <p className="mt-1 text-sm text-[#4A5A57]">
             Priced in points. Walkers earn up to 20 points a day and can hold up to 1,000 —
             rewards between 50 and 500 points are the sweet spot.
           </p>
           <form onSubmit={propose} className="mt-4 space-y-3">
-            <input
-              type="text" required minLength={3} maxLength={200}
-              placeholder="e.g. Free puppuccino with any coffee"
-              value={newName} onChange={(e) => setNewName(e.target.value)}
-              className="w-full rounded-lg border border-[#d8e2e0] px-3 py-2 text-[#152825] focus:border-[#16B8A6] focus:outline-none"
-            />
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-wide text-[#9aa8a5]" htmlFor="rw-name">
+                What the walker gets
+              </label>
+              <input
+                id="rw-name" type="text" required minLength={3} maxLength={200}
+                placeholder="e.g. 20% off any coffee"
+                value={newName} onChange={(e) => setNewName(e.target.value)}
+                className="mt-1 w-full rounded-lg border border-[#d8e2e0] px-3 py-2 text-[#152825] focus:border-[#16B8A6] focus:outline-none"
+              />
+            </div>
             <div>
               <label className="text-xs font-semibold uppercase tracking-wide text-[#9aa8a5]">
                 Special terms (shown to walkers)
@@ -199,15 +211,20 @@ export default function MerchantPortalPage() {
               </p>
             </div>
             <div className="flex gap-3">
-              <input
-                type="number" required min={5} max={2000}
-                placeholder="Points (e.g. 150)"
-                value={newPoints} onChange={(e) => setNewPoints(e.target.value)}
-                className="w-40 rounded-lg border border-[#d8e2e0] px-3 py-2 text-[#152825] focus:border-[#16B8A6] focus:outline-none"
-              />
+              <div>
+                <label className="text-xs font-semibold uppercase tracking-wide text-[#9aa8a5]" htmlFor="rw-points">
+                  Points
+                </label>
+                <input
+                  id="rw-points" type="number" required min={5} max={2000}
+                  placeholder="150"
+                  value={newPoints} onChange={(e) => setNewPoints(e.target.value)}
+                  className="mt-1 w-40 rounded-lg border border-[#d8e2e0] px-3 py-2 text-[#152825] focus:border-[#16B8A6] focus:outline-none"
+                />
+              </div>
               <button type="submit" disabled={busy}
-                className="flex-1 rounded-lg bg-[#16B8A6] px-4 py-2 font-semibold text-white hover:bg-[#0A6B60] disabled:opacity-60">
-                {busy ? "Submitting…" : "Submit for approval"}
+                className="flex-1 self-end rounded-lg bg-[#16B8A6] px-4 py-2 font-semibold text-white hover:bg-[#0A6B60] disabled:opacity-60">
+                {busy ? "Sending…" : "Send for review"}
               </button>
             </div>
             {notice && <p className="text-sm text-[#0A6B60]">{notice}</p>}
@@ -217,9 +234,9 @@ export default function MerchantPortalPage() {
 
         {/* ── Your promotions ── */}
         <div className="rounded-2xl bg-white p-7 shadow-sm">
-          <h2 className="text-lg font-bold text-[#152825]">Your promotions</h2>
+          <h2 className="text-lg font-bold text-[#152825]">Your rewards</h2>
           {rewards.length === 0 ? (
-            <p className="mt-2 text-sm text-[#9aa8a5]">Nothing yet — propose your first promotion above. 🐾</p>
+            <p className="mt-2 text-sm text-[#9aa8a5]">Nothing yet — add your first reward above. 🐾</p>
           ) : (
             <ul className="mt-3 divide-y divide-[#eef1f0]">
               {rewards.map((r) => {
