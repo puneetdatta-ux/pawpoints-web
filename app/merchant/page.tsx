@@ -28,6 +28,9 @@ type Reward = {
 
 type ReviewNote = { sender: string; message: string; created_at: string };
 
+// Receipt rows only — the RPC never returns the walker's or dog's identity.
+type Redemption = { reward_name: string; points_cost: number; redeemed_at: string; code: string };
+
 const DEFAULT_TERMS = "*Merchant may refuse or withdraw this offer at any time.";
 
 const fmtDate = (d: string) =>
@@ -62,8 +65,12 @@ export default function MerchantPortalPage() {
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const [redemptions, setRedemptions] = useState<Redemption[]>([]);
+
   const loadRewards = useCallback(async (cafeId: string) => {
     const supabase = createClient();
+    supabase.rpc("owner_recent_redemptions", { p_cafe_id: cafeId })
+      .then(({ data: reds }) => setRedemptions(reds ?? []));
     const { data } = await supabase.rpc("merchant_list_rewards", { p_cafe_id: cafeId });
     const rows: Reward[] = data ?? [];
     setRewards(rows);
@@ -505,8 +512,34 @@ export default function MerchantPortalPage() {
           )}
         </div>
 
+        {/* ── Recent redemptions ── */}
+        <div className="rounded-2xl bg-white p-7 shadow-sm">
+          <h2 className="text-lg font-bold text-[#152825]">Recent redemptions</h2>
+          <p className="mt-1 text-sm text-[#4A5A57]">
+            The last 14 days. Walkers stay anonymous — you see the reward, points and receipt code only.
+          </p>
+          {redemptions.length === 0 ? (
+            <p className="mt-4 text-sm text-[#9aa8a5]">No redemptions in the last 14 days. 🐾</p>
+          ) : (
+            <ul className="mt-3 divide-y divide-[#eef1f0]">
+              {redemptions.map((r) => (
+                <li key={r.code + r.redeemed_at} className="flex items-baseline justify-between gap-3 py-2.5">
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold text-[#152825]">{r.reward_name}</p>
+                    <p className="text-xs text-[#9aa8a5]">
+                      {new Date(r.redeemed_at).toLocaleString("en-NZ", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+                      {" · RCPT "}{r.code}
+                    </p>
+                  </div>
+                  <span className="shrink-0 text-sm font-bold text-[#0A6B60]">−{r.points_cost} pts</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
         <p className="text-center text-xs text-[#9aa8a5]">
-          Redemptions happen in the PawPoints app — Settings → Merchant Portal with your store code.
+          Taking a redemption happens in the PawPoints app — Settings → Merchant Portal with your store code.
         </p>
       </div>
     </main>
