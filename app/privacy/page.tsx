@@ -41,6 +41,7 @@ export default function Privacy() {
             <li><strong>Account data:</strong> email address, name, your city (chosen from a list at sign-up — not your GPS location), an optional suburb (shown in friend search so dogs with the same name are easy to tell apart), and your profile photo if you upload one.</li>
             <li><strong>Dog information:</strong> dog name, breed, and age — used to set breed-appropriate walk targets.</li>
             <li><strong>Merchant applications:</strong> if you apply to join as a business (in the app or on this website), your business name, your name, email, city and a phone number. We use the phone number for a verification call and to set up your store. It is shown to walkers only if you choose to display your contact details on your business listing (you set this at application and can change it any time by contacting us); it is never used for marketing, and is deleted if your application isn&apos;t approved.</li>
+            <li><strong>Merchant reward content:</strong> if you run a business on PawPoints, the rewards you create — their name, description, terms and any photo you upload — are <strong>published publicly</strong> in the app to walkers in your area. Reward photos are stored in a public bucket and are not private; only upload images you are happy to publish and have the right to use.</li>
             <li><strong>Walk data:</strong> GPS location, distance, duration, and a verification photo taken at the end of each walk.</li>
             <li><strong>Nearby cafés (on your device only):</strong> the Rewards screen uses your device&apos;s current location to sort cafés and partner businesses by distance. This matching happens <strong>entirely on your device</strong> — your location is never sent to our servers, stored, or shared for this feature.</li>
             <li><strong>Device data:</strong> a push notification token tied to your device, used to deliver in-app notifications.</li>
@@ -59,7 +60,7 @@ export default function Privacy() {
             <li>To show offers and promotions from partner businesses relevant to your city. Your city is the one you choose from a list — we never use GPS for this.</li>
             <li>To detect and prevent fraudulent redemptions.</li>
             <li>To improve the app (aggregated and de-identified usage data only).</li>
-            <li>Walk photos you keep can also be saved to your phone&apos;s own gallery (you can turn this off in Settings → Walk Photos). This happens <strong>on your device only</strong> — we never read or access your photo library.</li>
+            <li>Walk photos you keep can also be saved to your phone&apos;s own gallery (you can turn this off in Settings → Walk Photos). This happens <strong>on your device only</strong>. We never browse your photo library — the only photos that reach us are the ones you pick yourself (a profile picture, or a reward photo if you run a business on PawPoints).</li>
           </ul>
           <p className="mt-3">We do <strong>not</strong> sell your personal information to third parties.</p>
         </Section>
