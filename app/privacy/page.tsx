@@ -57,7 +57,7 @@ export default function Privacy() {
             <li>To match your dog&apos;s walks to a breed-appropriate target (using the breed and age you provide).</li>
             <li>To send push notifications about your own activity — friend requests, accepted friendships, comments and shared walk photos. We <strong>never</strong> use push notifications for advertising or marketing. You can disable notifications in your device settings at any time.</li>
             <li>To show cafés and partner businesses near you, sorted by distance — computed on your device; your location does not leave your phone for this.</li>
-            <li>To show offers and promotions from partner businesses relevant to your city. Your city is the one you choose from a list — we never use GPS for this.</li>
+            <li>To show offers and promotions from partner businesses in your country. Your city is the one you choose from a list — we never use GPS for this.</li>
             <li>To detect and prevent fraudulent redemptions.</li>
             <li>To improve the app (aggregated and de-identified usage data only).</li>
             <li>Walk photos you keep can also be saved to your phone&apos;s own gallery (you can turn this off in Settings → Walk Photos). This happens <strong>on your device only</strong>. We never browse your photo library — the only photos that reach us are the ones you pick yourself (a profile picture, or a reward photo if you run a business on PawPoints).</li>
