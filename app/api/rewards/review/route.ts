@@ -2,11 +2,10 @@ import { NextRequest } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { verifyApproval } from "@/lib/admin/sign";
 
-// One-click approve/reject target for the reward-review email. Calls
-// service_review_reward (see supabase/service_review_reward.sql), the
-// service-role twin of the founder's admin_review_reward RPC, so an
-// approved reward goes live in walkers' apps exactly as it does from
-// the /admin/rewards queue.
+// One-click approve/reject target for the reward-review email. Calls the
+// same admin_review_reward RPC as the /admin/rewards queue — its admin
+// check only applies to signed-in users, so the service role (no
+// auth.uid()) passes, and the HMAC link is this route's security boundary.
 export async function GET(request: NextRequest) {
   const id = request.nextUrl.searchParams.get("id") ?? "";
   const action = request.nextUrl.searchParams.get("action") ?? "";
@@ -31,14 +30,19 @@ export async function GET(request: NextRequest) {
   }
 
   const supabase = createAdminClient();
-  const { data, error } = await supabase.rpc("service_review_reward", {
+  const { data, error } = await supabase.rpc("admin_review_reward", {
     p_id: id,
-    p_approve: action === "approve",
+    p_verdict: action,
   });
 
-  if (error) {
-    console.error("reward review failed", error);
-    return page("Something went wrong", "Could not update — use the queue at /admin/rewards.", 500);
+  // The RPC reports refusals as "REJECTED: ..." strings rather than errors.
+  if (error || (typeof data === "string" && data.startsWith("REJECTED:") && action === "approve")) {
+    console.error("reward review failed", error ?? data);
+    return page(
+      "Something went wrong",
+      `Could not update — ${error?.message ?? data}. Use the queue at /admin/rewards.`,
+      500
+    );
   }
   return page(
     action === "approve" ? "Reward approved!" : "Reward rejected",
