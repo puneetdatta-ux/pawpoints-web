@@ -74,6 +74,14 @@ export default function JoinWalkerPage() {
       setBusy(false);
       return;
     }
+    // With email confirmation on, Supabase doesn't error on an existing email
+    // (anti-enumeration): it returns a fake user with no identities and sends
+    // no email — without this check the confirm screen waits forever.
+    if ((data?.user?.identities?.length ?? 0) === 0) {
+      setError("This email already has a PawPoints account — sign in instead.");
+      setBusy(false);
+      return;
+    }
     setOutcome(data.session ? "signed-in" : "confirm-email");
   }
 

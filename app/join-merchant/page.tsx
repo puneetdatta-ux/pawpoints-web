@@ -76,6 +76,17 @@ export default function JoinMerchantPage() {
       setBusy(false);
       return;
     }
+    // With email confirmation on, Supabase doesn't error on an existing email
+    // (anti-enumeration): it returns a fake user with no identities and sends
+    // no email. Catch it here, or the verify screen waits for a code that
+    // never comes — and no application is filed for an unproven address.
+    if ((signUpData?.user?.identities?.length ?? 0) === 0) {
+      setError(
+        "This email already has a PawPoints account. Sign in to the app and choose Merchant under Settings, or email support@pawpoints.co.nz with your business name and phone."
+      );
+      setBusy(false);
+      return;
+    }
 
     const { error } = await supabase.from("merchant_applications").insert({
       business_name: businessName.trim(),
