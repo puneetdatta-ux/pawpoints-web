@@ -22,19 +22,22 @@ export async function GET(request: NextRequest) {
     return page("Link not valid", "This approve link is invalid or has been tampered with.", 403);
   }
 
+  // admin_approve_application does the whole go-live in one transaction:
+  // merchants row, owner link in merchant_operators, trial subscription,
+  // application marked approved. Returns the new cafe_id.
   const supabase = createAdminClient();
-  const { data: app, error } = await supabase
-    .from("merchant_applications")
-    .update({ status: "approved", approved_at: new Date().toISOString() })
-    .eq("id", id)
-    .select("business_name, status")
-    .single();
+  const { data: cafeId, error } = await supabase.rpc("admin_approve_application", {
+    app_id: id,
+  });
 
-  if (error || !app) {
+  if (error || !cafeId) {
+    console.error("approve failed", error);
     return page("Something went wrong", "Could not approve — check the application in Supabase.", 500);
   }
   return page(
-    `${app.business_name} approved!`,
-    "The application is marked approved. Finish any in-app café setup as usual."
+    "Merchant approved and live!",
+    `They're now on the app's merchant screen (cafe id: ${cafeId}), the owner account is linked,
+     and the two-month free trial has started. Address and map location can be added in Supabase
+     when you have them.`
   );
 }
