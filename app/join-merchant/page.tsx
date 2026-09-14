@@ -88,20 +88,33 @@ export default function JoinMerchantPage() {
       return;
     }
 
-    const { error } = await supabase.from("merchant_applications").insert({
-      business_name: businessName.trim(),
-      contact_name: contactName.trim(),
-      email: email.trim().toLowerCase(),
-      phone: phone.trim(),
-      city,
-      summary: summary.trim(),
-      website: website.trim() || null,
-      show_contact: showContact,
-    });
+    const { data: inserted, error } = await supabase
+      .from("merchant_applications")
+      .insert({
+        business_name: businessName.trim(),
+        contact_name: contactName.trim(),
+        email: email.trim().toLowerCase(),
+        phone: phone.trim(),
+        city,
+        summary: summary.trim(),
+        website: website.trim() || null,
+        show_contact: showContact,
+      })
+      .select("id")
+      .single();
     if (error) {
       setError("Something went wrong — please try again, or email support@pawpoints.co.nz");
       setBusy(false);
       return;
+    }
+    // Founder alert email — fire and forget; the application is already
+    // saved, so a failed alert must not fail the sign-up.
+    if (inserted?.id) {
+      fetch("/api/applications/notify", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ id: inserted.id }),
+      }).catch(() => {});
     }
     // A fresh account with no session ⇒ email confirmation is on: verify here.
     if (!signUpError && !signUpData?.session) setNeedsVerify(true);
