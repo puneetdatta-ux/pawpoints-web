@@ -22,22 +22,33 @@ export async function GET(request: NextRequest) {
     return page("Link not valid", "This approve link is invalid or has been tampered with.", 403);
   }
 
-  // admin_approve_application does the whole go-live in one transaction:
-  // merchants row, owner link in merchant_operators, trial subscription,
-  // application marked approved. Returns the new cafe_id.
+  // admin_approve_application (unified 2026-09-15, canonical SQL in the app
+  // repo's migrations/) does the whole go-live in one transaction: merchants
+  // row, owner link, trial subscription, application marked approved, and it
+  // emails the merchant their store code. Returns jsonb:
+  //   { success, cafe_id, store_code, owner_linked, email_queued }
+  //   or { success, already_approved: true, cafe_id } on a second click.
   const supabase = createAdminClient();
-  const { data: cafeId, error } = await supabase.rpc("admin_approve_application", {
+  const { data, error } = await supabase.rpc("admin_approve_application", {
     app_id: id,
   });
+  const result = (data ?? null) as null | {
+    success?: boolean; cafe_id?: string; store_code?: string;
+    owner_linked?: boolean; email_queued?: boolean; already_approved?: boolean;
+  };
 
-  if (error || !cafeId) {
+  if (error || !result?.cafe_id) {
     console.error("approve failed", error);
     return page("Something went wrong", "Could not approve — check the application in Supabase.", 500);
   }
+  if (result.already_approved) {
+    return page("Already approved", `This application was approved earlier (cafe id: ${result.cafe_id}). Nothing changed.`);
+  }
   return page(
     "Merchant approved and live!",
-    `They're now on the app's merchant screen (cafe id: ${cafeId}) and the owner account is
-     linked — joining is free, no fixed term. Address and map location can be added in Supabase
-     when you have them.`
+    `They're now on the app's merchant screen (cafe id: ${result.cafe_id}).
+     Store code <strong>${result.store_code}</strong>${result.email_queued ? " has been emailed to them" : " — no email on file, send it yourself"}.
+     Owner account ${result.owner_linked ? "linked — Merchant tools works for them already" : "not linked yet — they'll link automatically by signing up with the same email"}.
+     Joining is free, no fixed term. Address and map location can be added in Supabase when you have them.`
   );
 }

@@ -48,7 +48,7 @@ export default function Home() {
               <a href="#fair">Fair-Paw goals</a>
               <a href="#partners">For businesses</a>
               <a href="/login">Log in</a>
-              <a href="/join-walker" className="nav-cta">Start for free</a>
+              <a href="/join-walker" className="nav-cta">Join for free</a>
             </div>
             <button className="burger" aria-label="Menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((o) => !o)}>
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -64,7 +64,7 @@ export default function Home() {
             <a href="#fair" onClick={() => setMenuOpen(false)}>Fair-Paw goals</a>
             <a href="#partners" onClick={() => setMenuOpen(false)}>For businesses</a>
             <a href="/login" onClick={() => setMenuOpen(false)}>Log in</a>
-            <a href="/join-walker" onClick={() => setMenuOpen(false)}>Start for free</a>
+            <a href="/join-walker" onClick={() => setMenuOpen(false)}>Join for free</a>
           </div>
         </div>
       </header>
