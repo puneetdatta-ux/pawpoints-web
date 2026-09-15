@@ -93,9 +93,13 @@ export default function JoinMerchantPage() {
       return;
     }
 
-    const { data: inserted, error } = await supabase
+    // Generate the id client-side: RLS lets anonymous visitors insert
+    // applications but not read them back, so insert().select() fails.
+    const applicationId = crypto.randomUUID();
+    const { error } = await supabase
       .from("merchant_applications")
       .insert({
+        id: applicationId,
         business_name: businessName.trim(),
         contact_name: contactName.trim(),
         email: email.trim().toLowerCase(),
@@ -106,9 +110,7 @@ export default function JoinMerchantPage() {
         show_contact: showContact,
         agreed_terms: agreedTerms,
         terms_version: "1.1",
-      })
-      .select("id")
-      .single();
+      });
     if (error) {
       setError("Something went wrong — please try again, or email support@pawpoints.co.nz");
       setBusy(false);
@@ -116,13 +118,11 @@ export default function JoinMerchantPage() {
     }
     // Founder alert email — fire and forget; the application is already
     // saved, so a failed alert must not fail the sign-up.
-    if (inserted?.id) {
-      fetch("/api/applications/notify", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ id: inserted.id }),
-      }).catch(() => {});
-    }
+    fetch("/api/applications/notify", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ id: applicationId }),
+    }).catch(() => {});
     // A fresh account with no session ⇒ email confirmation is on: verify here.
     if (!signUpError && !signUpData?.session) setNeedsVerify(true);
     else setDone(true);
