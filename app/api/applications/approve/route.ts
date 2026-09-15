@@ -36,8 +36,8 @@ export async function GET(request: NextRequest) {
   }
   return page(
     "Merchant approved and live!",
-    `They're now on the app's merchant screen (cafe id: ${cafeId}), the owner account is linked,
-     and the two-month free trial has started. Address and map location can be added in Supabase
+    `They're now on the app's merchant screen (cafe id: ${cafeId}) and the owner account is
+     linked — joining is free, no fixed term. Address and map location can be added in Supabase
      when you have them.`
   );
 }
