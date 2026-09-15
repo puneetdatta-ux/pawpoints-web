@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
     <h2>🎁 New reward for review: ${esc(reward.reward_name ?? reward.name)}</h2>
     <p><b>${esc(merchant?.name ?? reward.cafe_id)}</b>${merchant?.city ? ` · ${esc(merchant.city)}` : ""}
        · <b>${esc(points)} points</b></p>
-    ${points > 280 ? `<p style="color:#c2413f"><b>⚠ Above the 280-point walker maximum — unredeemable as priced.</b></p>` : ""}
+    ${points > 1000 ? `<p style="color:#c2413f"><b>⚠ Above the 1,000-point wallet cap — no walker can ever hold enough to redeem it.</b></p>` : ""}
     <p>
       <a href="${link("approve")}" style="display:inline-block;background:#16B8A6;color:#fff;
         padding:12px 24px;border-radius:8px;font-weight:bold;text-decoration:none">Approve</a>
