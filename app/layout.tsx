@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Fraunces, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
+import SiteCelebration from "./components/SiteCelebration";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -79,7 +80,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} ${hankenGrotesk.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <SiteCelebration />
+      </body>
     </html>
   );
 }
