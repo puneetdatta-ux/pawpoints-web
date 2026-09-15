@@ -10,7 +10,7 @@ const PLAY_URL = "https://play.google.com/store/apps/details?id=com.hugo.pawpoin
 export default function EmailConfirmedPage() {
   return (
     <main className="relative flex min-h-screen items-center justify-center bg-[#f6faf9] px-4 py-10">
-      <Celebration />
+      <Celebration dog="run" />
       <div className="relative w-full max-w-sm rounded-2xl bg-white p-8 text-center shadow-sm">
         <div className="mb-3 text-4xl">🎉🐾🎉</div>
         <h1 className="mb-2 text-2xl font-bold text-[#152825]">
