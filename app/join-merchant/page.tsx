@@ -27,37 +27,25 @@ export default function JoinMerchantPage() {
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  // In-page email verification (Supabase "Confirm email"; code is currently 8 digits).
+  // Email verification via the confirmation link in the sign-up email
+  // (Supabase "Confirm email" — the template's {{ .ConfirmationURL }}).
   const [needsVerify, setNeedsVerify] = useState(false);
-  const [otp, setOtp] = useState("");
   const [otpBusy, setOtpBusy] = useState(false);
   const [otpError, setOtpError] = useState<string | null>(null);
   const [otpNotice, setOtpNotice] = useState<string | null>(null);
 
-  async function verifyCode(e: React.FormEvent) {
-    e.preventDefault();
+  async function resendLink() {
     setOtpBusy(true);
     setOtpError(null);
     const supabase = createClient();
-    const { error } = await supabase.auth.verifyOtp({
-      email: email.trim().toLowerCase(),
-      token: otp.trim(),
+    const { error } = await supabase.auth.resend({
       type: "signup",
+      email: email.trim().toLowerCase(),
+      options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=/email-confirmed` },
     });
     setOtpBusy(false);
-    if (error) { setOtpError(error.message); return; }
-    setNeedsVerify(false);
-    setDone(true);
-  }
-
-  async function resendCode() {
-    setOtpBusy(true);
-    setOtpError(null);
-    const supabase = createClient();
-    const { error } = await supabase.auth.resend({ type: "signup", email: email.trim().toLowerCase() });
-    setOtpBusy(false);
     if (error) setOtpError(error.message);
-    else setOtpNotice("A fresh code is on its way.");
+    else setOtpNotice("A fresh link is on its way — check your inbox and spam folder.");
   }
 
   async function submit(e: React.FormEvent) {
@@ -73,6 +61,7 @@ export default function JoinMerchantPage() {
       email: email.trim().toLowerCase(),
       password,
       options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=/email-confirmed`,
         data: {
           display_name: contactName.trim(),
           city,
@@ -92,23 +81,47 @@ export default function JoinMerchantPage() {
       setBusy(false);
       return;
     }
+    // With email confirmation on, Supabase doesn't error on an existing email
+    // (anti-enumeration): it returns a fake user with no identities and sends
+    // no email. Catch it here, or the verify screen waits for a code that
+    // never comes — and no application is filed for an unproven address.
+    if ((signUpData?.user?.identities?.length ?? 0) === 0) {
+      setError(
+        "This email already has a PawPoints account. Sign in to the app and choose Merchant under Settings, or email support@pawpoints.co.nz with your business name and phone."
+      );
+      setBusy(false);
+      return;
+    }
 
-    const { error } = await supabase.from("merchant_applications").insert({
-      business_name: businessName.trim(),
-      contact_name: contactName.trim(),
-      email: email.trim().toLowerCase(),
-      phone: phone.trim(),
-      city,
-      summary: summary.trim(),
-      website: website.trim() || null,
-      show_contact: showContact,
-      agreed_terms: agreedTerms,
-      terms_version: "1.1",
-    });
+    const { data: inserted, error } = await supabase
+      .from("merchant_applications")
+      .insert({
+        business_name: businessName.trim(),
+        contact_name: contactName.trim(),
+        email: email.trim().toLowerCase(),
+        phone: phone.trim(),
+        city,
+        summary: summary.trim(),
+        website: website.trim() || null,
+        show_contact: showContact,
+        agreed_terms: agreedTerms,
+        terms_version: "1.1",
+      })
+      .select("id")
+      .single();
     if (error) {
       setError("Something went wrong — please try again, or email support@pawpoints.co.nz");
       setBusy(false);
       return;
+    }
+    // Founder alert email — fire and forget; the application is already
+    // saved, so a failed alert must not fail the sign-up.
+    if (inserted?.id) {
+      fetch("/api/applications/notify", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ id: inserted.id }),
+      }).catch(() => {});
     }
     // A fresh account with no session ⇒ email confirmation is on: verify here.
     if (!signUpError && !signUpData?.session) setNeedsVerify(true);
@@ -135,33 +148,29 @@ export default function JoinMerchantPage() {
             </Link>
           </div>
         ) : needsVerify ? (
-          <form onSubmit={verifyCode} className="space-y-3">
-            <h1 className="mb-1 text-2xl font-bold text-[#152825]">Verify your email</h1>
+          <div className="space-y-3">
+            <h1 className="mb-1 text-2xl font-bold text-[#152825]">Check your email</h1>
             <p className="text-sm leading-relaxed text-[#4A5A57]">
-              Enter the code we just emailed to <b>{email.trim().toLowerCase()}</b>. Your application
-              is already with us — this just confirms the address is yours.
+              We&apos;ve sent a confirmation link to <b>{email.trim().toLowerCase()}</b>.
+              Click it to verify your address — your application is already with
+              us, and we&apos;ll call you on <b>{phone.trim()}</b> to get{" "}
+              <b>{businessName.trim()}</b> switched on.
             </p>
-            <input
-              type="text" inputMode="numeric" required minLength={6} maxLength={8} autoFocus
-              placeholder="Verification code"
-              value={otp} onChange={(e) => setOtp(e.target.value)}
-              className="w-full rounded-lg border border-[#d8e2e0] px-3 py-2 text-center text-lg tracking-widest text-[#152825] focus:border-[#16B8A6] focus:outline-none"
-            />
+            <p className="text-sm leading-relaxed text-[#4A5A57]">
+              Can&apos;t see it? Check your spam folder, or resend below.
+            </p>
             {otpError && <p className="text-sm text-[#c2413f]">{otpError}</p>}
             {otpNotice && <p className="text-sm text-[#0A6B60]">{otpNotice}</p>}
             <button
-              type="submit" disabled={otpBusy}
+              type="button" onClick={resendLink} disabled={otpBusy}
               className="w-full rounded-lg bg-[#16B8A6] px-4 py-2.5 font-semibold text-white hover:bg-[#0A6B60] disabled:opacity-60"
             >
-              {otpBusy ? "Verifying…" : "Verify email"}
+              {otpBusy ? "Sending…" : "Resend confirmation email"}
             </button>
-            <button
-              type="button" onClick={resendCode} disabled={otpBusy}
-              className="w-full text-sm text-[#0A6B60] underline disabled:opacity-60"
-            >
-              Resend code
-            </button>
-          </form>
+            <Link href="/" className="block text-center text-sm text-[#0A6B60] underline">
+              ← Back home
+            </Link>
+          </div>
         ) : (
           <>
             <h1 className="mb-1 text-2xl font-bold text-[#152825]">Join as a merchant</h1>
