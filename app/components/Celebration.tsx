@@ -1,12 +1,13 @@
 "use client";
 
 // Full-screen celebration for sign-up success: confetti rain, firework
-// bursts, and a dancing pup. Pure CSS — no libraries, pointer-events none
-// so the card stays clickable.
+// bursts, and Hugo the pup. Pure CSS — no libraries, pointer-events none
+// so the card stays clickable. dog="dance" bounces in place (sign-up
+// pages); dog="run" does laps of the whole screen (email-confirmed).
 
 const CONFETTI_COLORS = ["#16B8A6", "#FFCB47", "#FF7AAE", "#0A6B60", "#7a6ba8"];
 
-export default function Celebration() {
+export default function Celebration({ dog = "dance" }: { dog?: "dance" | "run" }) {
   const pieces = Array.from({ length: 36 }, (_, i) => ({
     left: (i * 61) % 100,
     delay: ((i * 37) % 40) / 10,
@@ -39,6 +40,24 @@ export default function Celebration() {
         @keyframes pp-shadow {
           0%, 50%, 100% { transform: scaleX(1); opacity: 0.18; }
           25%, 75% { transform: scaleX(0.75); opacity: 0.1; }
+        }
+        @keyframes pp-run-path {
+          0%   { transform: translate(-20vw, 0); }
+          38%  { transform: translate(105vw, 0); }
+          40%  { transform: translate(105vw, -34vh); }
+          78%  { transform: translate(-20vw, -60vh); }
+          80%  { transform: translate(-20vw, -80vh); }
+          98%  { transform: translate(105vw, -84vh); }
+          100% { transform: translate(110vw, -84vh); }
+        }
+        @keyframes pp-run-face {
+          0%, 39% { transform: scaleX(1); }
+          40%, 79% { transform: scaleX(-1); }
+          80%, 100% { transform: scaleX(1); }
+        }
+        @keyframes pp-gallop {
+          0%, 100% { transform: translateY(0) rotate(-3deg); }
+          50% { transform: translateY(-10px) rotate(3deg); }
         }
       `}</style>
 
@@ -87,11 +106,27 @@ export default function Celebration() {
         />
       ))}
 
-      {/* Hugo the golden retriever (homepage mascot) doing a happy dance —
-          wag/bob/leg keyframes come from globals.css; pp-dance adds the groove */}
-      <div style={{ position: "absolute", bottom: "4vh", left: 0, right: 0, textAlign: "center" }}>
-        <div style={{ display: "inline-block", animation: "pp-dance 1.6s ease-in-out infinite" }}>
-          <svg width="150" height="150" viewBox="0 0 120 120" aria-hidden="true">
+      {/* Hugo the golden retriever (homepage mascot) — wag/bob/leg keyframes
+          come from globals.css. dance: grooves in place. run: laps the whole
+          screen (pp-run-path moves him, pp-run-face flips him at each turn,
+          pp-gallop adds the bounding stride). */}
+      <div style={{ position: "absolute", bottom: "4vh", left: 0, right: 0, textAlign: dog === "run" ? "left" : "center" }}>
+        <div
+          style={
+            dog === "run"
+              ? { display: "inline-block", animation: "pp-run-path 14s linear infinite" }
+              : { display: "inline-block", animation: "pp-dance 1.6s ease-in-out infinite" }
+          }
+        >
+        <div
+          style={
+            dog === "run"
+              ? { animation: "pp-run-face 14s step-end infinite" }
+              : undefined
+          }
+        >
+        <div style={dog === "run" ? { animation: "pp-gallop 0.5s ease-in-out infinite" } : undefined}>
+          <svg width={dog === "run" ? 110 : 150} height={dog === "run" ? 110 : 150} viewBox="0 0 120 120" aria-hidden="true">
             <ellipse cx="60" cy="105" rx="30" ry="5" fill="rgba(0,0,0,.18)" />
             <g style={{ transformOrigin: "60px 70px", animation: "bob .45s ease-in-out infinite" }}>
               <path d="M33 57 C19 57 8 47 8 35 C17 40 25 48 37 53 Z" fill="#E8A44E" style={{ transformOrigin: "33px 56px", animation: "wag .3s ease-in-out infinite" }} />
@@ -114,7 +149,9 @@ export default function Celebration() {
             </g>
           </svg>
         </div>
-        <div style={{ fontSize: 22, marginTop: 2 }}>🦴 🎉 🦴</div>
+        </div>
+        </div>
+        {dog === "dance" && <div style={{ fontSize: 22, marginTop: 2 }}>🦴 🎉 🦴</div>}
       </div>
     </div>
   );
