@@ -1,53 +1,162 @@
 import { NextRequest } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { verifyApproval } from "@/lib/admin/sign";
+import { escapeHtml, merchantOwnerEmail, sendMerchantEmail, wrap } from "@/lib/admin/merchantMail";
 
-// One-click approve/reject target for the reward-review email. Calls the
-// same admin_review_reward RPC as the /admin/rewards queue — its admin
-// check only applies to signed-in users, so the service role (no
+// Review targets for the reward-review email.
+//   GET  ?action=approve → one click: live immediately, merchant emailed.
+//   GET  ?action=reject  → a small form asking WHY (founder request
+//                          2026-09-15); nothing changes until it's submitted.
+//   POST (from that form) → rejected + the reason saved to the reward's
+//                          message thread + emailed to the merchant.
+// Calls the same admin_review_reward RPC as the /admin/rewards queue — its
+// admin check only applies to signed-in users, so the service role (no
 // auth.uid()) passes, and the HMAC link is this route's security boundary.
+
+const page = (icon: string, title: string, body: string, status = 200) =>
+  new Response(
+    `<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1">
+    <body style="font-family:system-ui;background:#f6faf9;display:flex;justify-content:center;padding:40px 16px;margin:0">
+    <div style="background:#fff;border-radius:16px;padding:32px;max-width:440px;width:100%;text-align:center">
+    <div style="font-size:40px">${icon}</div><h1 style="color:#152825;font-size:22px">${title}</h1>
+    ${body}</div></body>`,
+    { status, headers: { "content-type": "text/html; charset=utf-8" } }
+  );
+
+const valid = (id: string, action: string, sig: string) =>
+  /^[0-9a-f-]{36}$/i.test(id) &&
+  (action === "approve" || action === "reject") &&
+  verifyApproval(`${action}:${id}`, sig);
+
+async function rewardContext(id: string) {
+  const supabase = createAdminClient();
+  const { data: reward } = await supabase
+    .from("merchant_rewards")
+    .select("id, name, points, cafe_id")
+    .eq("id", id)
+    .maybeSingle();
+  if (!reward) return null;
+  const { data: merchant } = await supabase
+    .from("merchants")
+    .select("name")
+    .eq("cafe_id", reward.cafe_id)
+    .maybeSingle();
+  return { reward, merchantName: merchant?.name ?? reward.cafe_id };
+}
+
+async function decide(id: string, verdict: "approve" | "reject", message: string | null) {
+  const supabase = createAdminClient();
+  const { data, error } = await supabase.rpc("admin_review_reward", {
+    p_id: id,
+    p_verdict: verdict,
+    p_message: message,
+  });
+  // The RPC reports refusals as "REJECTED: ..." strings rather than errors;
+  // a reject's own success echo is "REJECTED: <name>", so only treat it as a
+  // failure when approving.
+  if (error || (verdict === "approve" && typeof data === "string" && data.startsWith("REJECTED:"))) {
+    throw new Error(error?.message ?? String(data));
+  }
+}
+
+// Best effort — a mail failure must never undo a decision already made.
+async function tellMerchant(cafeId: string, subject: string, html: string) {
+  try {
+    const to = await merchantOwnerEmail(cafeId);
+    if (!to) return "no owner email on file";
+    await sendMerchantEmail(to, subject, html);
+    return `emailed ${to}`;
+  } catch (e) {
+    console.error("merchant email failed", e);
+    return "email could not be sent — tell them yourself";
+  }
+}
+
 export async function GET(request: NextRequest) {
   const id = request.nextUrl.searchParams.get("id") ?? "";
   const action = request.nextUrl.searchParams.get("action") ?? "";
   const sig = request.nextUrl.searchParams.get("sig") ?? "";
-
-  const page = (title: string, body: string, status = 200) =>
-    new Response(
-      `<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1">
-      <body style="font-family:system-ui;background:#f6faf9;display:flex;justify-content:center;padding:40px 16px">
-      <div style="background:#fff;border-radius:16px;padding:32px;max-width:420px;text-align:center">
-      <div style="font-size:40px">🎁</div><h1 style="color:#152825">${title}</h1>
-      <p style="color:#4A5A57">${body}</p></div></body>`,
-      { status, headers: { "content-type": "text/html; charset=utf-8" } }
-    );
-
-  if (
-    !/^[0-9a-f-]{36}$/i.test(id) ||
-    (action !== "approve" && action !== "reject") ||
-    !verifyApproval(`${action}:${id}`, sig)
-  ) {
-    return page("Link not valid", "This review link is invalid or has been tampered with.", 403);
+  if (!valid(id, action, sig)) {
+    return page("🔒", "Link not valid", `<p style="color:#4A5A57">This review link is invalid or has been tampered with.</p>`, 403);
   }
 
-  const supabase = createAdminClient();
-  const { data, error } = await supabase.rpc("admin_review_reward", {
-    p_id: id,
-    p_verdict: action,
-  });
+  const ctx = await rewardContext(id);
+  if (!ctx) return page("🤔", "Reward not found", `<p style="color:#4A5A57">It may have been deleted by the merchant.</p>`, 404);
+  const name = escapeHtml(ctx.reward.name);
 
-  // The RPC reports refusals as "REJECTED: ..." strings rather than errors.
-  if (error || (typeof data === "string" && data.startsWith("REJECTED:") && action === "approve")) {
-    console.error("reward review failed", error ?? data);
+  if (action === "reject") {
+    // Ask for the reason before anything changes.
     return page(
-      "Something went wrong",
-      `Could not update — ${error?.message ?? data}. Use the queue at /admin/rewards.`,
-      500
+      "✍️",
+      `Reject “${name}”?`,
+      `<p style="color:#4A5A57;text-align:left">Tell <b>${escapeHtml(ctx.merchantName)}</b> why — this goes to them by email
+         and appears in the reward's message thread in their portal.</p>
+       <form method="post" style="text-align:left">
+         <input type="hidden" name="id" value="${escapeHtml(id)}">
+         <input type="hidden" name="sig" value="${escapeHtml(sig)}">
+         <textarea name="reason" required minlength="5" maxlength="500" rows="5"
+           placeholder="e.g. Points are too high for what's offered — a 200–300 point reward would be redeemed far more often."
+           style="width:100%;box-sizing:border-box;padding:12px;border:1px solid #d8e2e0;border-radius:10px;font:inherit"></textarea>
+         <button type="submit" style="margin-top:14px;width:100%;background:#c2413f;color:#fff;border:0;
+           padding:14px;border-radius:10px;font-weight:bold;font-size:16px">Reject and send reason</button>
+       </form>
+       <p style="color:#888;font-size:12px;margin-top:14px">Changed your mind? Just close this page — nothing has been changed.</p>`
     );
   }
+
+  try {
+    await decide(id, "approve", null);
+  } catch (e) {
+    return page("⚠️", "Something went wrong", `<p style="color:#4A5A57">Could not update — ${escapeHtml((e as Error).message)}. Use the queue at /admin/rewards.</p>`, 500);
+  }
+  const mailed = await tellMerchant(
+    ctx.reward.cafe_id,
+    `Your reward “${ctx.reward.name}” is live on PawPoints 🎉`,
+    wrap(
+      "Your reward is live!",
+      `<p><b>${name}</b> (${escapeHtml(ctx.reward.points)} points) has been approved and walkers can redeem it now.</p>
+       <p>Manage it any time from <b>Merchant tools</b> in the app or at
+       <a href="https://pawpoints.co.nz/merchant">pawpoints.co.nz/merchant</a>.</p>`
+    )
+  );
+  return page("🎁", "Reward approved!", `<p style="color:#4A5A57">It's live in walkers' apps now. Merchant ${escapeHtml(mailed)}.</p>`);
+}
+
+export async function POST(request: NextRequest) {
+  const form = await request.formData();
+  const id = String(form.get("id") ?? "");
+  const sig = String(form.get("sig") ?? "");
+  const reason = String(form.get("reason") ?? "").trim();
+  if (!valid(id, "reject", sig)) {
+    return page("🔒", "Link not valid", `<p style="color:#4A5A57">This review link is invalid or has been tampered with.</p>`, 403);
+  }
+  if (reason.length < 5 || reason.length > 500) {
+    return page("✍️", "Reason needed", `<p style="color:#4A5A57">Please go back and give the merchant a short reason (5–500 characters).</p>`, 400);
+  }
+
+  const ctx = await rewardContext(id);
+  if (!ctx) return page("🤔", "Reward not found", `<p style="color:#4A5A57">It may have been deleted by the merchant.</p>`, 404);
+
+  try {
+    await decide(id, "reject", reason);
+  } catch (e) {
+    return page("⚠️", "Something went wrong", `<p style="color:#4A5A57">Could not update — ${escapeHtml((e as Error).message)}. Use the queue at /admin/rewards.</p>`, 500);
+  }
+  const name = escapeHtml(ctx.reward.name);
+  const mailed = await tellMerchant(
+    ctx.reward.cafe_id,
+    `About your reward “${ctx.reward.name}” on PawPoints`,
+    wrap(
+      "We couldn't approve this reward yet",
+      `<p>We reviewed <b>${name}</b> and can't put it live as it stands. Here's why:</p>
+       <blockquote style="margin:16px 0;padding:12px 16px;background:#f6faf9;border-left:4px solid #0A6B60;border-radius:6px">${escapeHtml(reason)}</blockquote>
+       <p>You can edit the reward and resubmit it any time from <b>Merchant tools</b> in the app or at
+       <a href="https://pawpoints.co.nz/merchant">pawpoints.co.nz/merchant</a> — or reply to this email if you'd like to talk it through.</p>`
+    )
+  );
   return page(
-    action === "approve" ? "Reward approved!" : "Reward rejected",
-    action === "approve"
-      ? "It's live in walkers' apps now."
-      : `The merchant's proposal was rejected. ${data ?? ""}`
+    "📨",
+    "Reward rejected",
+    `<p style="color:#4A5A57"><b>${name}</b> is marked rejected and your reason is saved to its message thread. Merchant ${escapeHtml(mailed)}.</p>`
   );
 }
