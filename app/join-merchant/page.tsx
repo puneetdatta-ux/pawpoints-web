@@ -332,14 +332,22 @@ export default function JoinMerchantPage() {
               </label>
 
               <div className="rounded-lg border border-[#d8e2e0] bg-[#f6faf9] p-3">
+                {/* Two-line label (founder request 2026-09-15). The version is
+                    NOT repeated here — the document carries it (the old label
+                    said v1.0 while the terms were already v1.1). */}
                 <a
                   href="/merchant-terms"
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => setViewedTerms(true)}
-                  className="text-sm font-semibold text-[#0A6B60] underline"
+                  className="group block"
                 >
-                  📄 Read &amp; download the Merchant Terms of Service (v1.0)
+                  <span className="block text-xs font-medium uppercase tracking-wide text-[#4A5A57]">
+                    Read and download
+                  </span>
+                  <span className="mt-0.5 block text-base font-semibold text-[#0A6B60] underline decoration-[#CFEDE8] underline-offset-4 group-hover:decoration-[#0A6B60]">
+                    📄 Merchant Terms of Service
+                  </span>
                 </a>
                 <label className={`mt-2 flex items-start gap-2 text-sm ${viewedTerms ? "text-[#4A5A57]" : "text-[#b6c0be]"}`}>
                   <input
