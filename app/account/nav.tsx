@@ -10,11 +10,16 @@ const LINKS = [
   { href: "/account/rewards", label: "Rewards" },
 ];
 
-export default function AccountNav() {
+export default function AccountNav({ merchant = false }: { merchant?: boolean }) {
   const pathname = usePathname();
+  // Owners get one extra tab into the merchant portal (own layout, so it
+  // never reads as "active" here — it's a doorway, styled to stand out).
+  const links = merchant
+    ? [...LINKS, { href: "/merchant", label: "🏪 Merchant portal" }]
+    : LINKS;
   return (
     <nav className="flex gap-1 overflow-x-auto">
-      {LINKS.map(({ href, label }) => {
+      {links.map(({ href, label }) => {
         const active = pathname === href;
         return (
           <Link
