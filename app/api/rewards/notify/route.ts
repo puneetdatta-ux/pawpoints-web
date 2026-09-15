@@ -46,11 +46,34 @@ export async function POST(request: NextRequest) {
     `${request.nextUrl.origin}/api/rewards/review?id=${reward.id}&action=${action}&sig=${signApproval(`${action}:${reward.id}`)}`;
   const points = Number(reward.points ?? reward.points_cost ?? 0);
 
+  // Full offer as the walker will see it (founder request 2026-09-16):
+  // description, terms, validity window and the merchant's photo.
+  const fmtDate = (d: unknown) =>
+    d ? new Date(String(d)).toLocaleDateString("en-NZ", { day: "numeric", month: "short", year: "numeric" }) : null;
+  const validity =
+    reward.starts_at || reward.ends_at
+      ? `${fmtDate(reward.starts_at) ?? "now"} → ${fmtDate(reward.ends_at) ?? "no end date"}`
+      : "Always on (no dates)";
+  const imageUrl = typeof reward.image_url === "string" && /^https:\/\//.test(reward.image_url) ? reward.image_url : null;
+  const detail = (label: string, value: unknown) =>
+    `<tr><td style="font-weight:bold;vertical-align:top;padding:6px 12px 6px 0;white-space:nowrap">${esc(label)}</td>
+         <td style="padding:6px 0;white-space:pre-wrap">${esc(value)}</td></tr>`;
+
   const html = `
     <h2>🎁 New reward for review: ${esc(reward.reward_name ?? reward.name)}</h2>
     <p><b>${esc(merchant?.name ?? reward.cafe_id)}</b>${merchant?.city ? ` · ${esc(merchant.city)}` : ""}
        · <b>${esc(points)} points</b></p>
     ${points > 1000 ? `<p style="color:#c2413f"><b>⚠ Above the 1,000-point wallet cap — no walker can ever hold enough to redeem it.</b></p>` : ""}
+    ${imageUrl
+      ? `<p><img src="${esc(imageUrl)}" alt="Reward photo" width="320"
+           style="max-width:100%;border-radius:12px;display:block"></p>`
+      : `<p style="color:#888;font-size:13px">No photo attached.</p>`}
+    <table cellpadding="0" cellspacing="0" style="border-collapse:collapse;max-width:560px">
+      ${detail("Description", reward.description || "—")}
+      ${detail("Terms", reward.terms || "—")}
+      ${detail("Valid", validity)}
+    </table>
+    <p style="color:#888;font-size:12px">This is the full offer exactly as walkers will see it.</p>
     <p>
       <a href="${link("approve")}" style="display:inline-block;background:#16B8A6;color:#fff;
         padding:12px 24px;border-radius:8px;font-weight:bold;text-decoration:none">Approve</a>
