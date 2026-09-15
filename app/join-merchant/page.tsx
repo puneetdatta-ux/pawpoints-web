@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/browser";
 import { CITY_SECTIONS } from "@/lib/cities";
+import Celebration from "@/app/components/Celebration";
 
 // Merchant application: stores the three fields Puneet verifies by PHONE call
 // before approving — deliberately no self-serve signup and no extra data
@@ -19,6 +20,10 @@ export default function JoinMerchantPage() {
   const [summary, setSummary] = useState("");
   const [website, setWebsite] = useState("");
   const [showContact, setShowContact] = useState(true); // default ticked
+  // Terms consent: the agree-tick unlocks only after they have opened the
+  // terms (viewed/downloaded) — acceptance is recorded on the application.
+  const [viewedTerms, setViewedTerms] = useState(false);
+  const [agreedTerms, setAgreedTerms] = useState(false);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -99,6 +104,8 @@ export default function JoinMerchantPage() {
         summary: summary.trim(),
         website: website.trim() || null,
         show_contact: showContact,
+        agreed_terms: agreedTerms,
+        terms_version: "1.1",
       })
       .select("id")
       .single();
@@ -122,8 +129,9 @@ export default function JoinMerchantPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#f6faf9] px-4">
-      <div className="w-full max-w-sm rounded-2xl bg-white p-8 shadow-sm">
+    <main className="relative flex min-h-screen items-center justify-center bg-[#f6faf9] px-4">
+      {done && <Celebration />}
+      <div className="relative w-full max-w-sm rounded-2xl bg-white p-8 shadow-sm">
         {done ? (
           <div className="text-center">
             <div className="mb-3 text-4xl">🐾</div>
@@ -132,7 +140,8 @@ export default function JoinMerchantPage() {
               Thanks, {contactName.trim() || "friend"} — your account is created
               (check your email if a confirmation link is required). We&apos;ll give
               you a call on <b>{phone.trim()}</b> to verify the details and switch{" "}
-              <b>{businessName.trim()}</b> on. Your first two months are free.
+              <b>{businessName.trim()}</b> on. Joining is free — no fixed term.
+              Win-win for walkers and businesses.
             </p>
             <Link href="/" className="text-sm font-semibold text-[#0A6B60] underline">
               ← Back home
@@ -166,8 +175,8 @@ export default function JoinMerchantPage() {
           <>
             <h1 className="mb-1 text-2xl font-bold text-[#152825]">Join as a merchant</h1>
             <p className="mb-6 text-sm text-[#4A5A57]">
-              Tell us who you are and we&apos;ll call you to get set up — first two
-              months free, priced in points, never money.
+              Tell us who you are and we&apos;ll call you to get set up — merchants
+              join for free, no fixed term. Priced in points, never money.
             </p>
             <form onSubmit={submit} className="space-y-4">
               <div>
@@ -319,6 +328,32 @@ export default function JoinMerchantPage() {
                 />
                 <span>Show my name and phone number on my business profile so walkers can get in touch</span>
               </label>
+
+              <div className="rounded-lg border border-[#d8e2e0] bg-[#f6faf9] p-3">
+                <a
+                  href="/merchant-terms"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setViewedTerms(true)}
+                  className="text-sm font-semibold text-[#0A6B60] underline"
+                >
+                  📄 Read &amp; download the Merchant Terms of Service (v1.0)
+                </a>
+                <label className={`mt-2 flex items-start gap-2 text-sm ${viewedTerms ? "text-[#4A5A57]" : "text-[#b6c0be]"}`}>
+                  <input
+                    type="checkbox"
+                    required
+                    disabled={!viewedTerms}
+                    checked={agreedTerms}
+                    onChange={(e) => setAgreedTerms(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 accent-[#16B8A6] disabled:opacity-40"
+                  />
+                  <span>
+                    I have read and agree to the Merchant Terms of Service
+                    {!viewedTerms && <em className="block text-xs not-italic text-[#9aa8a5]">Open the terms above first to enable this</em>}
+                  </span>
+                </label>
+              </div>
               {error && <p className="text-sm text-[#c2413f]">{error}</p>}
               <button
                 type="submit"

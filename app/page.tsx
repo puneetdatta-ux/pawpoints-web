@@ -44,6 +44,7 @@ export default function Home() {
             </a>
             <div className="nav-links">
               <a href="#how">How it works</a>
+              <a href="/how-points-work">How points work</a>
               <a href="#fair">Fair-Paw goals</a>
               <a href="#partners">For businesses</a>
               <a href="/login">Sign in</a>
@@ -59,6 +60,7 @@ export default function Home() {
           </nav>
           <div className={`mobile-menu${menuOpen ? " open" : ""}`}>
             <a href="#how" onClick={() => setMenuOpen(false)}>How it works</a>
+            <a href="/how-points-work" onClick={() => setMenuOpen(false)}>How points work</a>
             <a href="#fair" onClick={() => setMenuOpen(false)}>Fair-Paw goals</a>
             <a href="#partners" onClick={() => setMenuOpen(false)}>For businesses</a>
             <a href="/login" onClick={() => setMenuOpen(false)}>Sign in</a>
@@ -287,7 +289,7 @@ export default function Home() {
                 <span className="eyebrow">🏪 For cafés &amp; retailers</span>
                 <h2>Welcome a loving community to your door</h2>
                 <p>Turn local dog walkers into loyal regulars. Join the PawPoints family and connect with your town&apos;s growing community of dog owners.</p>
-                <div className="pcheck"><span className="tick">✓</span><span>Zero setup costs and your first two months entirely free</span></div>
+                <div className="pcheck"><span className="tick">✓</span><span>Join free — no fixed term. Win-win for walkers and businesses</span></div>
                 <div className="pcheck"><span className="tick">✓</span><span>Turnkey loyalty — we handle the tracking behind the scenes</span></div>
                 <div className="pcheck"><span className="tick">✓</span><span>Your team just verifies a code at the till</span></div>
                 <a href="/join-merchant" className="btn btn-white" style={{ marginTop: "10px" }}>Become a partner →</a>

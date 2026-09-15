@@ -60,7 +60,7 @@ export default function Terms() {
           <ul className="list-disc pl-6 space-y-2">
             <li>Points are earned by completing GPS-tracked walks with a verification photo at the end.</li>
             <li>Points have no cash value, are non-transferable, and cannot be combined across accounts.</li>
-            <li>For redemption purposes, points are valid for 10 days from the date earned.</li>
+            <li>Points are valid for 12 months from the date earned, and your wallet holds a maximum of 1,000 points at a time.</li>
             <li>We reserve the right to adjust the points formula, expiry window, and reward catalog at any time.</li>
           </ul>
         </Section>

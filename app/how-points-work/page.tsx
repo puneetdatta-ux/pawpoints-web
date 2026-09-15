@@ -3,12 +3,12 @@ import Link from "next/link";
 export const metadata = {
   title: "How Points Work — Walk the dog, earn the points",
   description:
-    "PawPoints explained in plain English: your dog's daily walk goal, how points are earned (10 for the goal, up to 20 a day), rest days, and the two-week freshness rule.",
+    "PawPoints explained in plain English: your dog's daily walk goal, how points are earned (10 for the goal, up to 20 a day), rest days, the 12-month point life and the 1,000-point wallet.",
 };
 
-// Keep these numbers in sync with the app's award_walk_points function:
-// 10 pts at the breed daily goal, 20/day cap, flat 10 on suggested rest days,
-// 14-day freshness, ~280 maximum balance.
+// Keep these numbers in sync with the app's award_walk_points +
+// points_available functions: 10 pts at the breed daily goal, 20/day cap,
+// flat 10 on suggested rest days, 1,000-point wallet cap, 12-month expiry.
 const rules = [
   {
     num: "1",
@@ -112,13 +112,13 @@ export default function HowPointsWork() {
         </div>
         <div className="rounded-2xl bg-[#DFF3EF] p-6">
           <h3 className="font-bold text-[#0A6B60] mb-1">
-            Points stay fresh for 2 weeks
+            Your wallet holds 1,000 points
           </h3>
           <p className="text-sm leading-relaxed text-[#28433e]">
-            Walk points are like good coffee — best enjoyed fresh. Each
-            walk&apos;s points last 14 days, so keep walking and keep treating.
-            A perfect fortnight tops out at <b>280 points</b> — the stuff of
-            legends.
+            Points last <b>12 months</b>, and the tank caps at{" "}
+            <b>1,000 points</b>. Once you&apos;re full, treat yourself to make
+            room. Filling it from zero takes about 50 perfect walking days —
+            the stuff of legends.
           </p>
         </div>
       </section>

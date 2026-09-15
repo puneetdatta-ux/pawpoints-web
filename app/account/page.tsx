@@ -90,7 +90,6 @@ export default function AccountPage() {
         <div className="mt-4 flex gap-6 text-sm text-[#4A5A57]">
           <span>
             <strong className="text-[#152825]">{points?.walk_earned ?? 0}</strong> from walks
-            (last 2 weeks)
           </span>
           <span>
             <strong className="text-[#152825]">{points?.bonus ?? 0}</strong> bonus points
