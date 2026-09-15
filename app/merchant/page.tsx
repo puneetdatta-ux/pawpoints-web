@@ -110,6 +110,29 @@ export default function MerchantPortalPage() {
     setNotice(null); setError(null);
   }
 
+  // Founder request 2026-09-16: newest first, expired (past end date) last.
+  const todayNZ = new Date().toLocaleDateString("en-CA", { timeZone: "Pacific/Auckland" });
+  const isExpired = (r: Reward) => !!r.ends_at && String(r.ends_at).slice(0, 10) < todayNZ;
+  const sortedRewards = [...rewards].sort((a, b) => {
+    const ea = isExpired(a) ? 1 : 0, eb = isExpired(b) ? 1 : 0;
+    if (ea !== eb) return ea - eb;
+    return (Date.parse(b.created_at ?? "") || 0) - (Date.parse(a.created_at ?? "") || 0);
+  });
+
+  // Relist an expired reward as a NEW listing: everything copied, dates blank.
+  function startRelist(r: Reward) {
+    setEditId(null); setEditingLive(false);
+    setNewName(r.name);
+    setNewPoints(String(r.points));
+    setNewTerms(r.terms ?? DEFAULT_TERMS);
+    setNewDesc(r.description ?? "");
+    setNewImageUrl(r.image_url ?? null);
+    setForever(true); setStarts(""); setEnds("");
+    setNotice("Relisting — set the dates (or leave it always on) and send for review."); setError(null);
+    document.getElementById("reward-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById("rw-name")?.focus({ preventScroll: true });
+  }
+
   function startEdit(r: Reward) {
     setEditId(r.id);
     setEditingLive(r.approval === "approved" && r.is_active);
@@ -455,8 +478,8 @@ export default function MerchantPortalPage() {
             <p className="mt-2 text-sm text-[#4A5A57]">Nothing yet — add your first reward below. 🐾</p>
           ) : (
             <ul className="mt-3 divide-y divide-[#eef1f0]">
-              {rewards.map((r) => {
-                const [label, cls] = badge(r);
+              {sortedRewards.map((r) => {
+                const [label, cls] = isExpired(r) ? ["Expired", "bg-[#eef1f0] text-[#6b7a77]"] : badge(r);
                 const note = notes[r.id];
                 return (
                   <li key={r.id} className="py-3">
@@ -481,12 +504,21 @@ export default function MerchantPortalPage() {
                           {r.is_active ? "Pause" : "Resume"}
                         </button>
                       )}
-                      <button
-                        onClick={() => startEdit(r)}
-                        className="rounded-lg border border-[#d8e2e0] px-3 py-1.5 text-xs font-semibold text-[#4A5A57] hover:bg-[#f6faf9]"
-                      >
-                        Edit
-                      </button>
+                      {isExpired(r) ? (
+                        <button
+                          onClick={() => startRelist(r)}
+                          className="rounded-lg bg-[#16B8A6] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#0A6B60]"
+                        >
+                          Relist
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => startEdit(r)}
+                          className="rounded-lg border border-[#d8e2e0] px-3 py-1.5 text-xs font-semibold text-[#4A5A57] hover:bg-[#f6faf9]"
+                        >
+                          Edit
+                        </button>
+                      )}
                     </div>
                     {(r.approval === "changes" || r.approval === "rejected") && (
                       <div className="mt-2 rounded-lg bg-[#FFF6DD] px-3 py-2">
