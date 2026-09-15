@@ -1,17 +1,25 @@
 import { NextRequest } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { verifyApproval } from "@/lib/admin/sign";
-import { escapeHtml, merchantOwnerEmail, sendMerchantEmail, wrap } from "@/lib/admin/merchantMail";
 
 // Review targets for the reward-review email.
-//   GET  ?action=approve → one click: live immediately, merchant emailed.
+//   GET  ?action=approve → one click: live immediately.
 //   GET  ?action=reject  → a small form asking WHY (founder request
 //                          2026-09-15); nothing changes until it's submitted.
 //   POST (from that form) → rejected + the reason saved to the reward's
-//                          message thread + emailed to the merchant.
+//                          message thread.
+// The merchant's email (approved / rejected + reason) is NOT sent from here:
+// the pp_notify_reward_verdict database trigger sends it on commit, so it
+// fires identically whether the founder decides here, in the app's Settings
+// queue, or on /admin/rewards.
 // Calls the same admin_review_reward RPC as the /admin/rewards queue — its
 // admin check only applies to signed-in users, so the service role (no
 // auth.uid()) passes, and the HMAC link is this route's security boundary.
+
+const escapeHtml = (s: unknown) =>
+  String(s ?? "").replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] as string
+  );
 
 const page = (icon: string, title: string, body: string, status = 200) =>
   new Response(
@@ -59,29 +67,21 @@ async function decide(id: string, verdict: "approve" | "reject", message: string
   }
 }
 
-// Best effort — a mail failure must never undo a decision already made.
-async function tellMerchant(cafeId: string, subject: string, html: string) {
-  try {
-    const to = await merchantOwnerEmail(cafeId);
-    if (!to) return "no owner email on file";
-    await sendMerchantEmail(to, subject, html);
-    return `emailed ${to}`;
-  } catch (e) {
-    console.error("merchant email failed", e);
-    return "email could not be sent — tell them yourself";
-  }
-}
+const notFound = () =>
+  page("🤔", "Reward not found", `<p style="color:#4A5A57">It may have been deleted by the merchant.</p>`, 404);
+const badLink = () =>
+  page("🔒", "Link not valid", `<p style="color:#4A5A57">This review link is invalid or has been tampered with.</p>`, 403);
+const failed = (e: unknown) =>
+  page("⚠️", "Something went wrong", `<p style="color:#4A5A57">Could not update — ${escapeHtml((e as Error).message)}. Use the queue at /admin/rewards.</p>`, 500);
 
 export async function GET(request: NextRequest) {
   const id = request.nextUrl.searchParams.get("id") ?? "";
   const action = request.nextUrl.searchParams.get("action") ?? "";
   const sig = request.nextUrl.searchParams.get("sig") ?? "";
-  if (!valid(id, action, sig)) {
-    return page("🔒", "Link not valid", `<p style="color:#4A5A57">This review link is invalid or has been tampered with.</p>`, 403);
-  }
+  if (!valid(id, action, sig)) return badLink();
 
   const ctx = await rewardContext(id);
-  if (!ctx) return page("🤔", "Reward not found", `<p style="color:#4A5A57">It may have been deleted by the merchant.</p>`, 404);
+  if (!ctx) return notFound();
   const name = escapeHtml(ctx.reward.name);
 
   if (action === "reject") {
@@ -107,19 +107,13 @@ export async function GET(request: NextRequest) {
   try {
     await decide(id, "approve", null);
   } catch (e) {
-    return page("⚠️", "Something went wrong", `<p style="color:#4A5A57">Could not update — ${escapeHtml((e as Error).message)}. Use the queue at /admin/rewards.</p>`, 500);
+    return failed(e);
   }
-  const mailed = await tellMerchant(
-    ctx.reward.cafe_id,
-    `Your reward “${ctx.reward.name}” is live on PawPoints 🎉`,
-    wrap(
-      "Your reward is live!",
-      `<p><b>${name}</b> (${escapeHtml(ctx.reward.points)} points) has been approved and walkers can redeem it now.</p>
-       <p>Manage it any time from <b>Merchant tools</b> in the app or at
-       <a href="https://pawpoints.co.nz/merchant">pawpoints.co.nz/merchant</a>.</p>`
-    )
+  return page(
+    "🎁",
+    "Reward approved!",
+    `<p style="color:#4A5A57"><b>${name}</b> is live in walkers' apps now. ${escapeHtml(ctx.merchantName)} is being emailed.</p>`
   );
-  return page("🎁", "Reward approved!", `<p style="color:#4A5A57">It's live in walkers' apps now. Merchant ${escapeHtml(mailed)}.</p>`);
 }
 
 export async function POST(request: NextRequest) {
@@ -127,36 +121,22 @@ export async function POST(request: NextRequest) {
   const id = String(form.get("id") ?? "");
   const sig = String(form.get("sig") ?? "");
   const reason = String(form.get("reason") ?? "").trim();
-  if (!valid(id, "reject", sig)) {
-    return page("🔒", "Link not valid", `<p style="color:#4A5A57">This review link is invalid or has been tampered with.</p>`, 403);
-  }
+  if (!valid(id, "reject", sig)) return badLink();
   if (reason.length < 5 || reason.length > 500) {
     return page("✍️", "Reason needed", `<p style="color:#4A5A57">Please go back and give the merchant a short reason (5–500 characters).</p>`, 400);
   }
 
   const ctx = await rewardContext(id);
-  if (!ctx) return page("🤔", "Reward not found", `<p style="color:#4A5A57">It may have been deleted by the merchant.</p>`, 404);
+  if (!ctx) return notFound();
 
   try {
     await decide(id, "reject", reason);
   } catch (e) {
-    return page("⚠️", "Something went wrong", `<p style="color:#4A5A57">Could not update — ${escapeHtml((e as Error).message)}. Use the queue at /admin/rewards.</p>`, 500);
+    return failed(e);
   }
-  const name = escapeHtml(ctx.reward.name);
-  const mailed = await tellMerchant(
-    ctx.reward.cafe_id,
-    `About your reward “${ctx.reward.name}” on PawPoints`,
-    wrap(
-      "We couldn't approve this reward yet",
-      `<p>We reviewed <b>${name}</b> and can't put it live as it stands. Here's why:</p>
-       <blockquote style="margin:16px 0;padding:12px 16px;background:#f6faf9;border-left:4px solid #0A6B60;border-radius:6px">${escapeHtml(reason)}</blockquote>
-       <p>You can edit the reward and resubmit it any time from <b>Merchant tools</b> in the app or at
-       <a href="https://pawpoints.co.nz/merchant">pawpoints.co.nz/merchant</a> — or reply to this email if you'd like to talk it through.</p>`
-    )
-  );
   return page(
     "📨",
     "Reward rejected",
-    `<p style="color:#4A5A57"><b>${name}</b> is marked rejected and your reason is saved to its message thread. Merchant ${escapeHtml(mailed)}.</p>`
+    `<p style="color:#4A5A57"><b>${escapeHtml(ctx.reward.name)}</b> is marked rejected. Your reason is saved to its message thread and is being emailed to ${escapeHtml(ctx.merchantName)}.</p>`
   );
 }
