@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/browser";
 import { CITY_SECTIONS } from "@/lib/cities";
 import Celebration from "@/app/components/Celebration";
+import JoinToggle from "@/app/components/JoinToggle";
 
 // Web mirror of the app's AuthScreen sign-up. All the real work happens
 // server-side: the on_auth_user_created trigger reads this exact metadata
@@ -142,7 +143,8 @@ export default function JoinWalkerPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#f6faf9] px-4 py-10">
       <div className="w-full max-w-sm rounded-2xl bg-white p-8 shadow-sm">
-        <h1 className="mb-1 text-2xl font-bold text-[#152825]">Join as a walker</h1>
+        <JoinToggle active="walker" />
+        <h1 className="mb-1 text-2xl font-bold text-[#152825]">Join as a dog walker</h1>
         <p className="mb-6 text-sm text-[#4A5A57]">
           One account for the app and the web — walks are tracked in the app.
         </p>

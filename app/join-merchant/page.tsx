@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/browser";
 import { CITY_SECTIONS } from "@/lib/cities";
 import Celebration from "@/app/components/Celebration";
+import JoinToggle from "@/app/components/JoinToggle";
 
 // Merchant application: stores the three fields Puneet verifies by PHONE call
 // before approving — deliberately no self-serve signup and no extra data
@@ -173,6 +174,7 @@ export default function JoinMerchantPage() {
           </div>
         ) : (
           <>
+            <JoinToggle active="merchant" />
             <h1 className="mb-1 text-2xl font-bold text-[#152825]">Join as a merchant</h1>
             <p className="mb-6 text-sm text-[#4A5A57]">
               Tell us who you are and we&apos;ll call you to get set up — merchants
