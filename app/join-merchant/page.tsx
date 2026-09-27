@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/browser";
 import { CITY_SECTIONS } from "@/lib/cities";
 import Celebration from "@/app/components/Celebration";
+import JoinToggle from "@/app/components/JoinToggle";
 
 // Merchant application: stores the three fields Puneet verifies by PHONE call
 // before approving — deliberately no self-serve signup and no extra data
@@ -173,6 +174,7 @@ export default function JoinMerchantPage() {
           </div>
         ) : (
           <>
+            <JoinToggle active="merchant" />
             <h1 className="mb-1 text-2xl font-bold text-[#152825]">Join as a merchant</h1>
             <p className="mb-6 text-sm text-[#4A5A57]">
               Tell us who you are and we&apos;ll call you to get set up — merchants
@@ -330,14 +332,22 @@ export default function JoinMerchantPage() {
               </label>
 
               <div className="rounded-lg border border-[#d8e2e0] bg-[#f6faf9] p-3">
+                {/* Two-line label (founder request 2026-09-15). The version is
+                    NOT repeated here — the document carries it (the old label
+                    said v1.0 while the terms were already v1.1). */}
                 <a
                   href="/merchant-terms"
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => setViewedTerms(true)}
-                  className="text-sm font-semibold text-[#0A6B60] underline"
+                  className="group block"
                 >
-                  📄 Read &amp; download the Merchant Terms of Service (v1.0)
+                  <span className="block text-xs font-medium uppercase tracking-wide text-[#4A5A57]">
+                    Read and download
+                  </span>
+                  <span className="mt-0.5 block text-base font-semibold text-[#0A6B60] underline decoration-[#CFEDE8] underline-offset-4 group-hover:decoration-[#0A6B60]">
+                    📄 Merchant Terms of Service
+                  </span>
                 </a>
                 <label className={`mt-2 flex items-start gap-2 text-sm ${viewedTerms ? "text-[#4A5A57]" : "text-[#b6c0be]"}`}>
                   <input

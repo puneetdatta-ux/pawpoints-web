@@ -14,6 +14,12 @@ export default async function AccountLayout({
   } = await supabase.auth.getUser();
   if (!user) redirect("/login?next=/account");
 
+  // Store owners get a "Merchant portal" tab (founder finding 2026-09-16: a
+  // merchant signing in on the web landed on the walker pages with no route
+  // to /merchant). get_my_merchant returns a row only for active owners.
+  const { data: mine } = await supabase.rpc("get_my_merchant");
+  const isMerchant = Array.isArray(mine) ? mine.length > 0 : !!mine;
+
   return (
     <div className="min-h-screen bg-[#f6faf9]">
       <header className="border-b border-[#e3edeb] bg-white">
@@ -21,7 +27,7 @@ export default async function AccountLayout({
           <Link href="/" className="text-lg font-bold text-[#0A6B60]">
             🐾 PawPoints
           </Link>
-          <AccountNav />
+          <AccountNav merchant={isMerchant} />
           <form action="/auth/signout" method="post">
             <button
               type="submit"

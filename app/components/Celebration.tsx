@@ -7,7 +7,19 @@
 
 const CONFETTI_COLORS = ["#16B8A6", "#FFCB47", "#FF7AAE", "#0A6B60", "#7a6ba8"];
 
-export default function Celebration({ dog = "dance" }: { dog?: "dance" | "run" }) {
+// Falling treats mirror the app's TreatConfetti.js (🐾 🦴 ⭐) — used for the
+// site-wide ambient layer; the default confetti stays for sign-up success.
+const TREATS = ["🐾", "🦴", "⭐"];
+
+export default function Celebration({
+  dog = "dance",
+  treats = false,
+  opacity = 1,
+}: {
+  dog?: "dance" | "run";
+  treats?: boolean;
+  opacity?: number;
+}) {
   const pieces = Array.from({ length: 36 }, (_, i) => ({
     left: (i * 61) % 100,
     delay: ((i * 37) % 40) / 10,
@@ -18,7 +30,7 @@ export default function Celebration({ dog = "dance" }: { dog?: "dance" | "run" }
   }));
 
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
+    <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden" style={{ opacity, zIndex: 50 }}>
       <style>{`
         @keyframes pp-confetti-fall {
           0% { transform: translateY(-6vh) rotate(0deg); opacity: 1; }
@@ -61,23 +73,42 @@ export default function Celebration({ dog = "dance" }: { dog?: "dance" | "run" }
         }
       `}</style>
 
-      {/* Confetti rain */}
-      {pieces.map((p, i) => (
-        <span
-          key={i}
-          style={{
-            position: "absolute",
-            top: "-4vh",
-            left: `${p.left}%`,
-            width: p.size,
-            height: p.size * 0.45,
-            background: p.color,
-            borderRadius: 2,
-            animation: `pp-confetti-fall ${p.duration}s linear ${p.delay}s infinite`,
-            ["--pp-spin" as string]: `${p.spin}deg`,
-          }}
-        />
-      ))}
+      {/* Confetti rain — or falling treats when `treats` is set */}
+      {pieces.map((p, i) =>
+        treats ? (
+          i % 3 === 0 ? (
+            <span
+              key={i}
+              style={{
+                position: "absolute",
+                top: "-6vh",
+                left: `${p.left}%`,
+                fontSize: 12 + p.size,
+                lineHeight: 1,
+                animation: `pp-confetti-fall ${p.duration + 1}s linear ${p.delay}s infinite`,
+                ["--pp-spin" as string]: `${p.spin}deg`,
+              }}
+            >
+              {TREATS[(i / 3) % TREATS.length]}
+            </span>
+          ) : null
+        ) : (
+          <span
+            key={i}
+            style={{
+              position: "absolute",
+              top: "-4vh",
+              left: `${p.left}%`,
+              width: p.size,
+              height: p.size * 0.45,
+              background: p.color,
+              borderRadius: 2,
+              animation: `pp-confetti-fall ${p.duration}s linear ${p.delay}s infinite`,
+              ["--pp-spin" as string]: `${p.spin}deg`,
+            }}
+          />
+        )
+      )}
 
       {/* Firework bursts */}
       {[

@@ -62,7 +62,10 @@ html{scroll-behavior:smooth}
 .pp-home .nav-links{display:flex;align-items:center;gap:26px}
 .pp-home .nav-links a{color:rgba(255,255,255,.9);font-size:15px;font-weight:500}
 .pp-home .nav-links a:hover{color:#fff}
-.pp-home .nav-cta{background:#fff;color:#152825;padding:9px 18px;border-radius:999px;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+/* Selector must out-rank `.pp-home .nav-links a` (which paints links white),
+   or the pill renders white-on-white — as it did live on 2026-09-15. */
+.pp-home .nav-links a.nav-cta,
+.pp-home .nav-links a.nav-cta:hover{background:#fff;color:#152825;padding:9px 18px;border-radius:999px;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .pp-home .burger{display:none;background:none;border:none;color:#fff;cursor:pointer}
 .pp-home .mobile-menu{display:none;flex-direction:column;gap:4px;padding:8px 0 16px}
 .pp-home .mobile-menu.open{display:flex}
