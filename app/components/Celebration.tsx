@@ -145,18 +145,18 @@ export default function Celebration({
         <div
           style={
             dog === "run"
-              ? { display: "inline-block", animation: "pp-run-path 14s linear infinite" }
+              ? { display: "inline-block", animation: "pp-run-path 45s linear infinite" }
               : { display: "inline-block", animation: "pp-dance 1.6s ease-in-out infinite" }
           }
         >
         <div
           style={
             dog === "run"
-              ? { animation: "pp-run-face 14s step-end infinite" }
+              ? { animation: "pp-run-face 45s step-end infinite" }
               : undefined
           }
         >
-        <div style={dog === "run" ? { animation: "pp-gallop 0.5s ease-in-out infinite" } : undefined}>
+        <div style={dog === "run" ? { animation: "pp-gallop 0.8s ease-in-out infinite" } : undefined}>
           <svg width={dog === "run" ? 110 : 150} height={dog === "run" ? 110 : 150} viewBox="0 0 120 120" aria-hidden="true">
             <ellipse cx="60" cy="105" rx="30" ry="5" fill="rgba(0,0,0,.18)" />
             <g style={{ transformOrigin: "60px 70px", animation: "bob .45s ease-in-out infinite" }}>
