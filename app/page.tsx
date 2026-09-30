@@ -7,6 +7,9 @@ import { fetchMascotGallery, type MascotPhoto } from "../lib/supabase";
 
 // Live on Google Play since 2026-08-02 (Production, AU + NZ).
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.hugo.pawpoints";
+// Live on the App Store since 2026-09-27. No /nz/ prefix — resolves to the
+// scanner's own country storefront (AU users land on the AU store).
+const APPSTORE_URL = "https://apps.apple.com/app/id6798252458";
 
 function formatGalleryDate(iso: string): string {
   try {
@@ -80,7 +83,8 @@ export default function Home() {
               <div className="taglinebar">Walk <span>·</span> Earn <span>·</span> Treat</div>
               <div className="hero-cta">
                 <a href={PLAY_URL} target="_blank" rel="noopener noreferrer" className="btn btn-berry">🐾 Get PawPoints on Google Play</a>
-                <span className="hero-note">Now live on Google Play &middot; iPhone coming soon</span>
+                <a href={APPSTORE_URL} target="_blank" rel="noopener noreferrer" className="btn btn-berry">🍏 Get it on the App Store</a>
+                <span className="hero-note">Now on Google Play &amp; the App Store</span>
               </div>
             </div>
 
@@ -315,8 +319,9 @@ export default function Home() {
               <span style={{ animation: "pawpop 2.4s ease-in-out infinite .8s" }}><PawLogo size={38} pink="#FF7AAE" white="#16B8A6" /></span>
             </div>
             <h2>Ready to step out together?</h2>
-            <p>PawPoints is live on Google Play — free to download, free to use. Start earning points on your very next walk. Ask your favourite café or retailer to join us too.</p>
+            <p>PawPoints is live on Google Play and the App Store — free to download, free to use. Start earning points on your very next walk. Ask your favourite café or retailer to join us too.</p>
             <a href={PLAY_URL} target="_blank" rel="noopener noreferrer" className="btn btn-berry">🐾 Get PawPoints on Google Play</a>
+            <a href={APPSTORE_URL} target="_blank" rel="noopener noreferrer" className="btn btn-berry" style={{ marginLeft: "10px" }}>🍏 Get it on the App Store</a>
             <p style={{ fontSize: "14px", marginTop: "16px", color: "rgba(255,255,255,.7)" }}>Coming to Wellington &amp; Christchurch in early 2027 🐾</p>
           </div>
         </div>
@@ -354,6 +359,25 @@ export default function Home() {
               </a>
               <div style={{ fontSize: "13px", color: "var(--slate)", maxWidth: "116px", lineHeight: 1.45 }}>
                 Scan to get PawPoints on Google&nbsp;Play
+              </div>
+              <a
+                href={APPSTORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Get PawPoints on the App Store"
+                style={{ lineHeight: 0 }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/pawpoints-appstore-qr.svg"
+                  alt="QR code linking to PawPoints on the App Store"
+                  width={100}
+                  height={100}
+                  style={{ display: "block", borderRadius: "10px" }}
+                />
+              </a>
+              <div style={{ fontSize: "13px", color: "var(--slate)", maxWidth: "116px", lineHeight: 1.45 }}>
+                Scan to get PawPoints on the App&nbsp;Store
               </div>
             </div>
           </div>
