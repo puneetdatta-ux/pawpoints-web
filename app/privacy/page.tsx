@@ -18,7 +18,7 @@ export default function Privacy() {
       <main className="px-6 pb-20 max-w-3xl mx-auto">
         <h1 className="text-4xl font-extrabold mb-2">Privacy Policy</h1>
         <p className="text-sm text-zinc-500 mb-10">
-          Last updated: August 2026
+          Last updated: November 2026
         </p>
 
         <Section title="Who we are">
@@ -48,6 +48,7 @@ export default function Privacy() {
             <li><strong>Crash and diagnostic data:</strong> if the app crashes or hits an error, we collect a crash report (including device model, operating system version, and a technical stack trace) through our crash-reporting provider, Sentry, so we can fix the problem.</li>
             <li><strong>Redemption history:</strong> which rewards you redeemed at which partner business, and when.</li>
             <li><strong>Social activity:</strong> friend connections within the app and any comments you post on shared walks.</li>
+            <li><strong>Photos you share with your Pawpoints Pals:</strong> if you choose to share a walk photo this way (see below), we keep a copy of that photo under a random file name, together with the country worked out from the city you chose in your profile.</li>
           </ul>
         </Section>
 
@@ -86,9 +87,54 @@ export default function Privacy() {
           <ul className="list-disc pl-6 space-y-2">
             <li><strong>You:</strong> can see all of your own data inside the app at any time.</li>
             <li><strong>Friends (within PawPoints):</strong> can see your name, dog name, and any walks/photos you share with them.</li>
+            <li><strong>Other walkers (Pawpoints Pals):</strong> only see a walk photo you choose to share anonymously, with your country. Nothing else about you.</li>
             <li><strong>Partner businesses:</strong> see only your redemption code and the reward being claimed — not your account, walk history, or any other personal information.</li>
             <li><strong>PawPoints administrators:</strong> can access account and redemption records for fraud review and customer support.</li>
           </ul>
+        </Section>
+
+        <Section title="Sharing a walk photo with your Pawpoints Pals">
+          <p>
+            When you save a walk with a photo, you can choose to turn on{" "}
+            <strong>&quot;Anonymously share with your Pawpoints Pals&quot;</strong>.
+            It is off by default and you choose it separately for each walk.
+            When you share, you earn a small bonus of points (limits apply).
+            It only applies to the photo you are saving. Photos you posted
+            before this feature existed are never shared this way.
+          </p>
+          <p className="mt-3">
+            <strong>What other walkers see:</strong> your photo and your country.
+            They do not see your name, your dog&apos;s name, your city, your
+            caption or the time you shared it. Walkers in all countries can see
+            these photos, labelled &quot;Pawpoints Pal&quot;. People you have blocked,
+            and people who have blocked you, do not see them. Each walker can
+            also hide any photo for themselves.
+          </p>
+          <p className="mt-3">
+            <strong>What we keep:</strong> a copy of the photo stored under a
+            random file name, the country (worked out from the city you chose in
+            your profile), and a private link back to your account that only
+            PawPoints staff can see. We keep the link so we can remove the photo
+            when you ask, when you delete your account, or when someone reports it.
+          </p>
+          <p className="mt-3">
+            <strong>Be careful what is in the photo.</strong> The photo itself
+            can still identify you or others, for example a face, your house or
+            your street. Only share photos you are happy for any PawPoints user
+            to see.
+          </p>
+          <p className="mt-3">
+            <strong>Stopping:</strong> you can stop sharing a photo at any time
+            using &quot;Stop sharing&quot; on your post. We remove the community copy
+            straight away. Deleting the photo from your post, or deleting your
+            account, also removes it. We cannot remove copies someone else has
+            saved or screenshotted before you stopped sharing.
+          </p>
+          <p className="mt-3">
+            <strong>Reports:</strong> anyone can report a community photo. If a
+            photo is reported, PawPoints staff can view it and see which account
+            shared it, so we can act under our Community Rules.
+          </p>
         </Section>
 
         <Section title="Mascot photos">
@@ -102,7 +148,8 @@ export default function Privacy() {
             This applies <strong>only</strong> to accounts we specifically
             designate as mascots. Your photos are <strong>never</strong> made
             public — your walk photos stay private to you and the friends you
-            share them with, as described above.
+            share them with, as described above, unless you choose to
+            anonymously share a photo with your Pawpoints Pals (see above).
           </p>
         </Section>
 
