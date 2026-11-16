@@ -54,6 +54,7 @@ export default function DeleteAccount() {
             <li>Your profile (name, email, phone number, profile photo).</li>
             <li>Your dog&apos;s details (name, breed, age).</li>
             <li>Your walk history, GPS data, and verification photos.</li>
+            <li>If you shared any photos with your Pawpoints Pals, those copies are deleted too.</li>
             <li>Your points balance and redemption history.</li>
             <li>Your friend connections and any comments you posted.</li>
             <li>Your device push-notification token.</li>
