@@ -1,30 +1,36 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Fraunces, Hanken_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import SiteCelebration from "./components/SiteCelebration";
 
-const geistSans = Geist({
+// Self-hosted (app/fonts/, latin-subset variable fonts) since 2026-11-16:
+// next/font/google fetches from Google at BUILD time, and a failed fetch took
+// the whole Vercel deploy down (34 module-not-found errors for the font CSS).
+// Same families and CSS variables as before, no visual change.
+const geistSans = localFont({
+  src: "./fonts/geist.woff2",
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  weight: "100 900",
 });
 
-const geistMono = Geist_Mono({
+const geistMono = localFont({
+  src: "./fonts/geist-mono.woff2",
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: "100 900",
 });
 
 // Homepage redesign fonts
-const fraunces = Fraunces({
+const fraunces = localFont({
+  src: "./fonts/fraunces.woff2",
   variable: "--font-fraunces",
-  subsets: ["latin"],
-  weight: ["500", "600"],
+  weight: "100 900",
   display: "swap",
 });
 
-const hankenGrotesk = Hanken_Grotesk({
+const hankenGrotesk = localFont({
+  src: "./fonts/hanken.woff2",
   variable: "--font-hanken",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: "100 900",
   display: "swap",
 });
 
